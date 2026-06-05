@@ -18,10 +18,10 @@ namespace Game.Ecs.Systems.Spawn {
             EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
             Entity player = ecb.Instantiate(config.playerPrefab);
 
+            ecb.SetName(player, "Player");
             ecb.SetComponent(player, LocalTransform.FromPosition(
                 new float3(0, 0, 0)
             ));
-
             ecb.Playback(state.EntityManager);
             ecb.Dispose();
 

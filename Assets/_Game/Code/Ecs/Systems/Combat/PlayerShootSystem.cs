@@ -26,12 +26,14 @@ namespace Game.Ecs.Systems.Combat {
                 if (timer.ValueRO.value > 0f)
                     continue;
 
+                float3 position = transform.ValueRO.Position;
+                quaternion rotation = math.normalize(quaternion.LookRotation(input.ValueRO.aimDirection, math.up()));
+
                 Entity bullet = ecb.Instantiate(config.playerBulletPrefab);
-                float3 bulletPos = transform.ValueRO.Position;
-                quaternion bulletRot = math.normalize(quaternion.LookRotation(input.ValueRO.aimDirection, math.up()));
+                ecb.SetName(bullet, "Bullet (player)");
                 ecb.SetComponent(bullet, LocalTransform.FromPositionRotation(
-                    bulletPos,
-                    bulletRot
+                    position,
+                    rotation
                 ));
                 ecb.SetComponent(bullet, new BulletData {
                     owner = BulletOwner.Player,
