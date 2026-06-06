@@ -1,6 +1,5 @@
 ﻿using Game.Ecs.Components;
 using Game.Ecs.Groups;
-using Game.Ecs.Systems.Bootstrap;
 using Unity.Collections;
 using Unity.Entities;
 

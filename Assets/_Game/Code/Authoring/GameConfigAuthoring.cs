@@ -1,5 +1,4 @@
 ﻿using Game.Ecs.Components;
-using Game.Ecs.Systems.Bootstrap;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
