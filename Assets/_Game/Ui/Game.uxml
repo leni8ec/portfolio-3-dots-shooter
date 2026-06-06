@@ -1,0 +1,10 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="root" style="flex-grow: 1; position: relative;">
+        <ui:Button name="pause-button" text="Pause" style="align-self: flex-end;" />
+        <ui:VisualElement name="game-menu" style="display: flex; align-items: center; height: auto; justify-content: center; max-height: none; flex-grow: 1;">
+            <ui:Button name="resume-button" text="Continue" />
+            <ui:Button name="restart-button" text="Restart" />
+            <ui:Button name="main-menu-button" text="Main Menu" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

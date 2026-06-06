@@ -1,4 +1,5 @@
 ﻿using Game.Ecs.Components;
+using Game.Ecs.Systems.Bootstrap;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -57,13 +58,14 @@ namespace Game.Authoring {
                     bulletHitDistanceSq = authoring.bulletHitDistance * authoring.bulletHitDistance,
                     enemyTouchDistanceSq = authoring.enemyTouchDistance * authoring.enemyTouchDistance
                 });
-
                 AddComponent(entity, new EnemySpawnTimer {
                     value = authoring.enemySpawnInterval
                 });
-
                 AddComponent(entity, new RandomState {
                     value = Random.CreateFromIndex(12345)
+                });
+                AddComponent(entity, new GameState {
+                    isGameOver = false,
                 });
             }
         }

@@ -1,10 +1,12 @@
 ﻿using Game.Ecs.Components;
+using Game.Ecs.Groups;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
 namespace Game.Ecs.Systems.Spawn {
-    public partial struct EnemySpawnSystem : ISystem {
+    [UpdateInGroup(typeof(GameplaySystemGroup))]
+    internal partial struct EnemySpawnSystem : ISystem {
 
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<GameConfig>();

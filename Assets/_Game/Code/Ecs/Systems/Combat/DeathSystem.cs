@@ -1,11 +1,15 @@
 ﻿using Game.Ecs.Components;
+using Game.Ecs.Groups;
+using Game.Ecs.Systems.Bootstrap;
 using Unity.Collections;
 using Unity.Entities;
 
 namespace Game.Ecs.Systems.Combat {
-    public partial struct DeathSystem : ISystem {
+    [UpdateInGroup(typeof(GameplaySystemGroup))]
+    internal partial struct DeathSystem : ISystem {
 
         public void OnCreate(ref SystemState state) {
+            state.RequireForUpdate<GameState>();
             state.RequireForUpdate<Health>();
         }
 
@@ -20,6 +24,9 @@ namespace Game.Ecs.Systems.Combat {
                     continue;
 
                 ecb.DestroyEntity(entity);
+
+                if (SystemAPI.HasComponent<PlayerTag>(entity))
+                    SystemAPI.GetSingletonRW<GameState>().ValueRW.isGameOver = true;
             }
 
             ecb.Playback(state.EntityManager);

@@ -1,9 +1,11 @@
 ﻿using Game.Ecs.Components;
+using Game.Ecs.Groups;
 using Unity.Entities;
 using Unity.Transforms;
 
 namespace Game.Ecs.Systems.Movement {
-    public partial struct BulletMoveSystem : ISystem {
+    [UpdateInGroup(typeof(GameplaySystemGroup))]
+    internal partial struct BulletMoveSystem : ISystem {
 
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<BulletData>();

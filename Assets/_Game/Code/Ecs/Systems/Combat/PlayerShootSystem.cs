@@ -1,11 +1,13 @@
 ﻿using Game.Ecs.Components;
+using Game.Ecs.Groups;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
 namespace Game.Ecs.Systems.Combat {
-    public partial struct PlayerShootSystem : ISystem {
+    [UpdateInGroup(typeof(GameplaySystemGroup))]
+    internal partial struct PlayerShootSystem : ISystem {
 
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<GameConfig>();

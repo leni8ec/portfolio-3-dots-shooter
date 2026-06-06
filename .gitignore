@@ -15,6 +15,7 @@
 /[Rr]ecordings/
 /[Tt]emp/
 /[Uu]ser[Ss]ettings/
+/UIElementsSchema/
 
 # CMake build system
 .utmp/

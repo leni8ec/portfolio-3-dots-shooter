@@ -1,10 +1,12 @@
 ﻿using Game.Ecs.Components;
+using Game.Ecs.Groups;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
 namespace Game.Ecs.Systems.Spawn {
+    [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct PlayerSpawnSystem : ISystem {
 
         public void OnCreate(ref SystemState state) {
@@ -24,8 +26,6 @@ namespace Game.Ecs.Systems.Spawn {
             ));
             ecb.Playback(state.EntityManager);
             ecb.Dispose();
-
-            state.Enabled = false;
         }
 
     }
