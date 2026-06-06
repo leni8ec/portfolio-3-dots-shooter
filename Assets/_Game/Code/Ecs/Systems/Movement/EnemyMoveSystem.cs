@@ -1,10 +1,12 @@
 ﻿using Game.Ecs.Components;
 using Game.Ecs.Groups;
+using Game.Ecs.Systems.Spawn;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
 namespace Game.Ecs.Systems.Movement {
+    [UpdateAfter(typeof(EnemySpawnSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct EnemyMoveSystem : ISystem {
 

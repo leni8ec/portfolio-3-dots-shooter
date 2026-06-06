@@ -1,9 +1,11 @@
 ﻿using Game.Ecs.Components;
 using Game.Ecs.Groups;
+using Game.Ecs.Systems.Combat;
 using Unity.Entities;
 using Unity.Transforms;
 
 namespace Game.Ecs.Systems.Movement {
+    [UpdateAfter(typeof(PlayerShootSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct BulletMoveSystem : ISystem {
 
