@@ -1,5 +1,6 @@
 ﻿using Game.Ecs.Components;
 using Game.Ecs.Groups;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -54,13 +55,15 @@ namespace Game.Ecs.Systems.Spawn {
             }
 
             randomState.ValueRW.value = random;
+            timer.ValueRW.value = config.enemySpawnInterval;
 
-            Entity enemy = state.EntityManager.Instantiate(config.enemyPrefab);
-            state.EntityManager.SetComponentData(enemy, LocalTransform.FromPosition(
+            EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
+            Entity enemy = ecb.Instantiate(config.enemyPrefab);
+            ecb.SetComponent(enemy, LocalTransform.FromPosition(
                 new float3(x, 0f, z)
             ));
-
-            timer.ValueRW.value = config.enemySpawnInterval;
+            ecb.Playback(state.EntityManager);
+            ecb.Dispose();
         }
     }
 }
