@@ -4,6 +4,8 @@ using Unity.Collections;
 using Unity.Entities;
 
 namespace Game.Ecs.Systems.Combat {
+    [UpdateAfter(typeof(BulletHitSystem))]
+    [UpdateAfter(typeof(EnemyTouchPlayerSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct DeathSystem : ISystem {
 
@@ -25,7 +27,7 @@ namespace Game.Ecs.Systems.Combat {
                 ecb.DestroyEntity(entity);
 
                 if (SystemAPI.HasComponent<PlayerTag>(entity))
-                    SystemAPI.GetSingletonRW<GameState>().ValueRW.isGameOver = true;
+                    SystemAPI.GetSingletonRW<GameState>().ValueRW.phase = GamePhase.GameOver;
             }
 
             ecb.Playback(state.EntityManager);

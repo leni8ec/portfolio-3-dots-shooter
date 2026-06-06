@@ -755,21 +755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa11675bedd44b67a4f256e117092d5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.GameConfigAuthoring
-  playerPrefab: {fileID: 3268025451035523529, guid: cf016f7682a729745869119b5052adf9, type: 3}
-  enemyPrefab: {fileID: 3866934604525868300, guid: 3e5c5184e2d5dbb44829d7779632472a, type: 3}
-  playerBulletPrefab: {fileID: 3684598976619291772, guid: fbfd27b3401c1f4489de8ffe53db0bfd, type: 3}
-  enemyBulletPrefab: {fileID: 3684598976619291772, guid: fbfd27b3401c1f4489de8ffe53db0bfd, type: 3}
-  arenaMin: {x: -14.5, y: -10}
-  arenaMax: {x: 14.5, y: 10}
-  enemySpawnOffset: 2
-  enemySpawnInterval: 2
-  playerBulletSpeed: 12
-  enemyBulletSpeed: 8
-  playerBulletDamage: 1
-  enemyBulletDamage: 1
-  enemyTouchDamage: 2
-  bulletHitDistance: 0.8
-  enemyTouchDistance: 1
+  config: {fileID: 11400000, guid: 2e5b9f27b0f64fb381532a2c86e1a716, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ namespace Game.Ui.Gameplay {
     internal partial class PlayerHealthBarUiSystem : SystemBase {
         private PlayerHealthBarUiView view;
         private EntityQuery playerQuery;
+        private Camera camera;
 
         protected override void OnCreate() {
             playerQuery = GetEntityQuery(
@@ -33,7 +34,9 @@ namespace Game.Ui.Gameplay {
 
             view.SetHealth(health.value);
             view.SetPosition(position);
-            view.FaceCamera(Camera.main);
+
+            if (!camera) camera = Camera.main;
+            view.FaceCamera(camera);
         }
 
         protected override void OnDestroy() {
@@ -47,6 +50,7 @@ namespace Game.Ui.Gameplay {
 
         private void Unbind() {
             view = null;
+            camera = null;
         }
     }
 }

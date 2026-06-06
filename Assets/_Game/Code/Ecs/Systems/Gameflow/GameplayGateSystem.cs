@@ -2,10 +2,10 @@
 using Game.Ecs.Groups;
 using Unity.Entities;
 
-namespace Game.Ecs.Systems.Bootstrap {
+namespace Game.Ecs.Systems.Gameflow {
     [UpdateBefore(typeof(GameplaySystemGroup))]
     [UpdateInGroup(typeof(SimulationSystemGroup))]
-    internal partial class GameplayStateSystem : SystemBase {
+    internal partial class GameplayGateSystem : SystemBase {
         private GameplaySystemGroup gameplaySystemGroup;
 
         protected override void OnCreate() {
@@ -14,21 +14,15 @@ namespace Game.Ecs.Systems.Bootstrap {
 
         protected override void OnStartRunning() {
             gameplaySystemGroup = World.GetExistingSystemManaged<GameplaySystemGroup>();
-            CleanupRuntimeEntities();
         }
 
         protected override void OnUpdate() {
             GameState gameState = SystemAPI.GetSingleton<GameState>();
-            bool enableGameplaySystems = !gameState.isGameOver && !gameState.isPaused;
+            bool enableGameplaySystems = gameState.phase == GamePhase.Playing;
 
             if (gameplaySystemGroup != null && gameplaySystemGroup.Enabled != enableGameplaySystems)
                 gameplaySystemGroup.Enabled = enableGameplaySystems;
         }
 
-        private void CleanupRuntimeEntities() {
-            EntityManager.DestroyEntity(GetEntityQuery(ComponentType.ReadOnly<EnemyTag>()));
-            EntityManager.DestroyEntity(GetEntityQuery(ComponentType.ReadOnly<BulletData>()));
-            EntityManager.DestroyEntity(GetEntityQuery(ComponentType.ReadOnly<PlayerTag>()));
-        }
     }
 }

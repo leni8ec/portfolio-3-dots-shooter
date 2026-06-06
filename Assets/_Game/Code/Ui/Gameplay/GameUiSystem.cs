@@ -1,18 +1,14 @@
 ﻿using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Unity.Entities;
-using UnityEngine.SceneManagement;
 
 namespace Game.Ui.Gameplay {
     [UpdateInGroup(typeof(GameplayUiSystemGroup))]
     internal partial class GameUiSystem : SystemBase {
-        private const string GAME_SCENE_NAME = "Game";
-        private const string MAIN_MENU_SCENE_NAME = "MainMenu";
-
         private GameUiView uiView;
         private bool isBound;
         private bool isMenuOpen;
-        private bool lastIsGameOver;
+        private GamePhase lastPhase;
 
         protected override void OnCreate() {
             RequireForUpdate<GameState>();
@@ -20,7 +16,7 @@ namespace Game.Ui.Gameplay {
 
         protected override void OnStartRunning() {
             isMenuOpen = false;
-            lastIsGameOver = false;
+            lastPhase = GamePhase.Playing;
         }
 
         protected override void OnUpdate() {
@@ -30,12 +26,11 @@ namespace Game.Ui.Gameplay {
                 return;
 
             GameState gameState = SystemAPI.GetSingleton<GameState>();
-            if (gameState.isGameOver == lastIsGameOver)
+            if (gameState.phase == lastPhase)
                 return;
 
-            lastIsGameOver = gameState.isGameOver;
-            if (gameState.isGameOver)
-                OpenMenu(false);
+            lastPhase = gameState.phase;
+            ApplyGamePhase(gameState.phase);
         }
 
         protected override void OnDestroy() {
@@ -74,23 +69,42 @@ namespace Game.Ui.Gameplay {
         }
 
         private void OnPauseClicked() =>
-            OpenMenu(true);
+            CreateFlowRequest(GameFlowAction.Pause);
 
         private void OnResumeClicked() =>
-            CloseMenu();
+            CreateFlowRequest(GameFlowAction.Resume);
 
         private void OnRestartClicked() =>
-            SceneManager.LoadScene(GAME_SCENE_NAME);
+            CreateFlowRequest(GameFlowAction.Restart);
 
         private void OnMainMenuClicked() =>
-            SceneManager.LoadScene(MAIN_MENU_SCENE_NAME);
+            CreateFlowRequest(GameFlowAction.MainMenu);
+
+        private void CreateFlowRequest(GameFlowAction action) {
+            Entity request = EntityManager.CreateEntity(typeof(GameFlowRequest));
+            EntityManager.SetComponentData(request, new GameFlowRequest {
+                action = action
+            });
+        }
+
+        private void ApplyGamePhase(GamePhase phase) {
+            switch (phase) {
+                case GamePhase.Playing:
+                    CloseMenu();
+                    break;
+
+                case GamePhase.Paused:
+                    OpenMenu(true);
+                    break;
+
+                case GamePhase.GameOver:
+                    OpenMenu(false);
+                    break;
+            }
+        }
 
         private void OpenMenu(bool canResume) {
             isMenuOpen = true;
-
-            RefRW<GameState> gameState = SystemAPI.GetSingletonRW<GameState>();
-            gameState.ValueRW.isPaused = canResume;
-
             uiView.SetMenuVisible(true);
             uiView.SetOpenMenuButtonVisible(false);
             uiView.SetResumeButtonVisible(canResume);
@@ -100,12 +114,10 @@ namespace Game.Ui.Gameplay {
             if (!isMenuOpen) return;
             isMenuOpen = false;
 
-            RefRW<GameState> gameState = SystemAPI.GetSingletonRW<GameState>();
-            gameState.ValueRW.isPaused = false;
-
             uiView.SetMenuVisible(false);
             uiView.SetOpenMenuButtonVisible(true);
             uiView.SetResumeButtonVisible(true);
         }
+
     }
 }

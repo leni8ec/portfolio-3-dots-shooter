@@ -6,6 +6,7 @@ using Unity.Transforms;
 
 namespace Game.Ecs.Systems.Movement {
     [UpdateAfter(typeof(PlayerShootSystem))]
+    [UpdateAfter(typeof(EnemyShootSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct BulletMoveSystem : ISystem {
 

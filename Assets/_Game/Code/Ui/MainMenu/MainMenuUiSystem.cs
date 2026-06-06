@@ -1,6 +1,5 @@
-﻿using Unity.Entities;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using Game.Ecs.Components;
+using Unity.Entities;
 
 namespace Game.Ui.MainMenu {
     internal partial class MainMenuUiSystem : SystemBase {
@@ -12,7 +11,7 @@ namespace Game.Ui.MainMenu {
                 return;
 
             uiView = MainMenuUiView.Instance;
-            if (uiView == null)
+            if (!uiView)
                 return;
 
             uiView.PlayButton.clicked += OnPlayClicked;
@@ -30,9 +29,16 @@ namespace Game.Ui.MainMenu {
         }
 
         private void OnPlayClicked() =>
-            SceneManager.LoadScene("Game");
+            CreateFlowRequest(GameFlowAction.PlayGame);
 
         private void OnExitClicked() =>
-            Application.Quit();
+            CreateFlowRequest(GameFlowAction.Quit);
+
+        private void CreateFlowRequest(GameFlowAction action) {
+            Entity request = EntityManager.CreateEntity(typeof(GameFlowRequest));
+            EntityManager.SetComponentData(request, new GameFlowRequest {
+                action = action
+            });
+        }
     }
 }

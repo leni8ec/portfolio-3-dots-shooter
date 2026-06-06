@@ -1,12 +1,16 @@
 ﻿using Game.Ecs.Components;
+using Game.Ecs.Groups;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
 namespace Game.Input {
+    [UpdateBefore(typeof(GameplaySystemGroup))]
+    [UpdateInGroup(typeof(SimulationSystemGroup))]
     public partial class PlayerInputAdapterSystem : SystemBase {
         private GameInput input;
+        private Camera camera;
 
         protected override void OnCreate() {
             input = new GameInput();
@@ -24,7 +28,7 @@ namespace Game.Input {
             Vector2 move = input.Player.Move.ReadValue<Vector2>();
             Vector2 cursorScreenPosition = input.Player.Aim.ReadValue<Vector2>();
 
-            Camera camera = Camera.main;
+            if (!camera) camera = Camera.main;
             if (!camera)
                 return;
 
