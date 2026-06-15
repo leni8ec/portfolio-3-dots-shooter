@@ -12,10 +12,7 @@ namespace Game.Authoring {
         [Header("Arena")]
         public Vector2 arenaMin = new(-14.5f, -10f);
         public Vector2 arenaMax = new(14.5f, 10f);
-        public float enemySpawnOffset = 2f;
-
-        [Header("Enemy Spawn")]
-        public float enemySpawnInterval = 2f;
+        public float outsideArenaSpawnOffset = 2f;
 
         [Header("Bullets")]
         public float playerBulletSpeed = 12f;

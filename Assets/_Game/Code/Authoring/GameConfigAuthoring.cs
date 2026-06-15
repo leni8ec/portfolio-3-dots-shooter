@@ -28,8 +28,7 @@ namespace Game.Authoring {
                     arenaMin = new float2(config.arenaMin.x, config.arenaMin.y),
                     arenaMax = new float2(config.arenaMax.x, config.arenaMax.y),
 
-                    enemySpawnInterval = config.enemySpawnInterval,
-                    enemySpawnOffset = config.enemySpawnOffset,
+                    outsideArenaSpawnOffset = config.outsideArenaSpawnOffset,
 
                     playerBulletSpeed = config.playerBulletSpeed,
                     enemyBulletSpeed = config.enemyBulletSpeed,
@@ -40,9 +39,6 @@ namespace Game.Authoring {
 
                     bulletHitDistanceSq = config.bulletHitDistance * config.bulletHitDistance,
                     enemyTouchDistanceSq = config.enemyTouchDistance * config.enemyTouchDistance
-                });
-                AddComponent(entity, new EnemySpawnTimer {
-                    value = config.enemySpawnInterval
                 });
                 AddComponent(entity, new RandomState {
                     value = Random.CreateFromIndex(12345)

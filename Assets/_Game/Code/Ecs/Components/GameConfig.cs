@@ -1,5 +1,7 @@
-﻿using Unity.Entities;
+﻿using Game.Ecs._Refactor.Values;
+using Unity.Entities;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace Game.Ecs.Components {
     public struct GameConfig : IComponentData {
@@ -11,8 +13,7 @@ namespace Game.Ecs.Components {
         public float2 arenaMin;
         public float2 arenaMax;
 
-        public float enemySpawnInterval;
-        public float enemySpawnOffset;
+        public float outsideArenaSpawnOffset;
 
         public float playerBulletSpeed;
         public float enemyBulletSpeed;
@@ -23,5 +24,18 @@ namespace Game.Ecs.Components {
 
         public float bulletHitDistanceSq;
         public float enemyTouchDistanceSq;
+
+
+        public readonly Entity GetActorPrefab(Actor actor) {
+            switch (actor) {
+                case Actor.Player:
+                    return playerPrefab;
+                case Actor.Enemy:
+                    return enemyPrefab;
+                default:
+                    Debug.LogError($"Prefab not found for actor: {actor}.");
+                    return Entity.Null;
+            }
+        }
     }
 }

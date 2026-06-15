@@ -1,0 +1,46 @@
+﻿using Game.Ecs._Refactor.Components;
+using Game.Ecs._Refactor.Components.Common;
+using Game.Ecs._Refactor.Logic;
+using Game.Ecs.Components;
+using Unity.Burst;
+using Unity.Entities;
+
+namespace Game.Ecs._Refactor.Systems.Actors.Spawn {
+    [UpdateInGroup(typeof(InitializationSystemGroup))]
+    public partial struct LocationSpawnScheduleSystem : ISystem {
+
+        [BurstCompile]
+        public void OnCreate(ref SystemState state) {
+            state.RequireForUpdate<GameConfig>();
+            state.RequireForUpdate<RandomState>();
+            state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
+            state.RequireForUpdate(SystemAPI.QueryBuilder()
+                .WithAll<LocationSpawnSchedule, TimerElapsed>().Build());
+        }
+
+        [BurstCompile]
+        public void OnUpdate(ref SystemState state) {
+            var config = SystemAPI.GetSingleton<GameConfig>();
+            ref var random = ref SystemAPI.GetSingletonRW<RandomState>().ValueRW.value;
+            var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
+                .CreateCommandBuffer(state.WorldUnmanaged);
+
+            foreach (var (schedule, timer, timerElapsedEnabled) in
+                     SystemAPI.Query<LocationSpawnSchedule, RefRW<Timer>, EnabledRefRW<TimerElapsed>>()) {
+
+                // create spawn request
+                var entity = ecb.CreateEntity();
+                ecb.AddComponent(entity, new SpawnRequest {
+                    actor = schedule.actor,
+                    position = SpawnPositionProvider.Get(
+                        schedule.location, config.arenaMin, config.arenaMax,
+                        config.outsideArenaSpawnOffset, ref random),
+                });
+
+                // reset schedule timer
+                timer.ValueRW.value = schedule.interval;
+                timerElapsedEnabled.ValueRW = false;
+            }
+        }
+    }
+}
