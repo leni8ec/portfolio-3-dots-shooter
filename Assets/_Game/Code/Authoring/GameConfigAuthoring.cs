@@ -21,7 +21,8 @@ namespace Game.Authoring {
 
                 AddComponent(entity, new GameConfig {
                     playerPrefab = GetEntity(config.playerPrefab, TransformUsageFlags.Dynamic),
-                    enemyPrefab = GetEntity(config.enemyPrefab, TransformUsageFlags.Dynamic),
+                    enemy1Prefab = GetEntity(config.enemy1Prefab, TransformUsageFlags.Dynamic),
+                    enemy2Prefab = GetEntity(config.enemy2Prefab, TransformUsageFlags.Dynamic),
                     playerBulletPrefab = GetEntity(config.playerBulletPrefab, TransformUsageFlags.Dynamic),
                     enemyBulletPrefab = GetEntity(config.enemyBulletPrefab, TransformUsageFlags.Dynamic),
 

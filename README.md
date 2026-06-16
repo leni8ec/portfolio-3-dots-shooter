@@ -1,6 +1,8 @@
-# Top-down shooter on DOTS
+# Top-down shooter on DOTS (Unity)
 
 > portfolio project
+
+![img.png](https://media.githubusercontent.com/media/leni8ec/portfolio-3-dots-shooter/main/img.png?raw=true)
 
 ## Features
 - Player movement and shooting

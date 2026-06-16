@@ -6,7 +6,8 @@ using UnityEngine;
 namespace Game.Ecs.Components {
     public struct GameConfig : IComponentData {
         public Entity playerPrefab;
-        public Entity enemyPrefab;
+        public Entity enemy1Prefab;
+        public Entity enemy2Prefab;
         public Entity playerBulletPrefab;
         public Entity enemyBulletPrefab;
 
@@ -31,8 +32,10 @@ namespace Game.Ecs.Components {
             switch (actor) {
                 case Actor.Player:
                     return playerPrefab;
-                case Actor.Enemy:
-                    return enemyPrefab;
+                case Actor.Enemy1:
+                    return enemy1Prefab;
+                case Actor.Enemy2:
+                    return enemy2Prefab;
                 default:
                     Debug.LogError($"Prefab not found for actor: {actor}.");
                     return Entity.Null;

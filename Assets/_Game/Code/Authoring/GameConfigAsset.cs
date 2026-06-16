@@ -5,7 +5,8 @@ namespace Game.Authoring {
     public sealed class GameConfigAsset : ScriptableObject {
         [Header("Prefabs")]
         public GameObject playerPrefab;
-        public GameObject enemyPrefab;
+        public GameObject enemy1Prefab;
+        public GameObject enemy2Prefab;
         public GameObject playerBulletPrefab;
         public GameObject enemyBulletPrefab;
 

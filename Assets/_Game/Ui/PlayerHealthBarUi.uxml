@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="root" style="background-color: rgba(0, 0, 0, 0.65); align-items: center; justify-content: center; flex-grow: 0; -unity-text-align: middle-center; -unity-font-style: normal; color: rgb(36, 36, 36); width: 100px; height: 50px; align-self: center; align-content: center;">
-        <ui:Label name="health-label" text="10" style="color: rgb(53, 180, 45); font-size: 32px; -unity-font-style: bold;" />
+    <ui:VisualElement name="root" style="background-color: rgba(58, 0, 97, 0.63); align-items: center; justify-content: center; flex-grow: 0; width: 100px; height: 50px; align-self: center; align-content: center;">
+        <ui:Label name="health-label" text="10" style="color: rgb(117, 181, 255); font-size: 40px; -unity-font-style: bold; -unity-text-align: middle-center;" />
     </ui:VisualElement>
 </ui:UXML>
