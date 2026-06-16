@@ -3,7 +3,7 @@ using Game.Ecs._Refactor.Values;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Game.Authoring._Refactor {
+namespace Game.Authoring.Spawners {
     public class ActorSpawnerAuthoring : MonoBehaviour {
         public Actor actor;
 

@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
 
-namespace Game.Authoring {
+namespace Game.Authoring.Configs {
     public sealed class GameConfigAuthoring : MonoBehaviour {
         public GameConfigAsset config;
 

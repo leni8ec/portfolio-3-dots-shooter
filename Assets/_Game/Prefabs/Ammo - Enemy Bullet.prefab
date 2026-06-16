@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1143c7d6088344dd9d1865ef82d129a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.DotsColorAuthoring
-  cubeColor: {r: 0.24388127, g: 0.27918258, b: 0.5330188, a: 1}
+  cubeColor: {r: 0.3018868, g: 0.15529302, b: 0.093983635, a: 1}
 --- !u!1 &3684598976619291772
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 3030711933790571483}
   - component: {fileID: 7459600958131212740}
   m_Layer: 0
-  m_Name: Player Bullet
+  m_Name: Ammo - Enemy Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,4 +283,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1143c7d6088344dd9d1865ef82d129a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.DotsColorAuthoring
-  cubeColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
+  cubeColor: {r: 0, g: 0, b: 0, a: 1}

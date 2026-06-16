@@ -4,7 +4,7 @@ using Game.Ecs._Refactor.Values;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Game.Authoring._Refactor {
+namespace Game.Authoring.Spawners {
     public class ActorScheduleSpawnerAuthoring : MonoBehaviour {
         public float interval;
         public Actor actor;

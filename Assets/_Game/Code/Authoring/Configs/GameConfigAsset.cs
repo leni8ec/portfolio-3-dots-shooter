@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Authoring {
+namespace Game.Authoring.Configs {
     [CreateAssetMenu(menuName = "Game/Config", fileName = "GameConfig")]
     public sealed class GameConfigAsset : ScriptableObject {
         [Header("Prefabs")]

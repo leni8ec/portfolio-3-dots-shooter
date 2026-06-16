@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7201172850538243375}
+  - component: {fileID: 5371391948522325410}
   - component: {fileID: 2738058115347356190}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Actor - Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,6 +34,21 @@ Transform:
   - {fileID: 8656200690302977354}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5371391948522325410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3268025451035523529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a487681285459097bddaf710f83e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Actors.ActorBaseAuthoring
+  health: 10
+  moveSpeed: 6
+  shootInterval: 0.3
 --- !u!114 &2738058115347356190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,9 +61,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2292aa730ca4b8ba2ba8c2d27654175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.PlayerAuthoring
-  health: 10
-  moveSpeed: 6
-  shootInterval: 0.3
 --- !u!1 &5040097786551483959
 GameObject:
   m_ObjectHideFlags: 0

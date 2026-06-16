@@ -2,7 +2,7 @@
 using Unity.Rendering;
 using UnityEngine;
 
-namespace Game.Authoring {
+namespace Game.Authoring.Extra {
     public class DotsColorAuthoring : MonoBehaviour {
         private static readonly int _baseColor = Shader.PropertyToID("_BaseColor");
         public Color cubeColor = Color.white;

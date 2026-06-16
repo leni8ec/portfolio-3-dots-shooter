@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace Game.Authoring {
+namespace Game.Authoring.Ammo {
     public sealed class BulletAuthoring : MonoBehaviour {
         private sealed class Baker : Baker<BulletAuthoring> {
             public override void Bake(BulletAuthoring authoring) {
