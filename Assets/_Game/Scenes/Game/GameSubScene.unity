@@ -828,8 +828,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2024487636}
   - component: {fileID: 2024487637}
+  - component: {fileID: 2024487638}
   m_Layer: 0
-  m_Name: GameConfig
+  m_Name: Configs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -863,6 +864,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.GameConfigAuthoring
   config: {fileID: 11400000, guid: 2e5b9f27b0f64fb381532a2c86e1a716, type: 2}
+--- !u!114 &2024487638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024487635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de318a0c14e642e0b2f3ac6f9b4cf1b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Ui::Game.Ui.Gameplay.GameUiConfigAuthoring
+  uiConfig: {fileID: 11400000, guid: 343c376e42b18c5469dd71e18a0d24b5, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

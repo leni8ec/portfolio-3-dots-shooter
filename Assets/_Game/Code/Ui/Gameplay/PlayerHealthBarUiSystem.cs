@@ -7,33 +7,50 @@ using UnityEngine;
 namespace Game.Ui.Gameplay {
     [UpdateInGroup(typeof(GameplayUiSystemGroup))]
     internal partial class PlayerHealthBarUiSystem : SystemBase {
-        private PlayerHealthBarUiView view;
-        private EntityQuery playerQuery;
+        private EntityQuery newPlayersQuery;
         private Camera camera;
 
         protected override void OnCreate() {
-            playerQuery = GetEntityQuery(
-                ComponentType.ReadOnly<PlayerTag>(),
-                ComponentType.ReadOnly<Health>(),
-                ComponentType.ReadOnly<LocalTransform>()
-            );
-
-            RequireForUpdate(playerQuery);
+            RequireForUpdate<GameUiConfig>();
+            RequireForUpdate(SystemAPI.QueryBuilder()
+                .WithAny<PlayerTag, PlayerUi>().Build());
         }
 
         protected override void OnUpdate() {
-            if (!Bind())
-                return;
+            var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
+                .CreateCommandBuffer(World.Unmanaged);
+            var uiConfig = SystemAPI.ManagedAPI.GetSingleton<GameUiConfig>();
 
-            foreach (var (playerTag, health, localTransform) in
-                     SystemAPI.Query<PlayerTag, Health, LocalTransform>()) {
-                var position = (Vector3) localTransform.Position + view.WorldOffset;
+            Bind();
 
-                view.SetHealth(health.value);
-                view.SetPosition(position);
+            // create
+            foreach (var (_, entity) in SystemAPI.Query<PlayerTag>()
+                         .WithNone<PlayerUi>().WithEntityAccess()) {
+                var healthBarInstance = Object.Instantiate(uiConfig.healthBarPrefab);
+                ecb.AddComponent(entity, new PlayerUi { healthBar = healthBarInstance });
+            }
 
+            // move
+            foreach (var (health, localTransform, playerUi) in
+                     SystemAPI.Query<Health, LocalTransform, PlayerUi>()
+                         .WithAll<PlayerTag>()) {
+
+                var healthBar = playerUi.healthBar;
+                var position = (Vector3) localTransform.Position + healthBar.WorldOffset;
+                healthBar.SetHealth(health.value);
+                healthBar.SetPosition(position);
                 if (camera)
-                    view.FaceCamera(camera);
+                    healthBar.FaceCamera(camera);
+            }
+
+            // cleanup
+            foreach (var (playerUi, entity) in
+                     SystemAPI.Query<PlayerUi>().WithNone<PlayerTag>().WithEntityAccess()) {
+
+                if (playerUi.healthBar != null)
+                    Object.Destroy(playerUi.healthBar.gameObject);
+
+                ecb.RemoveComponent<PlayerUi>(entity);
             }
         }
 
@@ -41,18 +58,12 @@ namespace Game.Ui.Gameplay {
             Unbind();
         }
 
-        private bool Bind() {
+        private void Bind() {
             if (!camera)
                 camera = Camera.main;
-            if (view)
-                return true;
-
-            view = PlayerHealthBarUiView.Instance;
-            return view != null;
         }
 
         private void Unbind() {
-            view = null;
             camera = null;
         }
     }

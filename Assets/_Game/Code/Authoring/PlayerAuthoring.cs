@@ -1,4 +1,5 @@
-﻿using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Components;
+using Game.Ecs.Components;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Game.Authoring {
 
         private sealed class Baker : Baker<PlayerAuthoring> {
             public override void Bake(PlayerAuthoring authoring) {
-                Entity entity = GetEntity(TransformUsageFlags.Dynamic);
+                var entity = GetEntity(TransformUsageFlags.Dynamic);
 
                 AddComponent<PlayerTag>(entity);
                 AddComponent(entity, new Health { value = authoring.health });
