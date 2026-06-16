@@ -7,14 +7,11 @@ namespace Game.Ecs.Systems.Combat {
     [UpdateAfter(typeof(EnemyTouchPlayerSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct DeathSystem : ISystem {
-        private EntityQuery playersQuery;
 
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<GameState>();
             state.RequireForUpdate<Health>();
-
-            playersQuery = SystemAPI.QueryBuilder().WithAll<PlayerTag>().Build();
         }
 
         public void OnUpdate(ref SystemState state) {
@@ -29,11 +26,6 @@ namespace Game.Ecs.Systems.Combat {
                     continue;
 
                 ecb.DestroyEntity(entity);
-
-                if (SystemAPI.HasComponent<PlayerTag>(entity)) {
-                    if (playersQuery.CalculateEntityCount() <= 1)
-                        SystemAPI.GetSingletonRW<GameState>().ValueRW.phase = GamePhase.GameOver;
-                }
             }
         }
     }

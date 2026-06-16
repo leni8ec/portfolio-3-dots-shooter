@@ -2,9 +2,10 @@
 
 namespace Game.Ecs.Components {
     public enum GamePhase : byte {
-        Playing = 0,
-        Paused = 1,
-        GameOver = 2
+        None = 0,
+        Playing = 1,
+        Paused = 2,
+        GameOver = 3
     }
 
     public struct GameState : IComponentData {
