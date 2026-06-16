@@ -18,7 +18,7 @@ namespace Game.Ecs._Refactor.Logic {
 
         private static float3 OutsideArena(float2 arenaMin, float2 arenaMax, float spawnOffset, ref Random random) {
             var pos = default(float3);
-            int side = random.NextInt(0, 4);
+            var side = random.NextInt(0, 4);
             switch (side) {
                 case 0:
                     pos.x = random.NextFloat(arenaMin.x, arenaMax.x);

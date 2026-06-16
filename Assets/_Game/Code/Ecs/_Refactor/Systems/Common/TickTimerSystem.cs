@@ -1,8 +1,10 @@
 ﻿using Game.Ecs._Refactor.Components.Common;
+using Game.Ecs.Groups;
 using Unity.Burst;
 using Unity.Entities;
 
 namespace Game.Ecs._Refactor.Systems.Common {
+    [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct TickTimerSystem : ISystem {
         private EntityQuery query;
 

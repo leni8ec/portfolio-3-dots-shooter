@@ -7,36 +7,65 @@ using Unity.Mathematics;
 using Unity.Transforms;
 
 namespace Game.Ecs.Systems.Combat {
-    [UpdateAfter(typeof(EnemyMoveSystem))]
+    // [UpdateAfter(typeof(EnemyEnterArenaSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct EnemyTouchPlayerSystem : ISystem {
 
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<GameConfig>();
             state.RequireForUpdate<PlayerTag>();
+            state.RequireForUpdate<EnemyTag>();
+            state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
         }
 
         public void OnUpdate(ref SystemState state) {
-            GameConfig config = SystemAPI.GetSingleton<GameConfig>();
-            Entity playerEntity = SystemAPI.GetSingletonEntity<PlayerTag>();
-            float3 playerPosition = SystemAPI.GetComponent<LocalTransform>(playerEntity).Position;
-            RefRW<Health> playerHealth = SystemAPI.GetComponentRW<Health>(playerEntity);
-            EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
+            var config = SystemAPI.GetSingleton<GameConfig>();
+            var players = new NativeList<PlayerTouchData>(Allocator.Temp);
+            var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
+                .CreateCommandBuffer(state.WorldUnmanaged);
 
-            foreach (var (enemyTransform, enemyEntity) in
-                     SystemAPI.Query<RefRO<LocalTransform>>()
-                         .WithAll<EnemyTag>().WithEntityAccess()) {
-
-                float distanceSq = math.distancesq(playerPosition, enemyTransform.ValueRO.Position);
-                if (distanceSq > config.enemyTouchDistanceSq)
-                    continue;
-
-                playerHealth.ValueRW.value -= config.enemyTouchDamage;
-                ecb.DestroyEntity(enemyEntity);
+            // collect players
+            foreach (var (playerTransform, playerEntity) in
+                     SystemAPI.Query<LocalTransform>()
+                         .WithAll<PlayerTag>().WithEntityAccess()) {
+                players.Add(new PlayerTouchData(playerEntity, playerTransform.Position));
             }
 
-            ecb.Playback(state.EntityManager);
-            ecb.Dispose();
+            // players x enemies
+            var healthLookup = SystemAPI.GetComponentLookup<Health>();
+            foreach (var (enemyTransform, enemyEntity) in
+                     SystemAPI.Query<LocalTransform>()
+                         .WithAll<EnemyTag>().WithEntityAccess()) {
+                var enemyPosition = enemyTransform.Position;
+
+                for (var i = 0; i < players.Length; i++) {
+                    var player = players[i];
+
+                    var distanceSq = math.distancesq(player.position, enemyPosition);
+                    if (distanceSq > config.enemyTouchDistanceSq)
+                        continue;
+
+                    var health = healthLookup[player.entity];
+                    health.value -= config.enemyTouchDamage;
+                    healthLookup[player.entity] = health;
+
+                    ecb.DestroyEntity(enemyEntity);
+                }
+            }
+
+            players.Dispose();
         }
+
+        private readonly struct PlayerTouchData {
+            public readonly Entity entity;
+            public readonly float3 position;
+
+            public PlayerTouchData(Entity entity, float3 position) {
+                this.entity = entity;
+                this.position = position;
+            }
+        }
+
     }
+
 }

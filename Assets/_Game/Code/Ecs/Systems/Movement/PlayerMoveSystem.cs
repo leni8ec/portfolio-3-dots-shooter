@@ -29,8 +29,8 @@ namespace Game.Ecs.Systems.Movement {
                 float3 position = transform.ValueRO.Position;
                 position += direction * speed.ValueRO.value * deltaTime;
 
-                position.x = math.clamp(position.x, config.arenaMin.x, config.arenaMax.x);
-                position.z = math.clamp(position.z, config.arenaMin.y, config.arenaMax.y);
+                position.x = math.clamp(position.x, config.arenaMin2D.x, config.arenaMax2D.x);
+                position.z = math.clamp(position.z, config.arenaMin2D.y, config.arenaMax2D.y);
 
                 transform.ValueRW.Position = position;
             }

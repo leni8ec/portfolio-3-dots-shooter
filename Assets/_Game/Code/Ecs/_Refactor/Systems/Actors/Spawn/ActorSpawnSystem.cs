@@ -11,7 +11,7 @@ namespace Game.Ecs._Refactor.Systems.Actors.Spawn {
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<GameConfig>();
-            state.RequireForUpdate<RandomState>();
+            state.RequireForUpdate<GameRandom>();
             state.RequireForUpdate(SystemAPI.QueryBuilder()
                 .WithAll<SpawnRequest>().Build());
         }
@@ -20,7 +20,7 @@ namespace Game.Ecs._Refactor.Systems.Actors.Spawn {
             var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
                 .CreateCommandBuffer(state.WorldUnmanaged);
             var config = SystemAPI.GetSingleton<GameConfig>();
-            ref var random = ref SystemAPI.GetSingletonRW<RandomState>().ValueRW.value;
+            ref var random = ref SystemAPI.GetSingletonRW<GameRandom>().ValueRW.value;
 
             foreach (var (request, entity) in SystemAPI.Query<SpawnRequest>().WithEntityAccess()) {
                 ecb.DestroyEntity(entity);

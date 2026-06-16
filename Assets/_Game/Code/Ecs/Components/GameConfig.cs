@@ -10,8 +10,9 @@ namespace Game.Ecs.Components {
         public Entity playerBulletPrefab;
         public Entity enemyBulletPrefab;
 
-        public float2 arenaMin;
-        public float2 arenaMax;
+        public float2 arenaMin2D;
+        public float2 arenaMax2D;
+        public float2 arenaCenter2D;
 
         public float outsideArenaSpawnOffset;
 

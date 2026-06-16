@@ -12,7 +12,7 @@ namespace Game.Ecs._Refactor.Systems.Actors.Spawn {
         [BurstCompile]
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<GameConfig>();
-            state.RequireForUpdate<RandomState>();
+            state.RequireForUpdate<GameRandom>();
             state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate(SystemAPI.QueryBuilder()
                 .WithAll<LocationSpawnSchedule, TimerElapsed>().Build());
@@ -21,7 +21,7 @@ namespace Game.Ecs._Refactor.Systems.Actors.Spawn {
         [BurstCompile]
         public void OnUpdate(ref SystemState state) {
             var config = SystemAPI.GetSingleton<GameConfig>();
-            ref var random = ref SystemAPI.GetSingletonRW<RandomState>().ValueRW.value;
+            ref var random = ref SystemAPI.GetSingletonRW<GameRandom>().ValueRW.value;
             var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
                 .CreateCommandBuffer(state.WorldUnmanaged);
 
@@ -33,7 +33,7 @@ namespace Game.Ecs._Refactor.Systems.Actors.Spawn {
                 ecb.AddComponent(entity, new SpawnRequest {
                     actor = schedule.actor,
                     position = SpawnPositionProvider.Get(
-                        schedule.location, config.arenaMin, config.arenaMax,
+                        schedule.location, config.arenaMin2D, config.arenaMax2D,
                         config.outsideArenaSpawnOffset, ref random),
                 });
 

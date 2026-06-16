@@ -1,4 +1,5 @@
-﻿using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Logic;
+using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Game.Ecs.Systems.Combat;
 using Unity.Collections;
@@ -25,15 +26,7 @@ namespace Game.Ecs.Systems.Movement {
                          .WithAll<BulletData>()
                          .WithEntityAccess()) {
 
-                float x = transform.ValueRO.Position.x;
-                float z = transform.ValueRO.Position.z;
-
-                bool isOutsideArena =
-                    x < config.arenaMin.x ||
-                    x > config.arenaMax.x ||
-                    z < config.arenaMin.y ||
-                    z > config.arenaMax.y;
-
+                bool isOutsideArena = !Arena2D.IsInside(transform.ValueRO.Position,config.arenaMin2D, config.arenaMax2D);
                 if (isOutsideArena)
                     ecb.DestroyEntity(entity);
             }

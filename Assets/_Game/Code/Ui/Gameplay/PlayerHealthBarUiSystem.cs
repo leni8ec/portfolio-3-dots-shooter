@@ -17,35 +17,38 @@ namespace Game.Ui.Gameplay {
                 ComponentType.ReadOnly<Health>(),
                 ComponentType.ReadOnly<LocalTransform>()
             );
+
+            RequireForUpdate(playerQuery);
         }
 
         protected override void OnUpdate() {
-            Bind();
-
-            if (!view || playerQuery.IsEmpty)
+            if (!Bind())
                 return;
 
-            Entity playerEntity = playerQuery.GetSingletonEntity();
+            foreach (var (playerTag, health, localTransform) in
+                     SystemAPI.Query<PlayerTag, Health, LocalTransform>()) {
+                var position = (Vector3) localTransform.Position + view.WorldOffset;
 
-            Health health = SystemAPI.GetComponent<Health>(playerEntity);
-            LocalTransform playerTransform = SystemAPI.GetComponent<LocalTransform>(playerEntity);
+                view.SetHealth(health.value);
+                view.SetPosition(position);
 
-            Vector3 position = (Vector3) playerTransform.Position + view.WorldOffset;
-
-            view.SetHealth(health.value);
-            view.SetPosition(position);
-
-            if (!camera) camera = Camera.main;
-            view.FaceCamera(camera);
+                if (camera)
+                    view.FaceCamera(camera);
+            }
         }
 
         protected override void OnDestroy() {
             Unbind();
         }
 
-        private void Bind() {
-            if (view) return;
+        private bool Bind() {
+            if (!camera)
+                camera = Camera.main;
+            if (view)
+                return true;
+
             view = PlayerHealthBarUiView.Instance;
+            return view != null;
         }
 
         private void Unbind() {

@@ -2,7 +2,7 @@
 using Unity.Mathematics;
 
 namespace Game.Ecs.Components {
-    public struct RandomState : IComponentData {
+    public struct GameRandom : IComponentData {
         public Random value;
     }
 }

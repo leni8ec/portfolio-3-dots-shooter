@@ -1,50 +1,44 @@
-﻿using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Components.Enemies;
+using Game.Ecs._Refactor.Logic;
+using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Game.Ecs.Systems.Movement;
-using Unity.Collections;
 using Unity.Entities;
-using Unity.Mathematics;
 using Unity.Transforms;
 
 namespace Game.Ecs.Systems.Combat {
-    [UpdateAfter(typeof(EnemyMoveSystem))]
+    [UpdateAfter(typeof(EnemyMoveToTargetSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct EnemyShootSystem : ISystem {
 
         public void OnCreate(ref SystemState state) {
+            state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<GameConfig>();
             state.RequireForUpdate<PlayerTag>();
+            state.RequireForUpdate(SystemAPI.QueryBuilder()
+                .WithAll<EnemyTag, EnemyTarget>().Build());
         }
 
         public void OnUpdate(ref SystemState state) {
-            GameConfig config = SystemAPI.GetSingleton<GameConfig>();
-            float deltaTime = SystemAPI.Time.DeltaTime;
+            var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
+                .CreateCommandBuffer(state.WorldUnmanaged);
+            var config = SystemAPI.GetSingleton<GameConfig>();
+            var deltaTime = SystemAPI.Time.DeltaTime;
+            var transformLookup = SystemAPI.GetComponentLookup<LocalTransform>(true);
 
-            Entity playerEntity = SystemAPI.GetSingletonEntity<PlayerTag>();
-            float3 playerPosition = SystemAPI.GetComponent<LocalTransform>(playerEntity).Position;
-
-            EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
-
-            foreach (var (transform, timer, enemyState) in
-                     SystemAPI.Query<RefRO<LocalTransform>, RefRW<ShootTimer>, RefRO<EnemyState>>()
+            foreach (var (enemyTarget, timer, transform) in
+                     SystemAPI.Query<RefRO<EnemyTarget>, RefRW<ShootTimer>, RefRO<LocalTransform>>()
                          .WithAll<EnemyTag>()) {
-
-                if (!enemyState.ValueRO.isInsideArena)
-                    continue;
 
                 timer.ValueRW.value -= deltaTime;
                 if (timer.ValueRO.value > 0f)
                     continue;
 
-                float3 direction = playerPosition - transform.ValueRO.Position;
-                direction.y = 0f;
-                if (math.lengthsq(direction) < 0.001f)
-                    continue;
+                var fromPosition = transform.ValueRO.Position;
+                var targetPosition = transformLookup[enemyTarget.ValueRO.value].Position;
+                var rotation = Rotation3D.LookRotation2D(fromPosition, targetPosition);
 
-                direction = math.normalize(direction);
-                quaternion rotation = math.normalize(quaternion.LookRotation(direction, math.up()));
-
-                Entity bullet = ecb.Instantiate(config.enemyBulletPrefab);
+                var bullet = ecb.Instantiate(config.enemyBulletPrefab);
                 ecb.SetName(bullet, "Bullet (enemy)");
                 ecb.SetComponent(bullet, LocalTransform.FromPositionRotation(
                     transform.ValueRO.Position,
@@ -52,16 +46,13 @@ namespace Game.Ecs.Systems.Combat {
                 ));
                 ecb.SetComponent(bullet, new BulletData {
                     owner = BulletOwner.Enemy,
-                    direction = direction,
+                    direction = Rotation3D.GetDirection2D(rotation),
                     speed = config.enemyBulletSpeed,
                     damage = config.enemyBulletDamage
                 });
 
                 timer.ValueRW.value = timer.ValueRO.interval;
             }
-
-            ecb.Playback(state.EntityManager);
-            ecb.Dispose();
         }
     }
 }

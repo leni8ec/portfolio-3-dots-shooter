@@ -25,8 +25,11 @@ namespace Game.Authoring {
                     playerBulletPrefab = GetEntity(config.playerBulletPrefab, TransformUsageFlags.Dynamic),
                     enemyBulletPrefab = GetEntity(config.enemyBulletPrefab, TransformUsageFlags.Dynamic),
 
-                    arenaMin = new float2(config.arenaMin.x, config.arenaMin.y),
-                    arenaMax = new float2(config.arenaMax.x, config.arenaMax.y),
+                    arenaMin2D = new float2(config.arenaMin.x, config.arenaMin.y),
+                    arenaMax2D = new float2(config.arenaMax.x, config.arenaMax.y),
+                    arenaCenter2D = new float2(
+                        (config.arenaMax.x + config.arenaMin.x) / 2,
+                        (config.arenaMax.y + config.arenaMin.y) / 2),
 
                     outsideArenaSpawnOffset = config.outsideArenaSpawnOffset,
 
@@ -40,7 +43,7 @@ namespace Game.Authoring {
                     bulletHitDistanceSq = config.bulletHitDistance * config.bulletHitDistance,
                     enemyTouchDistanceSq = config.enemyTouchDistance * config.enemyTouchDistance
                 });
-                AddComponent(entity, new RandomState {
+                AddComponent(entity, new GameRandom {
                     value = Random.CreateFromIndex(12345)
                 });
                 AddComponent(entity, new GameState {

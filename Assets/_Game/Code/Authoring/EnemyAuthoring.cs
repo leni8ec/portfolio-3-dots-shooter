@@ -1,4 +1,6 @@
-﻿using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Components;
+using Game.Ecs._Refactor.Components.Enemies;
+using Game.Ecs.Components;
 using Unity.Entities;
 using UnityEngine;
 
@@ -16,12 +18,13 @@ namespace Game.Authoring {
                 AddComponent<EnemyTag>(entity);
                 AddComponent(entity, new Health { value = authoring.health });
                 AddComponent(entity, new MoveSpeed { value = authoring.moveSpeed });
-                AddComponent(entity, new EnemyState { isInsideArena = false });
                 AddComponent(entity, new ShootTimer {
                     value = authoring.shootInterval,
                     interval = authoring.shootInterval
                 });
 
+                AddComponent<EnemyTarget>(entity);
+                SetComponentEnabled<EnemyTarget>(entity, false);
             }
         }
     }
