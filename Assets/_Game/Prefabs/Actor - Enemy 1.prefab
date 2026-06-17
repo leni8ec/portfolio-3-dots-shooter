@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Actors.ActorBaseAuthoring
   actor: 2
+  ammo: 1
   health: 1
   moveSpeed: 2.5
   shootInterval: 1.5

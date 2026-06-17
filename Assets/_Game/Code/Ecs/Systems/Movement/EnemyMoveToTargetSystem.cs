@@ -25,9 +25,9 @@ namespace Game.Ecs.Systems.Movement {
                          .WithAll<EnemyTag>()) {
 
                 // reset target if target no longer exists
-                var targetEntity = target.ValueRO.value;
+                var targetEntity = target.ValueRO.entity;
                 if (targetEntity == Entity.Null || !transformLookup.HasComponent(targetEntity)) {
-                    target.ValueRW.value = default;
+                    target.ValueRW.entity = default;
                     targetEnabled.ValueRW = false;
                     continue;
                 }

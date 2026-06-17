@@ -7,14 +7,14 @@ using UnityEngine;
 namespace Game.Authoring.Spawners {
     public class ActorScheduleSpawnerAuthoring : MonoBehaviour {
         public float interval;
-        public Actor actor;
+        public ActorIdentity actor;
         public ArenaLocation location;
 
         public sealed class Baker : Baker<ActorScheduleSpawnerAuthoring> {
             public override void Bake(ActorScheduleSpawnerAuthoring authoring) {
                 // schedule
                 var schedule = GetEntity(TransformUsageFlags.None);
-                AddComponent(schedule, new LocationSpawnSchedule {
+                AddComponent(schedule, new ActorSpawnSchedule {
                     interval = authoring.interval,
                     actor = authoring.actor,
                     location = authoring.location

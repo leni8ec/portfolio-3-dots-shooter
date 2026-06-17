@@ -13,7 +13,7 @@ namespace Game.Ecs._Refactor.Systems.Actors.Spawn {
             state.RequireForUpdate<GameConfig>();
             state.RequireForUpdate<GameRandom>();
             state.RequireForUpdate(SystemAPI.QueryBuilder()
-                .WithAll<SpawnRequest>().Build());
+                .WithAll<ActorSpawnRequest>().Build());
         }
 
         public void OnUpdate(ref SystemState state) {
@@ -22,7 +22,7 @@ namespace Game.Ecs._Refactor.Systems.Actors.Spawn {
             var config = SystemAPI.GetSingleton<GameConfig>();
             ref var random = ref SystemAPI.GetSingletonRW<GameRandom>().ValueRW.value;
 
-            foreach (var (request, entity) in SystemAPI.Query<SpawnRequest>().WithEntityAccess()) {
+            foreach (var (request, entity) in SystemAPI.Query<ActorSpawnRequest>().WithEntityAccess()) {
                 ecb.DestroyEntity(entity);
 
                 var prefab = config.GetActorPrefab(request.actor);

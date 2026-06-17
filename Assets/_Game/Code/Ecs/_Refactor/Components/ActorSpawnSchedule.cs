@@ -2,9 +2,9 @@
 using Unity.Entities;
 
 namespace Game.Ecs._Refactor.Components {
-    public struct LocationSpawnSchedule : IComponentData {
+    public struct ActorSpawnSchedule : IComponentData {
         public float interval;
         public ArenaLocation location;
-        public Actor actor;
+        public ActorIdentity actor;
     }
 }

@@ -2,7 +2,7 @@
 using Unity.Entities;
 
 namespace Game.Ecs.Components {
-    public struct ActorMember : IComponentData {
-        public Actor value;
+    public struct AmmoEquipment : IComponentData {
+        public AmmoIdentity value;
     }
 }

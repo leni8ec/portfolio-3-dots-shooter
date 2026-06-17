@@ -23,8 +23,11 @@ namespace Game.Authoring.Configs {
                     playerPrefab = GetEntity(config.playerPrefab, TransformUsageFlags.Dynamic),
                     enemy1Prefab = GetEntity(config.enemy1Prefab, TransformUsageFlags.Dynamic),
                     enemy2Prefab = GetEntity(config.enemy2Prefab, TransformUsageFlags.Dynamic),
+
                     playerBulletPrefab = GetEntity(config.playerBulletPrefab, TransformUsageFlags.Dynamic),
+                    playerMissilePrefab = GetEntity(config.playerMissilePrefab, TransformUsageFlags.Dynamic),
                     enemyBulletPrefab = GetEntity(config.enemyBulletPrefab, TransformUsageFlags.Dynamic),
+                    enemyMissilePrefab = GetEntity(config.enemyMissilePrefab, TransformUsageFlags.Dynamic),
 
                     arenaMin2D = new float2(config.arenaMin.x, config.arenaMin.y),
                     arenaMax2D = new float2(config.arenaMax.x, config.arenaMax.y),
@@ -34,14 +37,9 @@ namespace Game.Authoring.Configs {
 
                     outsideArenaSpawnOffset = config.outsideArenaSpawnOffset,
 
-                    playerBulletSpeed = config.playerBulletSpeed,
-                    enemyBulletSpeed = config.enemyBulletSpeed,
-
-                    playerBulletDamage = config.playerBulletDamage,
-                    enemyBulletDamage = config.enemyBulletDamage,
                     enemyTouchDamage = config.enemyTouchDamage,
 
-                    bulletHitDistanceSq = config.bulletHitDistance * config.bulletHitDistance,
+                    ammoHitDistanceSq = config.ammoHitDistance * config.ammoHitDistance,
                     enemyTouchDistanceSq = config.enemyTouchDistance * config.enemyTouchDistance
                 });
                 AddComponent(entity, new GameRandom {

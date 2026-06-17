@@ -2,6 +2,6 @@
 
 namespace Game.Ecs._Refactor.Components.Enemies {
     public struct EnemyTarget : IComponentData, IEnableableComponent {
-        public Entity value;
+        public Entity entity;
     }
 }

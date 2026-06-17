@@ -12,7 +12,7 @@ namespace Game.Ui.Gameplay {
         protected override void OnCreate() {
             RequireForUpdate<GameUiConfig>();
             RequireForUpdate(SystemAPI.QueryBuilder()
-                .WithAny<ActorMember, ActorUi>().Build());
+                .WithAny<Actor, ActorUi>().Build());
         }
 
         protected override void OnUpdate() {
@@ -23,20 +23,20 @@ namespace Game.Ui.Gameplay {
             Bind();
 
             // create
-            foreach (var (actorMember, entity) in SystemAPI
-                         .Query<ActorMember>()
+            foreach (var (actor, entity) in SystemAPI
+                         .Query<Actor>()
                          .WithNone<ActorUi>().WithEntityAccess()) {
-                var healthBarInstance = Object.Instantiate(uiConfig.GetHealthBarPrefab(actorMember.value));
+                var healthBarInstance = Object.Instantiate(uiConfig.GetHealthBarPrefab(actor.role));
                 ecb.AddComponent(entity, new ActorUi { healthBar = healthBarInstance });
             }
 
             // move
-            foreach (var (health, localTransform, actorUi) in SystemAPI
-                         .Query<Health, LocalTransform, ActorUi>()
-                         .WithAll<ActorMember>()) {
+            foreach (var (health, actorUi, localTransform) in SystemAPI
+                         .Query<Health, ActorUi, RefRO<LocalTransform>>()
+                         .WithAll<Actor>()) {
 
                 var healthBar = actorUi.healthBar;
-                var position = (Vector3) localTransform.Position + healthBar.WorldOffset;
+                var position = (Vector3) localTransform.ValueRO.Position + healthBar.WorldOffset;
                 healthBar.SetHealth(health.value);
                 healthBar.SetPosition(position);
                 if (camera)
@@ -46,7 +46,7 @@ namespace Game.Ui.Gameplay {
             // cleanup
             foreach (var (actorUi, entity) in SystemAPI
                          .Query<ActorUi>()
-                         .WithNone<ActorMember>().WithEntityAccess()) {
+                         .WithNone<Actor>().WithEntityAccess()) {
 
                 if (actorUi.healthBar != null)
                     Object.Destroy(actorUi.healthBar.gameObject);

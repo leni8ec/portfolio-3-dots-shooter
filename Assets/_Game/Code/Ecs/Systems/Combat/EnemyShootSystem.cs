@@ -1,5 +1,7 @@
-﻿using Game.Ecs._Refactor.Components.Enemies;
+﻿using Game.Ecs._Refactor.Components;
+using Game.Ecs._Refactor.Components.Enemies;
 using Game.Ecs._Refactor.Logic;
+using Game.Ecs._Refactor.Values;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Game.Ecs.Systems.Movement;
@@ -22,36 +24,31 @@ namespace Game.Ecs.Systems.Combat {
         public void OnUpdate(ref SystemState state) {
             var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
                 .CreateCommandBuffer(state.WorldUnmanaged);
+            var transformLookup = SystemAPI.GetComponentLookup<LocalTransform>(true);
             var config = SystemAPI.GetSingleton<GameConfig>();
             var deltaTime = SystemAPI.Time.DeltaTime;
-            var transformLookup = SystemAPI.GetComponentLookup<LocalTransform>(true);
 
-            foreach (var (enemyTarget, timer, transform) in
-                     SystemAPI.Query<RefRO<EnemyTarget>, RefRW<ShootTimer>, RefRO<LocalTransform>>()
+            foreach (var (enemyTarget, ammoEquipment, timer, transform) in SystemAPI
+                         .Query<EnemyTarget, AmmoEquipment, RefRW<ShootTimer>, RefRO<LocalTransform>>()
                          .WithAll<EnemyTag>()) {
-
+                // timer
                 timer.ValueRW.value -= deltaTime;
                 if (timer.ValueRO.value > 0f)
                     continue;
-
-                var fromPosition = transform.ValueRO.Position;
-                var targetPosition = transformLookup[enemyTarget.ValueRO.value].Position;
-                var rotation = Rotation3D.LookRotation2D(fromPosition, targetPosition);
-
-                var bullet = ecb.Instantiate(config.enemyBulletPrefab);
-                ecb.SetName(bullet, "Bullet (enemy)");
-                ecb.SetComponent(bullet, LocalTransform.FromPositionRotation(
-                    transform.ValueRO.Position,
-                    rotation
-                ));
-                ecb.SetComponent(bullet, new BulletData {
-                    owner = BulletOwner.Enemy,
-                    direction = Rotation3D.GetDirection2D(rotation),
-                    speed = config.enemyBulletSpeed,
-                    damage = config.enemyBulletDamage
-                });
-
                 timer.ValueRW.value = timer.ValueRO.interval;
+
+                // spawn request
+                var fromPosition = transform.ValueRO.Position;
+                var targetPosition = transformLookup[enemyTarget.entity].Position;
+                var direction = Rotation3D.GetDirection2D(fromPosition, targetPosition);
+
+                var ammoSpawnRequest = ecb.CreateEntity();
+                ecb.AddComponent(ammoSpawnRequest, new AmmoSpawnRequest {
+                    owner = ActorRole.Enemy,
+                    ammo = ammoEquipment.value,
+                    position = transform.ValueRO.Position,
+                    direction = direction
+                });
             }
         }
     }

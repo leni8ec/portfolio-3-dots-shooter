@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1143c7d6088344dd9d1865ef82d129a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.DotsColorAuthoring
-  cubeColor: {r: 0.36320752, g: 0.05825027, b: 0.05825027, a: 1}
+  cubeColor: {r: 0.16981131, g: 0.055268776, b: 0.055268776, a: 1}
 --- !u!1 &3866934604525868300
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Actors.ActorBaseAuthoring
   actor: 3
+  ammo: 2
   health: 2
   moveSpeed: 1.5
   shootInterval: 3

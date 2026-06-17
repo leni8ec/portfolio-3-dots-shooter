@@ -7,12 +7,11 @@ namespace Game.Ui.Gameplay {
         public HealthBarUiView playerHealthBarPrefab;
         public HealthBarUiView enemyHealthBarPrefab;
 
-        public HealthBarUiView GetHealthBarPrefab(Actor actor) {
+        public HealthBarUiView GetHealthBarPrefab(ActorRole actor) {
             switch (actor) {
-                case Actor.Player:
+                case ActorRole.Player:
                     return playerHealthBarPrefab;
-                case Actor.Enemy1:
-                case Actor.Enemy2:
+                case ActorRole.Enemy:
                     return enemyHealthBarPrefab;
                 default:
                     Debug.LogError($"Unknown actor {actor}");

@@ -3,7 +3,7 @@ using Game.Ecs.Groups;
 using Unity.Entities;
 
 namespace Game.Ecs.Systems.Combat {
-    [UpdateAfter(typeof(BulletHitSystem))]
+    [UpdateAfter(typeof(AmmoHitSystem))]
     [UpdateAfter(typeof(EnemyTouchPlayerSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct DeathSystem : ISystem {

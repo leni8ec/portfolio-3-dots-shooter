@@ -1,9 +1,8 @@
 ﻿namespace Game.Ecs._Refactor.Values {
-    public enum Actor : byte {
+    public enum ActorRole : byte {
         None = 0,
 
         Player = 1,
-        Enemy1 = 2,
-        Enemy2 = 3,
+        Enemy = 2
     }
 }

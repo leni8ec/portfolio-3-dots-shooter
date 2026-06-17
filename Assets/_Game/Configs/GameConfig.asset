@@ -16,14 +16,12 @@ MonoBehaviour:
   enemy1Prefab: {fileID: 3866934604525868300, guid: 3e5c5184e2d5dbb44829d7779632472a, type: 3}
   enemy2Prefab: {fileID: 3866934604525868300, guid: e907acd739942e54aa6d7a6f37cf28fb, type: 3}
   playerBulletPrefab: {fileID: 3684598976619291772, guid: f1f1b51154c5c0f47853e582d11021f6, type: 3}
+  playerMissilePrefab: {fileID: 3684598976619291772, guid: 89ae4c936f400f54c9c74444e08ad905, type: 3}
   enemyBulletPrefab: {fileID: 3684598976619291772, guid: fbfd27b3401c1f4489de8ffe53db0bfd, type: 3}
+  enemyMissilePrefab: {fileID: 3684598976619291772, guid: 3e9d87477b3ea9547b61f8f661a52f26, type: 3}
   arenaMin: {x: -14.5, y: -10}
   arenaMax: {x: 14.5, y: 10}
   outsideArenaSpawnOffset: 2
-  playerBulletSpeed: 12
-  enemyBulletSpeed: 8
-  playerBulletDamage: 1
-  enemyBulletDamage: 1
   enemyTouchDamage: 2
-  bulletHitDistance: 0.8
+  ammoHitDistance: 0.8
   enemyTouchDistance: 1

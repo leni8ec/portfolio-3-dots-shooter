@@ -1,42 +1,40 @@
 ﻿using Game.Ecs.Components;
 using Game.Ecs.Groups;
-using Game.Ecs.Systems.Movement;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
 namespace Game.Ecs.Systems.Combat {
-    // [UpdateAfter(typeof(EnemyEnterArenaSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct EnemyTouchPlayerSystem : ISystem {
 
         public void OnCreate(ref SystemState state) {
+            state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<GameConfig>();
             state.RequireForUpdate<PlayerTag>();
             state.RequireForUpdate<EnemyTag>();
-            state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
         }
 
         public void OnUpdate(ref SystemState state) {
-            var config = SystemAPI.GetSingleton<GameConfig>();
-            var players = new NativeList<PlayerTouchData>(Allocator.Temp);
             var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
                 .CreateCommandBuffer(state.WorldUnmanaged);
+            var config = SystemAPI.GetSingleton<GameConfig>();
+            var players = new NativeList<PlayerTouchData>(Allocator.Temp);
 
             // collect players
-            foreach (var (playerTransform, playerEntity) in
-                     SystemAPI.Query<LocalTransform>()
+            foreach (var (playerTransform, playerEntity) in SystemAPI
+                         .Query<RefRO<LocalTransform>>()
                          .WithAll<PlayerTag>().WithEntityAccess()) {
-                players.Add(new PlayerTouchData(playerEntity, playerTransform.Position));
+                players.Add(new PlayerTouchData(playerEntity, playerTransform.ValueRO.Position));
             }
 
             // players x enemies
             var healthLookup = SystemAPI.GetComponentLookup<Health>();
-            foreach (var (enemyTransform, enemyEntity) in
-                     SystemAPI.Query<LocalTransform>()
+            foreach (var (enemyTransform, enemyEntity) in SystemAPI
+                         .Query<RefRO<LocalTransform>>()
                          .WithAll<EnemyTag>().WithEntityAccess()) {
-                var enemyPosition = enemyTransform.Position;
+                var enemyPosition = enemyTransform.ValueRO.Position;
 
                 for (var i = 0; i < players.Length; i++) {
                     var player = players[i];
@@ -67,5 +65,4 @@ namespace Game.Ecs.Systems.Combat {
         }
 
     }
-
 }

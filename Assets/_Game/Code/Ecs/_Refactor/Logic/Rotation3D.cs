@@ -7,10 +7,8 @@ namespace Game.Ecs._Refactor.Logic {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static quaternion LookRotation2D(float3 fromPosition, float3 toPosition) {
-            var direction = toPosition - fromPosition;
-            direction.y = 0f;
-
-            return FromDirection(direction);
+            var direction = GetDirection2D(fromPosition, toPosition);
+            return quaternion.LookRotation(direction, math.up());
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -22,6 +20,13 @@ namespace Game.Ecs._Refactor.Logic {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float3 GetDirection2D(quaternion rotation) {
             return math.mul(rotation, math.forward());
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float3 GetDirection2D(float3 fromPosition, float3 toPosition) {
+            var direction = toPosition - fromPosition;
+            direction.y = 0f;
+            return math.normalize(direction);
         }
 
     }

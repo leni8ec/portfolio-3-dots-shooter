@@ -28,8 +28,8 @@ namespace Game.Ecs.Systems.Movement {
             var players = default(NativeArray<Entity>);
             var playersLoaded = false;
 
-            foreach (var (transform, moveSpeed, entity) in
-                     SystemAPI.Query<RefRW<LocalTransform>, RefRO<MoveSpeed>>()
+            foreach (var (moveSpeed, transform, entity) in
+                     SystemAPI.Query<RefRO<MoveSpeed>, RefRW<LocalTransform>>()
                          .WithAll<EnemyTag>()
                          .WithDisabled<EnemyTarget>()
                          .WithEntityAccess()) {
@@ -58,7 +58,7 @@ namespace Game.Ecs.Systems.Movement {
                 var randomPlayerIndex = random.NextInt(players.Length);
                 var targetPlayer = players[randomPlayerIndex];
 
-                SystemAPI.SetComponent(entity, new EnemyTarget { value = targetPlayer });
+                SystemAPI.SetComponent(entity, new EnemyTarget { entity = targetPlayer });
                 SystemAPI.SetComponentEnabled<EnemyTarget>(entity, true);
             }
 

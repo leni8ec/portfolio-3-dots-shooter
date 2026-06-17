@@ -7,7 +7,7 @@ using Unity.Entities;
 
 namespace Game.Ecs._Refactor.Systems.Actors.Spawn {
     [UpdateInGroup(typeof(InitializationSystemGroup))]
-    public partial struct LocationSpawnScheduleSystem : ISystem {
+    public partial struct ActorSpawnScheduleSystem : ISystem {
 
         [BurstCompile]
         public void OnCreate(ref SystemState state) {
@@ -15,7 +15,7 @@ namespace Game.Ecs._Refactor.Systems.Actors.Spawn {
             state.RequireForUpdate<GameRandom>();
             state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate(SystemAPI.QueryBuilder()
-                .WithAll<LocationSpawnSchedule, TimerElapsed>().Build());
+                .WithAll<ActorSpawnSchedule, TimerElapsed>().Build());
         }
 
         [BurstCompile]
@@ -26,11 +26,11 @@ namespace Game.Ecs._Refactor.Systems.Actors.Spawn {
                 .CreateCommandBuffer(state.WorldUnmanaged);
 
             foreach (var (schedule, timer, timerElapsedEnabled) in
-                     SystemAPI.Query<LocationSpawnSchedule, RefRW<Timer>, EnabledRefRW<TimerElapsed>>()) {
+                     SystemAPI.Query<ActorSpawnSchedule, RefRW<Timer>, EnabledRefRW<TimerElapsed>>()) {
 
                 // create spawn request
                 var entity = ecb.CreateEntity();
-                ecb.AddComponent(entity, new SpawnRequest {
+                ecb.AddComponent(entity, new ActorSpawnRequest {
                     actor = schedule.actor,
                     position = SpawnPositionProvider.Get(
                         schedule.location, config.arenaMin2D, config.arenaMax2D,

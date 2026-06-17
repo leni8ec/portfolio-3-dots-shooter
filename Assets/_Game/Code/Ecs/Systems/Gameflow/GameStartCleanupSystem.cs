@@ -2,6 +2,7 @@ using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Unity.Entities;
 
+// todo: purpose of this system?
 namespace Game.Ecs.Systems.Gameflow {
     [UpdateBefore(typeof(GameplaySystemGroup))]
     [UpdateInGroup(typeof(SimulationSystemGroup))]
@@ -19,7 +20,7 @@ namespace Game.Ecs.Systems.Gameflow {
 
         private void CleanupRuntimeEntities() {
             EntityManager.DestroyEntity(GetEntityQuery(ComponentType.ReadOnly<EnemyTag>(), ComponentType.Exclude<Prefab>()));
-            EntityManager.DestroyEntity(GetEntityQuery(ComponentType.ReadOnly<BulletData>(), ComponentType.Exclude<Prefab>()));
+            EntityManager.DestroyEntity(GetEntityQuery(ComponentType.ReadOnly<ShotInfo>(), ComponentType.Exclude<Prefab>()));
             EntityManager.DestroyEntity(GetEntityQuery(ComponentType.ReadOnly<PlayerTag>(), ComponentType.Exclude<Prefab>()));
         }
     }
