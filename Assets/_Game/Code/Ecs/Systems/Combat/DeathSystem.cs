@@ -1,19 +1,23 @@
-﻿using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Systems.Combat;
+using Game.Ecs.Components;
 using Game.Ecs.Groups;
+using Unity.Burst;
 using Unity.Entities;
 
 namespace Game.Ecs.Systems.Combat {
-    [UpdateAfter(typeof(AmmoHitSystem))]
+    [UpdateAfter(typeof(DamageApplySystem))]
     [UpdateAfter(typeof(EnemyTouchPlayerSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct DeathSystem : ISystem {
 
+        [BurstCompile]
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<GameState>();
             state.RequireForUpdate<Health>();
         }
 
+        [BurstCompile]
         public void OnUpdate(ref SystemState state) {
             var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
                 .CreateCommandBuffer(state.WorldUnmanaged);

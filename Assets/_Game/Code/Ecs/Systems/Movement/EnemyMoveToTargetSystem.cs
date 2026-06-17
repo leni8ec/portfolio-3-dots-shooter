@@ -2,6 +2,7 @@
 using Game.Ecs._Refactor.Logic;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
+using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
 
@@ -10,11 +11,13 @@ namespace Game.Ecs.Systems.Movement {
     internal partial struct EnemyMoveToTargetSystem : ISystem {
         private EntityQuery playersQuery;
 
+        [BurstCompile]
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate(SystemAPI.QueryBuilder()
                 .WithAll<EnemyTag, EnemyTarget>().Build());
         }
 
+        [BurstCompile]
         public void OnUpdate(ref SystemState state) {
             var deltaTime = SystemAPI.Time.DeltaTime;
 
