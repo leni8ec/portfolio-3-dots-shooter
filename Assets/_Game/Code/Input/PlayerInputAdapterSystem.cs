@@ -1,4 +1,5 @@
-﻿using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Components;
+using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -6,15 +7,16 @@ using Unity.Transforms;
 using UnityEngine;
 
 namespace Game.Input {
-    [UpdateBefore(typeof(GameplaySystemGroup))]
-    [UpdateInGroup(typeof(SimulationSystemGroup))]
+    [UpdateInGroup(typeof(InitializationSystemGroup))]
     public partial class PlayerInputAdapterSystem : SystemBase {
         private GameInput input;
+        private GameInput.TopDownActions inputActions;
         private Camera camera;
 
         protected override void OnCreate() {
             input = new GameInput();
             input.Enable();
+            inputActions = input.TopDown;
 
             RequireForUpdate<PlayerTag>();
         }
@@ -25,36 +27,50 @@ namespace Game.Input {
         }
 
         protected override void OnUpdate() {
-            Vector2 move = input.Player.Move.ReadValue<Vector2>();
-            Vector2 cursorScreenPosition = input.Player.Aim.ReadValue<Vector2>();
-
             if (!camera) camera = Camera.main;
-            if (!camera)
-                return;
+            if (!camera) return;
 
-            foreach (var (playerInput, transform) in
-                     SystemAPI.Query<RefRW<PlayerInputData>, RefRO<LocalTransform>>()
-                         .WithAll<PlayerTag>()) {
-                // move
-                playerInput.ValueRW.move = new float2(move.x, move.y);
+            var move = inputActions.Move.ReadValue<Vector2>();
+            var cursorScreenPosition = inputActions.Aim.ReadValue<Vector2>();
+            var wasShootPressedThisFrame = inputActions.ExtraShoot.WasPressedThisFrame();
 
-                // direction
-                Ray ray = camera.ScreenPointToRay(cursorScreenPosition);
-                Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-                if (!groundPlane.Raycast(ray, out float enter))
-                    continue;
+            var ecb = wasShootPressedThisFrame
+                ? SystemAPI.GetSingleton<EndInitializationEntityCommandBufferSystem.Singleton>()
+                    .CreateCommandBuffer(World.Unmanaged)
+                : default;
 
-                Vector3 hitPoint = ray.GetPoint(enter);
 
-                float3 playerPosition = transform.ValueRO.Position;
-                float3 aimDirection = new float3(
-                    hitPoint.x - playerPosition.x,
-                    0f,
-                    hitPoint.z - playerPosition.z
-                );
+            foreach (var (playerInput, transform, playerEntity) in SystemAPI
+                         .Query<RefRW<PlayerInputData>, RefRO<LocalTransform>>()
+                         .WithAll<PlayerTag>().WithEntityAccess()) {
 
-                if (math.lengthsq(aimDirection) > 0.001f) {
-                    playerInput.ValueRW.aimDirection = math.normalize(aimDirection);
+                { // === move ===
+                    playerInput.ValueRW.move = new float2(move.x, move.y);
+                }
+
+                { // === direction ===
+                    var ray = camera.ScreenPointToRay(cursorScreenPosition);
+                    var groundPlane = new Plane(Vector3.up, Vector3.zero);
+                    if (groundPlane.Raycast(ray, out var enter)) {
+                        var hitPoint = ray.GetPoint(enter);
+
+                        var playerPosition = transform.ValueRO.Position;
+                        var aimDirection = new float3(
+                            hitPoint.x - playerPosition.x,
+                            0f,
+                            hitPoint.z - playerPosition.z
+                        );
+
+                        if (math.lengthsq(aimDirection) > 0.001f) {
+                            playerInput.ValueRW.aimDirection = math.normalize(aimDirection);
+                        }
+                    }
+                }
+
+                { // === shoot ===
+                    if (wasShootPressedThisFrame) {
+                        ecb.SetComponentEnabled<ExtraShootRequest>(playerEntity, true);
+                    }
                 }
             }
         }

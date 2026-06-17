@@ -4,6 +4,7 @@ using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Game.Ecs.Systems.Movement;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
 
 namespace Game.Ecs.Systems.Combat {
@@ -23,24 +24,35 @@ namespace Game.Ecs.Systems.Combat {
             var config = SystemAPI.GetSingleton<GameConfig>();
             var deltaTime = SystemAPI.Time.DeltaTime;
 
-            foreach (var (input, ammoEquipment, timer, transform) in SystemAPI
-                         .Query<PlayerInputData, AmmoEquipment, RefRW<ShootTimer>, RefRO<LocalTransform>>()
-                         .WithAll<PlayerTag>()) {
-                // timer
-                timer.ValueRW.value -= deltaTime;
-                if (timer.ValueRO.value > 0f)
-                    continue;
-                timer.ValueRW.value = timer.ValueRO.interval;
+            var extraShootLookup = SystemAPI.GetComponentLookup<ExtraShootRequest>();
 
-                // spawn request
-                var ammoSpawnRequest = ecb.CreateEntity();
-                ecb.AddComponent(ammoSpawnRequest, new AmmoSpawnRequest {
-                    owner = ActorRole.Player,
-                    ammo = ammoEquipment.value,
-                    position = transform.ValueRO.Position,
-                    direction = input.aimDirection
-                });
+            foreach (var (input, ammoEquipment, shootTimer, transform, entity) in SystemAPI
+                         .Query<PlayerInputData, AmmoEquipment, RefRW<ShootTimer>, RefRO<LocalTransform>>()
+                         .WithAll<PlayerTag>().WithEntityAccess()) {
+
+                // shoot timer
+                shootTimer.ValueRW.value -= deltaTime;
+                if (shootTimer.ValueRO.value <= 0f) {
+                    shootTimer.ValueRW.value = shootTimer.ValueRO.interval;
+                    CreatePlayerAmmoSpawnRequest(ammoEquipment.value, transform.ValueRO.Position, input.aimDirection, ref ecb);
+                }
+
+                // extra shoot
+                if (extraShootLookup.IsComponentEnabled(entity)) {
+                    extraShootLookup.SetComponentEnabled(entity, false);
+                    CreatePlayerAmmoSpawnRequest(extraShootLookup[entity].Ammo, transform.ValueRO.Position, input.aimDirection, ref ecb);
+                }
             }
+        }
+
+        private static void CreatePlayerAmmoSpawnRequest(AmmoIdentity ammo, float3 position, float3 direction, ref EntityCommandBuffer ecb) {
+            var request = ecb.CreateEntity();
+            ecb.AddComponent(request, new AmmoSpawnRequest {
+                owner = ActorRole.Player,
+                ammo = ammo,
+                position = position,
+                direction = direction
+            });
         }
     }
 }

@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2292aa730ca4b8ba2ba8c2d27654175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.PlayerAuthoring
+  extraAmmo: 2
 --- !u!1 &5040097786551483959
 GameObject:
   m_ObjectHideFlags: 0

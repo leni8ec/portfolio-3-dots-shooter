@@ -32,12 +32,15 @@ namespace Game.Ecs._Refactor.Systems.Combat {
             public EntityCommandBuffer Ecb;
 
             private void Execute(Entity requestEntity, in ApplyDamageRequest request) {
+                Ecb.DestroyEntity(requestEntity);
+
                 var targetEntity = request.Target;
+                if (!HealthLookup.HasComponent(targetEntity))
+                    return;
+
                 var health = HealthLookup[targetEntity];
                 health.value -= request.Value;
                 HealthLookup[targetEntity] = health;
-
-                Ecb.DestroyEntity(requestEntity);
             }
         }
 
