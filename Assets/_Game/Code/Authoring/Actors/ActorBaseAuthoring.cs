@@ -1,10 +1,13 @@
-﻿using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Values;
+using Game.Ecs.Components;
 using Unity.Entities;
 using UnityEngine;
 
 namespace Game.Authoring.Actors {
     public sealed class ActorBaseAuthoring : MonoBehaviour {
 
+        public Actor actor;
+        [Space]
         public int health = 1;
         public float moveSpeed = 2.5f;
         public float shootInterval = 1.5f;
@@ -13,6 +16,7 @@ namespace Game.Authoring.Actors {
             public override void Bake(ActorBaseAuthoring authoring) {
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
 
+                AddComponent(entity, new ActorMember { value = authoring.actor });
                 AddComponent(entity, new Health { value = authoring.health });
                 AddComponent(entity, new MoveSpeed { value = authoring.moveSpeed });
                 AddComponent(entity, new ShootTimer {

@@ -2,15 +2,15 @@
 using UnityEngine.UIElements;
 
 namespace Game.Ui.Gameplay {
-    internal sealed class PlayerHealthBarUiView : MonoBehaviour {
+    internal sealed class HealthBarUiView : MonoBehaviour {
         [field: SerializeField] public Vector3 WorldOffset { get; private set; } = new(0f, 1.5f, 0f);
         [field: SerializeField] public bool LookAtCamera { get; private set; } = true;
 
         private Label healthLabel;
 
         private void Awake() {
-            UIDocument document = GetComponent<UIDocument>();
-            VisualElement root = document.rootVisualElement;
+            var document = GetComponent<UIDocument>();
+            var root = document.rootVisualElement;
 
             healthLabel = root.Q<Label>("health-label");
         }

@@ -3,6 +3,8 @@
 namespace Game.Ui.Gameplay {
     [CreateAssetMenu(menuName = "Game/UI Config", fileName = "GameUiConfig")]
     internal class GameUiConfigAsset : ScriptableObject {
-        public PlayerHealthBarUiView healthBarPrefab;
+        [Header("Health Bars")]
+        public HealthBarUiView playerHealthBarPrefab;
+        public HealthBarUiView enemyHealthBarPrefab;
     }
 }

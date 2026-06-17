@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9989757b2574299a82cc22489bb1077, type: 3}
   m_Name: GameUiConfig
   m_EditorClassIdentifier: Game.Ui::Game.Ui.Gameplay.GameUiConfigAsset
-  healthBarPrefab: {fileID: 2520447429725940424, guid: b77b20b888ffb9a4cbf1c9501938319c, type: 3}
+  playerHealthBarPrefab: {fileID: 2520447429725940424, guid: b77b20b888ffb9a4cbf1c9501938319c, type: 3}
+  enemyHealthBarPrefab: {fileID: 2520447429725940424, guid: 71c98ed6c4db33941937567077fb598f, type: 3}

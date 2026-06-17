@@ -7,9 +7,12 @@ namespace Game.Ui.Gameplay {
 
         private sealed class Baker : Baker<GameUiConfigAuthoring> {
             public override void Bake(GameUiConfigAuthoring authoring) {
+                DependsOn(authoring.uiConfig);
+
                 var entity = GetEntity(TransformUsageFlags.None);
                 AddComponentObject(entity, new GameUiConfig {
-                    healthBarPrefab = authoring.uiConfig.healthBarPrefab,
+                    playerHealthBarPrefab = authoring.uiConfig.playerHealthBarPrefab,
+                    enemyHealthBarPrefab = authoring.uiConfig.enemyHealthBarPrefab,
                 });
             }
         }

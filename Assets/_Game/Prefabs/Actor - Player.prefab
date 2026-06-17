@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a487681285459097bddaf710f83e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Actors.ActorBaseAuthoring
+  actor: 1
   health: 10
   moveSpeed: 6
   shootInterval: 0.3
