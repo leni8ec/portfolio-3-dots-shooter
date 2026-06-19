@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa588409808f401ea8e763627dbdf507, type: 3}
+  m_Name: AmmosCatalog (enemy)
+  m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Ammos.AmmoCatalog
+  assets:
+  - Asset: {fileID: 11400000, guid: 0ea5d918467dcb3408562ac55f8c9fee, type: 2}
+    Prefab: {fileID: 3684598976619291772, guid: fbfd27b3401c1f4489de8ffe53db0bfd, type: 3}
+  - Asset: {fileID: 11400000, guid: 059f64bab97197d45965ee1d51be58c6, type: 2}
+    Prefab: {fileID: 3684598976619291772, guid: 3e9d87477b3ea9547b61f8f661a52f26, type: 3}

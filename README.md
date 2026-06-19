@@ -15,6 +15,12 @@
 - ~~Scoring system~~
 - Game over condition
 
+## Paradigms / Patterns
+- ECS (DOD)
+- ScriptableObject-based Enums
+- Horizontal Slicing structure
+
 ## Usage packages
 - DOTS
 - UiToolkit
+- Tri-Inspector
