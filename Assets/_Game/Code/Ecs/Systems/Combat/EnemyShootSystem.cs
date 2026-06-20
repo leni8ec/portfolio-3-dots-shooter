@@ -44,7 +44,7 @@ namespace Game.Ecs.Systems.Combat {
 
                 var ammoSpawnRequest = ecb.CreateEntity();
                 ecb.AddComponent(ammoSpawnRequest, new AmmoSpawnRequest {
-                    owner = ActorRole.Enemy,
+                    ownerFaction = Faction.Enemy,
                     ammo = ammoEquipment.value,
                     position = transform.ValueRO.Position,
                     direction = direction

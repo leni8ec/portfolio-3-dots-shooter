@@ -7,14 +7,14 @@ namespace Game.Ui.Gameplay {
         public HealthBarUiView playerHealthBarPrefab;
         public HealthBarUiView enemyHealthBarPrefab;
 
-        public HealthBarUiView GetHealthBarPrefab(ActorRole actor) {
-            switch (actor) {
-                case ActorRole.Player:
+        public HealthBarUiView GetHealthBarPrefab(Faction faction) {
+            switch (faction) {
+                case Faction.Player:
                     return playerHealthBarPrefab;
-                case ActorRole.Enemy:
+                case Faction.Enemy:
                     return enemyHealthBarPrefab;
                 default:
-                    Debug.LogError($"Unknown actor {actor}");
+                    Debug.LogError($"Unknown faction: {faction}");
                     return null;
             }
         }

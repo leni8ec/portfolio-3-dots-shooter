@@ -28,14 +28,14 @@ namespace Game.Ecs._Refactor.Systems.Ammos {
                 var position = request.position;
                 var rotation = Rotation3D.FromDirection(request.direction);
 
-                var entity = ecb.Instantiate(config.GetAmmoPrefab(request.ammo, request.owner));
-                ecb.SetName(entity, $"{request.ammo} ({request.owner})");
+                var entity = ecb.Instantiate(config.GetAmmoPrefab(request.ammo, request.ownerFaction));
+                ecb.SetName(entity, $"{request.ammo} ({request.ownerFaction})");
                 ecb.SetComponent(entity, LocalTransform.FromPositionRotation(
                     position,
                     rotation
                 ));
                 ecb.AddComponent(entity, new ShotInfo {
-                    owner = request.owner,
+                    ownerFaction = request.ownerFaction,
                     direction = request.direction
                 });
             }

@@ -1,4 +1,4 @@
-﻿using Game.Configs.Main;
+﻿using Game.Configs.Game;
 using Game.Ecs.Components;
 using Unity.Entities;
 using Unity.Mathematics;

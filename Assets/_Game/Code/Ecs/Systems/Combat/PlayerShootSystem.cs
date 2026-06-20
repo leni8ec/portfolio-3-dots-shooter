@@ -48,7 +48,7 @@ namespace Game.Ecs.Systems.Combat {
         private static void CreatePlayerAmmoSpawnRequest(AmmoIdentity ammo, float3 position, float3 direction, ref EntityCommandBuffer ecb) {
             var request = ecb.CreateEntity();
             ecb.AddComponent(request, new AmmoSpawnRequest {
-                owner = ActorRole.Player,
+                ownerFaction = Faction.Player,
                 ammo = ammo,
                 position = position,
                 direction = direction

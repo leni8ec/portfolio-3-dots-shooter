@@ -1,4 +1,5 @@
-﻿using Game.Ecs._Refactor.Logic;
+﻿using Game.Ecs._Refactor.Components.Units;
+using Game.Ecs._Refactor.Logic;
 using Game.Ecs._Refactor.Systems.Combat;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;

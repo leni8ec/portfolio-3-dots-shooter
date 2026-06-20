@@ -26,33 +26,33 @@ namespace Game.Ecs.Components {
         public float enemyTouchDistanceSq;
 
 
-        public readonly Entity GetActorPrefab(ActorIdentity actor) {
-            switch (actor) {
-                case ActorIdentity.Player:
+        public readonly Entity GetUnitPrefab(UnitIdentity unit) {
+            switch (unit) {
+                case UnitIdentity.Player:
                     return playerPrefab;
-                case ActorIdentity.Enemy1:
+                case UnitIdentity.Enemy1:
                     return enemy1Prefab;
-                case ActorIdentity.Enemy2:
+                case UnitIdentity.Enemy2:
                     return enemy2Prefab;
                 default:
-                    Debug.LogError($"Actor prefab not found for actor: {actor}.");
+                    Debug.LogError($"Unit prefab not found for Unit: {unit}.");
                     return Entity.Null;
             }
         }
 
-        public readonly Entity GetAmmoPrefab(AmmoIdentity ammo, ActorRole actorRole) {
-            switch (actor: actorRole, ammo) {
-                case (ActorRole.Player, AmmoIdentity.Bullet):
+        public readonly Entity GetAmmoPrefab(AmmoIdentity ammo, Faction faction) {
+            switch (faction, ammo) {
+                case (Faction.Player, AmmoIdentity.Bullet):
                     return playerBulletPrefab;
-                case (ActorRole.Player, AmmoIdentity.Missile):
+                case (Faction.Player, AmmoIdentity.Missile):
                     return playerMissilePrefab;
-                case (ActorRole.Enemy, AmmoIdentity.Bullet):
+                case (Faction.Enemy, AmmoIdentity.Bullet):
                     return enemyBulletPrefab;
-                case (ActorRole.Enemy, AmmoIdentity.Missile):
+                case (Faction.Enemy, AmmoIdentity.Missile):
                     return enemyMissilePrefab;
 
                 default:
-                    Debug.LogError($"Ammo prefab not found for ammo ({ammo}) and actor role ({actorRole}).");
+                    Debug.LogError($"Ammo prefab not found for ammo ({ammo}) and faction ({faction}).");
                     return Entity.Null;
             }
         }

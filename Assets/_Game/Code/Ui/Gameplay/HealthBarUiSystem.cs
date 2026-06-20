@@ -1,4 +1,5 @@
-﻿using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Components.Units;
+using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Unity.Entities;
 using Unity.Transforms;
@@ -12,7 +13,7 @@ namespace Game.Ui.Gameplay {
         protected override void OnCreate() {
             RequireForUpdate<GameUiConfig>();
             RequireForUpdate(SystemAPI.QueryBuilder()
-                .WithAny<Actor, ActorUi>().Build());
+                .WithAny<Unit, UnitUi>().Build());
         }
 
         protected override void OnUpdate() {
@@ -23,19 +24,19 @@ namespace Game.Ui.Gameplay {
             Bind();
 
             // create
-            foreach (var (actor, entity) in SystemAPI
-                         .Query<Actor>()
-                         .WithNone<ActorUi>().WithEntityAccess()) {
-                var healthBarInstance = Object.Instantiate(uiConfig.GetHealthBarPrefab(actor.role));
-                ecb.AddComponent(entity, new ActorUi { healthBar = healthBarInstance });
+            foreach (var (unit, entity) in SystemAPI
+                         .Query<Unit>()
+                         .WithNone<UnitUi>().WithEntityAccess()) {
+                var healthBarInstance = Object.Instantiate(uiConfig.GetHealthBarPrefab(unit.faction));
+                ecb.AddComponent(entity, new UnitUi { healthBar = healthBarInstance });
             }
 
             // move
-            foreach (var (health, actorUi, localTransform) in SystemAPI
-                         .Query<Health, ActorUi, RefRO<LocalTransform>>()
-                         .WithAll<Actor>()) {
+            foreach (var (health, unitUi, localTransform) in SystemAPI
+                         .Query<Health, UnitUi, RefRO<LocalTransform>>()
+                         .WithAll<Unit>()) {
 
-                var healthBar = actorUi.healthBar;
+                var healthBar = unitUi.healthBar;
                 var position = (Vector3) localTransform.ValueRO.Position + healthBar.WorldOffset;
                 healthBar.SetHealth(health.value);
                 healthBar.SetPosition(position);
@@ -44,14 +45,14 @@ namespace Game.Ui.Gameplay {
             }
 
             // cleanup
-            foreach (var (actorUi, entity) in SystemAPI
-                         .Query<ActorUi>()
-                         .WithNone<Actor>().WithEntityAccess()) {
+            foreach (var (unitUi, entity) in SystemAPI
+                         .Query<UnitUi>()
+                         .WithNone<Unit>().WithEntityAccess()) {
 
-                if (actorUi.healthBar != null)
-                    Object.Destroy(actorUi.healthBar.gameObject);
+                if (unitUi.healthBar != null)
+                    Object.Destroy(unitUi.healthBar.gameObject);
 
-                ecb.RemoveComponent<ActorUi>(entity);
+                ecb.RemoveComponent<UnitUi>(entity);
             }
         }
 

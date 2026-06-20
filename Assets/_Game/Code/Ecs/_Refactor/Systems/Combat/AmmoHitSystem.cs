@@ -1,4 +1,5 @@
 ﻿using Game.Ecs._Refactor.Components;
+using Game.Ecs._Refactor.Components.Units;
 using Game.Ecs._Refactor.Values;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
@@ -55,7 +56,7 @@ namespace Game.Ecs._Refactor.Systems.Combat {
             var ecbSingleton = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
 
             var playerAmmoHandle = new AmmoHitPassJob {
-                AmmoOwner = ActorRole.Player,
+                AmmoFaction = Faction.Player,
                 TargetEntities = enemyEntities,
                 TargetTransforms = enemyTransforms,
                 HitDistanceSq = hitDistanceSq,
@@ -64,7 +65,7 @@ namespace Game.Ecs._Refactor.Systems.Combat {
             }.ScheduleParallel(ammoQuery, state.Dependency);
 
             var enemyAmmoHandle = new AmmoHitPassJob {
-                AmmoOwner = ActorRole.Enemy,
+                AmmoFaction = Faction.Enemy,
                 TargetEntities = playerEntities,
                 TargetTransforms = playerTransforms,
                 HitDistanceSq = hitDistanceSq,
@@ -77,7 +78,7 @@ namespace Game.Ecs._Refactor.Systems.Combat {
 
         [BurstCompile]
         private partial struct AmmoHitPassJob : IJobEntity {
-            public ActorRole AmmoOwner;
+            public Faction AmmoFaction;
 
             [ReadOnly, DeallocateOnJobCompletion] public NativeArray<Entity> TargetEntities;
             [ReadOnly, DeallocateOnJobCompletion] public NativeArray<LocalTransform> TargetTransforms;
@@ -93,7 +94,7 @@ namespace Game.Ecs._Refactor.Systems.Combat {
                 in ShotInfo shotInfo,
                 in LocalTransform ammoTransform
             ) {
-                if (shotInfo.owner != AmmoOwner)
+                if (shotInfo.ownerFaction != AmmoFaction)
                     return;
                 if (TargetEntities.Length == 0)
                     return;

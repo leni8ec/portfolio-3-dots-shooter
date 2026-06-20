@@ -1,6 +1,5 @@
 ﻿using Game.Ecs._Refactor.Components;
 using Game.Ecs.Components;
-using Game.Ecs.Groups;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;

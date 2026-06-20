@@ -4,7 +4,7 @@ using Unity.Mathematics;
 
 namespace Game.Ecs.Components {
     public struct ShotInfo : IComponentData {
-        public ActorRole owner;
+        public Faction ownerFaction;
         public float3 direction;
     }
 }

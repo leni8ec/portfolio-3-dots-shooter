@@ -38,7 +38,7 @@ public class ScriptableObjectCreatorWindow : ScriptableObject, ISearchWindowProv
         foreach (var type in types) {
             var attribute = (ScriptableObjectAssetAttribute) Attribute.GetCustomAttribute(type, typeof(ScriptableObjectAssetAttribute));
             var menuPath = attribute?.MenuPath;
-            var friendlyName = GetSpaceSeparatedString(type.Name);
+            var friendlyName = AddSpacesBeforeUppercaseLetters(type.Name);
 
             if (!string.IsNullOrEmpty(menuPath)) {
                 var parts = menuPath.Split('/');
@@ -83,8 +83,13 @@ public class ScriptableObjectCreatorWindow : ScriptableObject, ISearchWindowProv
         return result;
     }
 
-    /// <summary>Adds spaces before capital Latin letters.</summary>
-    public static string GetSpaceSeparatedString(string input) =>
+    /// <summary>Adds spaces between words before uppercase letters</summary>
+    public static string AddSpacesBeforeUppercaseLetters(string input) =>
         string.IsNullOrWhiteSpace(input) ? input : System.Text.RegularExpressions.Regex.Replace(input, @"(?<!^)(?=[A-Z])", " ");
+
+    /// <summary>Adds a space before the last uppercase letter</summary>
+    public static string AddSpaceBeforeLastUppercaseLetter(string input) =>
+        string.IsNullOrWhiteSpace(input) ? input : System.Text.RegularExpressions.Regex.Replace(input, @"(?<!^)(?=[A-Z][^A-Z]*$)", " ");
+
 
 }

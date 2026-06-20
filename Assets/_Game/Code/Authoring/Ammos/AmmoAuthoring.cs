@@ -1,4 +1,5 @@
-﻿using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Components.Units;
+using Game.Ecs.Components;
 using Unity.Entities;
 using UnityEngine;
 

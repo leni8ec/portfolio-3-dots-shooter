@@ -5,8 +5,9 @@ using TriInspector;
 using UnityEngine;
 
 namespace Game.Framework.Assets {
-    public abstract class AssetCatalog<T> : ScriptableConfig, IMappedScriptableConfig, IAssetCatalog<T> where T : Asset {
-        [TableList]
+    public abstract class AssetCatalog<T> : ScriptableConfig, IMappedScriptableConfig, IAssetCatalog<T> where T : ScriptableObject {
+
+        [TableList(AlwaysExpanded = true)] [PropertySpace]
         [SerializeField] private List<Entry> assets;
 
         private readonly Dictionary<T, GameObject> map = new();

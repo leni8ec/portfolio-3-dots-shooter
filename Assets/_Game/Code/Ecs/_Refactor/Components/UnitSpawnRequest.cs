@@ -3,10 +3,9 @@ using Unity.Entities;
 using Unity.Mathematics;
 
 namespace Game.Ecs._Refactor.Components {
-    public class AmmoSpawnRequest : IComponentData {
-        public Faction ownerFaction;
-        public AmmoIdentity ammo;
+    public struct UnitSpawnRequest : IComponentData {
+        public UnitIdentity Unit;
         public float3 position;
-        public float3 direction;
     }
+
 }

@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 767029649}
   - component: {fileID: 767029650}
   m_Layer: 0
-  m_Name: PlayerSpawner 3
+  m_Name: Player Spawner 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6161f43fb64c80b9b11abb915d8286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorSpawnerAuthoring
-  actor: 1
+  Unit: 1
 --- !u!1 &1023662662
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 1475761135}
   - component: {fileID: 1475761136}
   m_Layer: 0
-  m_Name: PlayerSpawner 1
+  m_Name: Player Spawner 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -759,7 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6161f43fb64c80b9b11abb915d8286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorSpawnerAuthoring
-  actor: 1
+  Unit: 1
 --- !u!1 &1830113538
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,7 +771,7 @@ GameObject:
   - component: {fileID: 1830113539}
   - component: {fileID: 1830113540}
   m_Layer: 0
-  m_Name: EnemySpawner 1
+  m_Name: Enemy1 Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -805,7 +805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorScheduleSpawnerAuthoring
   interval: 2
-  actor: 2
+  Unit: 2
   location: 1
 --- !u!1 &1942349016
 GameObject:
@@ -818,7 +818,7 @@ GameObject:
   - component: {fileID: 1942349017}
   - component: {fileID: 1942349018}
   m_Layer: 0
-  m_Name: PlayerSpawner 2
+  m_Name: Player Spawner 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -851,7 +851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6161f43fb64c80b9b11abb915d8286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorSpawnerAuthoring
-  actor: 1
+  Unit: 1
 --- !u!1 &1948857192
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,7 +863,7 @@ GameObject:
   - component: {fileID: 1948857193}
   - component: {fileID: 1948857194}
   m_Layer: 0
-  m_Name: EnemySpawner 2
+  m_Name: Enemy2 Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -897,7 +897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorScheduleSpawnerAuthoring
   interval: 3
-  actor: 3
+  Unit: 3
   location: 1
 --- !u!1 &1968462700
 GameObject:
