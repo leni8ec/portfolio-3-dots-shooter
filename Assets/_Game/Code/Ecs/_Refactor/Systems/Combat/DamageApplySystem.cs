@@ -3,6 +3,7 @@ using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Unity.Burst;
 using Unity.Entities;
+using Unity.Mathematics;
 
 namespace Game.Ecs._Refactor.Systems.Combat {
     [UpdateAfter(typeof(AmmoHitSystem))]
@@ -39,7 +40,7 @@ namespace Game.Ecs._Refactor.Systems.Combat {
                     return;
 
                 var health = HealthLookup[targetEntity];
-                health.value -= request.Value;
+                health.value = math.max(0, health.value - request.Value);
                 HealthLookup[targetEntity] = health;
             }
         }

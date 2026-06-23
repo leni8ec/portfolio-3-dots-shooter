@@ -3,25 +3,25 @@ using Game.Ecs._Refactor.Components.Units;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Game.Ecs.Systems.Movement;
+using Game.Framework.Assets;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-// todo: убрать двойную проверку, сделать все в 1 проход!
+// todo: considerations
+//  - change simple MxN to optimized algorithms (Spatial Hash, Quadtree)
 namespace Game.Ecs._Refactor.Systems.Combat {
     /// <summary>
     /// Uses simple MxN algorithm with AABB (Axis-Aligned Bounding Box), without "Spatial Hashing" or "Quadtrees".
-    /// Also use parallel schedule for fobs (this may not be optimal for a small number of entities, but it serves to show the algorithm itself).
+    /// Also use parallel schedule for jobs (this may not be optimal for a small number of entities, but it serves to show the algorithm itself).
     /// </summary>
     [UpdateAfter(typeof(AmmoMoveSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct AmmoHitSystem : ISystem {
         private EntityQuery ammoQuery;
-        private EntityQuery playersQuery;
-        private EntityQuery enemiesQuery;
+        private EntityQuery unitsQuery;
 
         [BurstCompile]
         public void OnCreate(ref SystemState state) {
@@ -31,63 +31,43 @@ namespace Game.Ecs._Refactor.Systems.Combat {
             ammoQuery = SystemAPI.QueryBuilder()
                 .WithAll<Ammo, ShotInfo, LocalTransform>().Build();
 
-            playersQuery = SystemAPI.QueryBuilder()
-                .WithAll<PlayerTag, Unit, Health, LocalTransform>().Build();
-
-            enemiesQuery = SystemAPI.QueryBuilder()
-                .WithAll<EnemyTag, Unit, Health, LocalTransform>().Build();
+            unitsQuery = SystemAPI.QueryBuilder()
+                .WithAll<Unit, Health, LocalTransform>().Build();
 
             state.RequireForUpdate(ammoQuery);
+            state.RequireForUpdate(unitsQuery);
         }
 
         [BurstCompile]
         public void OnUpdate(ref SystemState state) {
             var config = SystemAPI.GetSingleton<GameConfig>();
+            var ecbSingleton = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
 
             var hitDistanceSq = config.ammoHitDistanceSq;
             var hitDistance = math.sqrt(hitDistanceSq);
 
-            var playerEntities = playersQuery.ToEntityArray(Allocator.TempJob);
-            var playerUnits = playersQuery.ToComponentDataArray<Unit>(Allocator.TempJob);
-            var playerTransforms = playersQuery.ToComponentDataArray<LocalTransform>(Allocator.TempJob);
+            var targets = new NativeArray<UnitHitTarget>(unitsQuery.CalculateEntityCount(), Allocator.TempJob);
 
-            var enemyEntities = enemiesQuery.ToEntityArray(Allocator.TempJob);
-            var enemyUnits = enemiesQuery.ToComponentDataArray<Unit>(Allocator.TempJob);
-            var enemyTransforms = enemiesQuery.ToComponentDataArray<LocalTransform>(Allocator.TempJob);
+            state.Dependency = new CollectTargetsJob {
+                Targets = targets,
+            }.ScheduleParallel(unitsQuery, state.Dependency);
 
-            var ecbSingleton = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
-
-            var playerAmmoHandle = new AmmoHitPassJob {
-                TargetEntities = enemyEntities,
-                TargetUnits = enemyUnits,
-                TargetTransforms = enemyTransforms,
+            state.Dependency = new AmmoHitPassJob {
+                Ecb = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter(),
                 HitDistanceSq = hitDistanceSq,
                 HitDistance = hitDistance,
-                Ecb = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter()
+                Targets = targets,
             }.ScheduleParallel(ammoQuery, state.Dependency);
-
-            var enemyAmmoHandle = new AmmoHitPassJob {
-                TargetEntities = playerEntities,
-                TargetUnits = playerUnits,
-                TargetTransforms = playerTransforms,
-                HitDistanceSq = hitDistanceSq,
-                HitDistance = hitDistance,
-                Ecb = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter()
-            }.ScheduleParallel(ammoQuery, state.Dependency);
-
-            state.Dependency = JobHandle.CombineDependencies(playerAmmoHandle, enemyAmmoHandle);
         }
 
         [BurstCompile]
         private partial struct AmmoHitPassJob : IJobEntity {
-            [ReadOnly, DeallocateOnJobCompletion] public NativeArray<Entity> TargetEntities;
-            [ReadOnly, DeallocateOnJobCompletion] public NativeArray<Unit> TargetUnits;
-            [ReadOnly, DeallocateOnJobCompletion] public NativeArray<LocalTransform> TargetTransforms;
+            public EntityCommandBuffer.ParallelWriter Ecb;
 
             public float HitDistanceSq;
             public float HitDistance;
 
-            public EntityCommandBuffer.ParallelWriter Ecb;
+            [ReadOnly, DeallocateOnJobCompletion] public NativeArray<UnitHitTarget> Targets;
 
             private void Execute([ChunkIndexInQuery] int chunkIndex,
                 Entity ammoEntity,
@@ -95,18 +75,16 @@ namespace Game.Ecs._Refactor.Systems.Combat {
                 in ShotInfo shotInfo,
                 in LocalTransform ammoTransform
             ) {
-                if (TargetEntities.Length == 0)
-                    return;
+                var ammoPositionXZ = ammoTransform.Position.xz;
 
-                var ammoPosition = ammoTransform.Position;
+                for (var i = 0; i < Targets.Length; i++) {
+                    var target = Targets[i];
 
-                for (var i = 0; i < TargetEntities.Length; i++) {
-                    if (shotInfo.ownerFactionId == TargetUnits[i].factionId)
-                        return;
-                    var targetPosition = TargetTransforms[i].Position;
+                    if (shotInfo.ownerFactionId == target.FactionId)
+                        continue;
 
                     // XZ axis only
-                    var delta = targetPosition.xz - ammoPosition.xz;
+                    var delta = target.Position.xz - ammoPositionXZ;
 
                     // Cheap reject before squared distance.
                     if (math.abs(delta.x) > HitDistance ||
@@ -118,14 +96,38 @@ namespace Game.Ecs._Refactor.Systems.Combat {
 
                     var damageRequest = Ecb.CreateEntity(chunkIndex);
                     Ecb.AddComponent(chunkIndex, damageRequest, new ApplyDamageRequest {
-                        Target = TargetEntities[i],
+                        Target = target.Entity,
                         Value = ammo.damage
                     });
-                    Ecb.DestroyEntity(chunkIndex, ammoEntity);
 
+                    Ecb.DestroyEntity(chunkIndex, ammoEntity);
                     break;
                 }
             }
+        }
+
+        [BurstCompile]
+        private partial struct CollectTargetsJob : IJobEntity {
+            public NativeArray<UnitHitTarget> Targets;
+
+            private void Execute(
+                [EntityIndexInQuery] int index,
+                Entity entity,
+                in Unit unit,
+                in LocalTransform transform
+            ) {
+                Targets[index] = new UnitHitTarget {
+                    Entity = entity,
+                    Position = transform.Position,
+                    FactionId = unit.factionId
+                };
+            }
+        }
+
+        private struct UnitHitTarget {
+            public Entity Entity;
+            public float3 Position;
+            public Identity FactionId;
         }
     }
 }
