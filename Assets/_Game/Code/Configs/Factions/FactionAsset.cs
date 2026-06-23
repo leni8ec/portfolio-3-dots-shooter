@@ -2,6 +2,6 @@
 using Game.Framework.Unity.Attributes;
 
 namespace Game.Configs.Factions {
-    [ScriptableObjectAsset]
-    public class FactionAsset : Asset { }
+    [CreateScriptableObjectAsset]
+    public class FactionAsset : IdentityAsset { }
 }

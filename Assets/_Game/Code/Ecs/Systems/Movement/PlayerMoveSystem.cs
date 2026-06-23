@@ -18,10 +18,10 @@ namespace Game.Ecs.Systems.Movement {
             float deltaTime = SystemAPI.Time.DeltaTime;
 
             foreach (var (transform, input, speed) in
-                     SystemAPI.Query<RefRW<LocalTransform>, RefRO<PlayerInputData>, RefRO<MoveSpeed>>()
+                     SystemAPI.Query<RefRW<LocalTransform>, RefRO<PlayerInput>, RefRO<MoveSpeed>>()
                          .WithAll<PlayerTag>()) {
 
-                float3 direction = new float3(input.ValueRO.move.x, 0f, input.ValueRO.move.y);
+                float3 direction = new float3(input.ValueRO.Move.x, 0f, input.ValueRO.Move.y);
 
                 if (math.lengthsq(direction) > 1f)
                     direction = math.normalize(direction);

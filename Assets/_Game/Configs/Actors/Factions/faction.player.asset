@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e21d840938a40fcb850973f8ba72f0f, type: 3}
   m_Name: faction.player
   m_EditorClassIdentifier: Game.Configs::Game.Configs.Actors.ActorRoleAsset
-  useCustomAssetId: 0
-  assetId: 
+  useCustomId: 0
+  customAssetId: faction.player

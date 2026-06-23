@@ -3,31 +3,80 @@ using System.Collections.Generic;
 using Game.Framework.Unity.Configs;
 using TriInspector;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Game.Framework.Assets {
-    public abstract class AssetCatalog<T> : ScriptableConfig, IMappedScriptableConfig, IAssetCatalog<T> where T : ScriptableObject {
+    ///<remarks> Duck-typed foreach (read-only) </remarks>
+    public abstract class AssetCatalog<TAsset> : ScriptableConfig where TAsset : Object {
 
-        [TableList(AlwaysExpanded = true)] [PropertySpace]
-        [SerializeField] private List<Entry> assets;
+        public abstract IdentityAsset Scope { get; }
 
-        private readonly Dictionary<T, GameObject> map = new();
+        public struct CatalogEntry {
+            public AssetId AssetId;
+            public TAsset Prefab;
 
-        public void Map() {
-            foreach (var entry in assets)
-                map[entry.Asset] = entry.Prefab;
+            public void Deconstruct(out AssetId assetId, out TAsset prefab) {
+                assetId = AssetId;
+                prefab = Prefab;
+            }
         }
 
-        public GameObject Get(T asset) =>
-            map.TryGetValue(asset, out var prefab)
-                ? prefab
-                : throw new NullReferenceException($"Prefab is not found for '{asset}'");
+        public Dictionary<AssetId, TAsset> ToDictionary() {
+            var dictionary = new Dictionary<AssetId, TAsset>();
+            for (var i = 0; i < this.Count; i++) {
+                var entry = this[i];
+                if (!dictionary.TryAdd(entry.AssetId, entry.Prefab))
+                    Debug.LogError($"Duplicate asset id {entry.AssetId.ToFixedString()}");
+            }
+            return dictionary;
+        }
 
+        public abstract int Count { get; }
+        public abstract CatalogEntry this[int index] { get; }
 
-        [Serializable]
-        public struct Entry {
-            public T Asset;
-            public GameObject Prefab;
+        public Enumerator GetEnumerator() => new(this);
+
+        public struct Enumerator {
+            private readonly AssetCatalog<TAsset> catalog;
+            private int index;
+
+            public Enumerator(AssetCatalog<TAsset> catalog) {
+                this.catalog = catalog;
+                index = -1;
+            }
+
+            public bool MoveNext() => ++index < catalog.Count;
+
+            public CatalogEntry Current => catalog[index];
         }
     }
 
+    public class AssetCatalog<TIdentityAsset, TAsset, TScopeAsset> : AssetCatalog<TAsset>
+        where TIdentityAsset : IdentityAsset
+        where TAsset : Object
+        where TScopeAsset : IdentityAsset {
+
+        [PropertySpace]
+        [SerializeField] private TScopeAsset scope;
+        public override IdentityAsset Scope => scope;
+
+        [TableList(AlwaysExpanded = true)] [PropertySpace]
+        [SerializeField] private List<ListEntry> entries = new();
+
+        public override int Count => entries.Count;
+
+        public override CatalogEntry this[int index] => (CatalogEntry) entries[index];
+
+        [Serializable]
+        internal struct ListEntry {
+            public TIdentityAsset AssetIdentity;
+            public TAsset Prefab;
+
+            public static explicit operator CatalogEntry(ListEntry listEntry) =>
+                new() {
+                    AssetId = listEntry.AssetIdentity.AsAssetId(),
+                    Prefab = listEntry.Prefab
+                };
+        }
+    }
 }

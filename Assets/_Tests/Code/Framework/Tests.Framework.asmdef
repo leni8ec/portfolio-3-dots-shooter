@@ -1,0 +1,21 @@
+{
+    "name": "Tests.Framework",
+    "rootNamespace": "Tests",
+    "references": [
+        "GUID:e252ec0ed730d5646b001273db36fd52",
+        "GUID:e0cd26848372d4e5c891c569017e11f1"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

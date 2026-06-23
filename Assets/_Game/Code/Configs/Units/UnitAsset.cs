@@ -2,6 +2,6 @@
 using Game.Framework.Unity.Attributes;
 
 namespace Game.Configs.Units {
-    [ScriptableObjectAsset]
-    public class UnitAsset : Asset { }
+    [CreateScriptableObjectAsset]
+    public class UnitAsset : IdentityAsset { }
 }

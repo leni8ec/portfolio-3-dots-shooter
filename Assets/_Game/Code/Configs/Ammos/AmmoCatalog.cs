@@ -1,7 +1,9 @@
+using Game.Configs.Factions;
 using Game.Framework.Assets;
 using Game.Framework.Unity.Attributes;
+using UnityEngine;
 
 namespace Game.Configs.Ammos {
-    [ScriptableObjectAsset]
-    public class AmmoCatalog : AssetCatalog<AmmoAsset> { }
+    [CreateScriptableObjectAsset]
+    public class AmmoCatalog : AssetCatalog<AmmoAsset, GameObject, FactionAsset> { }
 }

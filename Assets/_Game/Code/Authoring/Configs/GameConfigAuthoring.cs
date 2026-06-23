@@ -11,25 +11,16 @@ namespace Game.Authoring.Configs {
 
         private sealed class Baker : Baker<GameConfigAuthoring> {
             public override void Bake(GameConfigAuthoring authoring) {
-                GameConfigAsset config = authoring.config;
+                var config = authoring.config;
                 if (!config) {
                     Debug.LogError("GameConfigAuthoring requires GameConfigAsset.", authoring);
                     return;
                 }
 
                 DependsOn(config);
-                Entity entity = GetEntity(TransformUsageFlags.None);
+                var entity = GetEntity(TransformUsageFlags.None);
 
                 AddComponent(entity, new GameConfig {
-                    playerPrefab = GetEntity(config.playerPrefab, TransformUsageFlags.Dynamic),
-                    enemy1Prefab = GetEntity(config.enemy1Prefab, TransformUsageFlags.Dynamic),
-                    enemy2Prefab = GetEntity(config.enemy2Prefab, TransformUsageFlags.Dynamic),
-
-                    playerBulletPrefab = GetEntity(config.playerBulletPrefab, TransformUsageFlags.Dynamic),
-                    playerMissilePrefab = GetEntity(config.playerMissilePrefab, TransformUsageFlags.Dynamic),
-                    enemyBulletPrefab = GetEntity(config.enemyBulletPrefab, TransformUsageFlags.Dynamic),
-                    enemyMissilePrefab = GetEntity(config.enemyMissilePrefab, TransformUsageFlags.Dynamic),
-
                     arenaMin2D = new float2(config.arenaMin.x, config.arenaMin.y),
                     arenaMax2D = new float2(config.arenaMax.x, config.arenaMax.y),
                     arenaCenter2D = new float2(

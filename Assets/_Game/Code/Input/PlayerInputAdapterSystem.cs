@@ -40,11 +40,11 @@ namespace Game.Input {
 
 
             foreach (var (playerInput, transform, playerEntity) in SystemAPI
-                         .Query<RefRW<PlayerInputData>, RefRO<LocalTransform>>()
+                         .Query<RefRW<PlayerInput>, RefRO<LocalTransform>>()
                          .WithAll<PlayerTag>().WithEntityAccess()) {
 
                 { // === move ===
-                    playerInput.ValueRW.move = new float2(move.x, move.y);
+                    playerInput.ValueRW.Move = new float2(move.x, move.y);
                 }
 
                 { // === direction ===
@@ -61,7 +61,7 @@ namespace Game.Input {
                         );
 
                         if (math.lengthsq(aimDirection) > 0.001f) {
-                            playerInput.ValueRW.aimDirection = math.normalize(aimDirection);
+                            playerInput.ValueRW.AimDirection = math.normalize(aimDirection);
                         }
                     }
                 }

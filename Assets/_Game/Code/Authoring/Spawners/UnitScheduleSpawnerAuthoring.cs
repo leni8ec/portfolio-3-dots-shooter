@@ -1,4 +1,5 @@
-﻿using Game.Ecs._Refactor.Components;
+﻿using Game.Configs.Units;
+using Game.Ecs._Refactor.Components;
 using Game.Ecs._Refactor.Components.Common;
 using Game.Ecs._Refactor.Values;
 using Unity.Entities;
@@ -7,7 +8,7 @@ using UnityEngine;
 namespace Game.Authoring.Spawners {
     public class UnitScheduleSpawnerAuthoring : MonoBehaviour {
         public float interval;
-        public UnitIdentity Unit;
+        public UnitAsset Unit;
         public ArenaLocation location;
 
         public sealed class Baker : Baker<UnitScheduleSpawnerAuthoring> {
@@ -16,7 +17,7 @@ namespace Game.Authoring.Spawners {
                 var schedule = GetEntity(TransformUsageFlags.None);
                 AddComponent(schedule, new UnitSpawnSchedule {
                     interval = authoring.interval,
-                    Unit = authoring.Unit,
+                    UnitId = authoring.Unit,
                     location = authoring.location
                 });
 

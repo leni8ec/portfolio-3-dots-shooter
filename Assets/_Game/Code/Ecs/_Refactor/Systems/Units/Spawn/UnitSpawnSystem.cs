@@ -1,6 +1,7 @@
 ﻿using Game.Ecs._Refactor.Components;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
+using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
 
@@ -8,26 +9,29 @@ namespace Game.Ecs._Refactor.Systems.Units.Spawn {
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct UnitSpawnSystem : ISystem {
 
+        [BurstCompile]
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
-            state.RequireForUpdate<GameConfig>();
+            state.RequireForUpdate<PrefabCatalog>();
             state.RequireForUpdate<GameRandom>();
             state.RequireForUpdate(SystemAPI.QueryBuilder()
                 .WithAll<UnitSpawnRequest>().Build());
         }
 
+        [BurstCompile]
         public void OnUpdate(ref SystemState state) {
             var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
                 .CreateCommandBuffer(state.WorldUnmanaged);
-            var config = SystemAPI.GetSingleton<GameConfig>();
+            var prefabCatalog = SystemAPI.GetSingleton<PrefabCatalog>();
             ref var random = ref SystemAPI.GetSingletonRW<GameRandom>().ValueRW.value;
 
             foreach (var (request, entity) in SystemAPI.Query<UnitSpawnRequest>().WithEntityAccess()) {
                 ecb.DestroyEntity(entity);
 
-                var prefab = config.GetUnitPrefab(request.Unit);
+                // Debug.Log($"Spawn unit: {request.UnitId}, scope: {default}");
+                var prefab = prefabCatalog.Actors.Get(request.UnitId, default);
                 var instance = ecb.Instantiate(prefab);
-                ecb.SetName(entity, request.Unit.ToString()); // debug
+                ecb.SetName(entity, request.UnitId.ToFixedString()); // debug
                 ecb.AddComponent(instance, LocalTransform.FromPosition(request.position));
             }
         }

@@ -11,7 +11,7 @@ namespace Game.Ecs._Refactor.Systems.Ammos {
 
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
-            state.RequireForUpdate<GameConfig>();
+            state.RequireForUpdate<PrefabCatalog>();
             state.RequireForUpdate(SystemAPI.QueryBuilder()
                 .WithAll<AmmoSpawnRequest>().Build());
         }
@@ -19,24 +19,29 @@ namespace Game.Ecs._Refactor.Systems.Ammos {
         public void OnUpdate(ref SystemState state) {
             var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
                 .CreateCommandBuffer(state.WorldUnmanaged);
-            var config = SystemAPI.GetSingleton<GameConfig>();
+            var prefabCatalog = SystemAPI.GetSingleton<PrefabCatalog>();
 
             foreach (var (request, requestEntity) in SystemAPI
                          .Query<AmmoSpawnRequest>().WithEntityAccess()) {
                 ecb.DestroyEntity(requestEntity);
 
+                var ammoId = request.ammoId;
+                var factionId = request.ownerFactionId;
                 var position = request.position;
-                var rotation = Rotation3D.FromDirection(request.direction);
+                var direction = request.direction;
+                var rotation = Rotation3D.FromDirection(direction);
 
-                var entity = ecb.Instantiate(config.GetAmmoPrefab(request.ammo, request.ownerFaction));
-                ecb.SetName(entity, $"{request.ammo} ({request.ownerFaction})");
+                // Debug.Log($"ammo: {ammoId}, faction: {factionId}");
+                var prefab = prefabCatalog.Actors.Get(ammoId, factionId);
+                var entity = ecb.Instantiate(prefab);
+                ecb.SetName(entity, $"{ammoId} ({factionId})");
                 ecb.SetComponent(entity, LocalTransform.FromPositionRotation(
                     position,
                     rotation
                 ));
                 ecb.AddComponent(entity, new ShotInfo {
-                    ownerFaction = request.ownerFaction,
-                    direction = request.direction
+                    ownerFactionId = factionId,
+                    direction = direction
                 });
             }
         }

@@ -3,16 +3,6 @@ using UnityEngine;
 namespace Game.Configs.Game {
     [CreateAssetMenu(menuName = "Game/Config", fileName = "GameConfig")]
     public sealed class GameConfigAsset : ScriptableObject {
-        [Header("Actor prefabs")]
-        public GameObject playerPrefab;
-        public GameObject enemy1Prefab;
-        public GameObject enemy2Prefab;
-
-        [Header("Ammo prefabs")]
-        public GameObject playerBulletPrefab;
-        public GameObject playerMissilePrefab;
-        public GameObject enemyBulletPrefab;
-        public GameObject enemyMissilePrefab;
 
         [Header("Arena")]
         public Vector2 arenaMin = new(-14.5f, -10f);

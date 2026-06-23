@@ -6,10 +6,10 @@ namespace Game.Framework.Unity.Attributes {
     /// <br/> Leave empty for root menu, or set a path with slashes to create folders (e.g. "Actors/Weapons/").
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class ScriptableObjectAssetAttribute : Attribute {
+    public class CreateScriptableObjectAssetAttribute : Attribute {
         public string MenuPath { get; }
 
-        public ScriptableObjectAssetAttribute(string menuPath = "") {
+        public CreateScriptableObjectAssetAttribute(string menuPath = "") {
             MenuPath = menuPath;
         }
     }

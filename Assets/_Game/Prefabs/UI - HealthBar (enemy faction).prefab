@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2321780018817645774}
-  - component: {fileID: 7780321562696300145}
   - component: {fileID: 2520447429725940424}
+  - component: {fileID: 7780321562696300145}
   m_Layer: 5
   m_Name: UI - HealthBar (enemy faction)
   m_TagString: Untagged
@@ -33,6 +33,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2520447429725940424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2359855488300813646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a65ef5977a24782a91daa3b29858bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Ui::Game.Ui.Gameplay.WorldUiView
+  <WorldOffset>k__BackingField: {x: 0, y: 2, z: 0}
+  <LookAtCamera>k__BackingField: 1
 --- !u!114 &7780321562696300145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,17 +70,3 @@ MonoBehaviour:
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
---- !u!114 &2520447429725940424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2359855488300813646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a65ef5977a24782a91daa3b29858bb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game.Ui::Game.Ui.Gameplay.WorldUiView
-  <WorldOffset>k__BackingField: {x: 0, y: 2, z: 0}
-  <LookAtCamera>k__BackingField: 1

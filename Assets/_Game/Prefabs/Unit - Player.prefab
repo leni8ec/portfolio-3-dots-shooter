@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a487681285459097bddaf710f83e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Actors.ActorBaseAuthoring
-  Unit: 1
-  ammo: 1
+  Unit: {fileID: 11400000, guid: 8b280caf60bc00f42bd115bea6bed9c2, type: 2}
+  Faction: {fileID: 11400000, guid: 40f67585a6609354c9abd2169ce2bace, type: 2}
+  Ammo: {fileID: 11400000, guid: 0ea5d918467dcb3408562ac55f8c9fee, type: 2}
   health: 10
   moveSpeed: 6
   shootInterval: 0.3
@@ -63,7 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2292aa730ca4b8ba2ba8c2d27654175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.PlayerAuthoring
-  extraAmmo: 2
+  extraAmmo: {fileID: 11400000, guid: 059f64bab97197d45965ee1d51be58c6, type: 2}
 --- !u!1 &5040097786551483959
 GameObject:
   m_ObjectHideFlags: 0

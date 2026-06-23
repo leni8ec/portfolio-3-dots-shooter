@@ -1,9 +1,9 @@
-﻿using Game.Ecs._Refactor.Values;
+﻿using Game.Framework.Assets;
 using Unity.Entities;
 
 namespace Game.Ecs._Refactor.Components.Units {
     public struct Unit : IComponentData {
-        public UnitIdentity identity;
-        public Faction faction;
+        public AssetId unitId;
+        public AssetId factionId;
     }
 }

@@ -1,7 +1,8 @@
 using Game.Framework.Assets;
 using Game.Framework.Unity.Attributes;
+using UnityEngine;
 
 namespace Game.Configs.Factions {
-    [ScriptableObjectAsset]
-    public class FactionCatalog : AssetCatalog<FactionAsset> { }
+    [CreateScriptableObjectAsset]
+    public class FactionCatalog : AssetCatalog<FactionAsset, GameObject, NoScopeAsset> { }
 }

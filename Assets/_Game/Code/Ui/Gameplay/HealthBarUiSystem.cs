@@ -11,7 +11,7 @@ namespace Game.Ui.Gameplay {
         private Camera camera;
 
         protected override void OnCreate() {
-            RequireForUpdate<GameUiConfig>();
+            RequireForUpdate<HealthBarPrefabElement>();
             RequireForUpdate(SystemAPI.QueryBuilder()
                 .WithAny<Unit, UnitUi>().Build());
         }
@@ -19,7 +19,7 @@ namespace Game.Ui.Gameplay {
         protected override void OnUpdate() {
             var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
                 .CreateCommandBuffer(World.Unmanaged);
-            var uiConfig = SystemAPI.ManagedAPI.GetSingleton<GameUiConfig>();
+            var buffer = SystemAPI.GetSingletonBuffer<HealthBarPrefabElement>(true);
 
             Bind();
 
@@ -27,7 +27,7 @@ namespace Game.Ui.Gameplay {
             foreach (var (unit, entity) in SystemAPI
                          .Query<Unit>()
                          .WithNone<UnitUi>().WithEntityAccess()) {
-                var healthBarInstance = Object.Instantiate(uiConfig.GetHealthBarPrefab(unit.faction));
+                var healthBarInstance = Object.Instantiate(buffer.Get(unit.factionId));
                 ecb.AddComponent(entity, new UnitUi { healthBar = healthBarInstance });
             }
 

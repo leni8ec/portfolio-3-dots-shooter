@@ -3,17 +3,21 @@ using UnityEngine;
 
 namespace Game.Ui.Gameplay {
     internal class GameUiConfigAuthoring : MonoBehaviour {
-        public GameUiConfigAsset uiConfig;
+        public HealthBarCatalogAsset HealthBarCatalogAsset;
 
         private sealed class Baker : Baker<GameUiConfigAuthoring> {
             public override void Bake(GameUiConfigAuthoring authoring) {
-                DependsOn(authoring.uiConfig);
+                DependsOn(authoring.HealthBarCatalogAsset);
 
                 var entity = GetEntity(TransformUsageFlags.None);
-                AddComponentObject(entity, new GameUiConfig {
-                    playerHealthBarPrefab = authoring.uiConfig.playerHealthBarPrefab,
-                    enemyHealthBarPrefab = authoring.uiConfig.enemyHealthBarPrefab,
-                });
+                var healthBarBuffer = AddBuffer<HealthBarPrefabElement>(entity);
+
+                foreach (var entry in authoring.HealthBarCatalogAsset) {
+                    healthBarBuffer.Add(new HealthBarPrefabElement {
+                        FactionId = entry.AssetId,
+                        HealthBarPrefab = entry.Prefab
+                    });
+                }
             }
         }
     }

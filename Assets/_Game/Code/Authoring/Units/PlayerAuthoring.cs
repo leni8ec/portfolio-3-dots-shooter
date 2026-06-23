@@ -1,5 +1,5 @@
-﻿using Game.Ecs._Refactor.Components;
-using Game.Ecs._Refactor.Values;
+﻿using Game.Configs.Ammos;
+using Game.Ecs._Refactor.Components;
 using Game.Ecs.Components;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -11,19 +11,19 @@ namespace Game.Authoring.Units {
     /// </summary>
     public sealed class PlayerAuthoring : MonoBehaviour {
 
-        public AmmoIdentity extraAmmo;
+        public AmmoAsset extraAmmo;
 
         private sealed class Baker : Baker<PlayerAuthoring> {
             public override void Bake(PlayerAuthoring authoring) {
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
 
                 AddComponent<PlayerTag>(entity);
-                AddComponent(entity, new PlayerInputData {
-                    move = float2.zero,
-                    aimDirection = new float3(0f, 0f, 1f)
+                AddComponent(entity, new PlayerInput {
+                    Move = float2.zero,
+                    AimDirection = new float3(0f, 0f, 1f)
                 });
                 // extra shoot request
-                AddComponent(entity, new ExtraShootRequest { Ammo = authoring.extraAmmo });
+                AddComponent(entity, new ExtraShootRequest { AmmoId = authoring.extraAmmo.AsAssetId() });
                 SetComponentEnabled<ExtraShootRequest>(entity, false);
             }
         }

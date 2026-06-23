@@ -1,5 +1,7 @@
-﻿using Game.Ecs._Refactor.Components.Units;
-using Game.Ecs._Refactor.Values;
+﻿using Game.Configs.Ammos;
+using Game.Configs.Factions;
+using Game.Configs.Units;
+using Game.Ecs._Refactor.Components.Units;
 using Game.Ecs.Components;
 using Unity.Entities;
 using UnityEngine;
@@ -7,8 +9,9 @@ using UnityEngine;
 namespace Game.Authoring.Units {
     public sealed class UnitBaseAuthoring : MonoBehaviour {
 
-        public UnitIdentity Unit;
-        public AmmoIdentity ammo;
+        public UnitAsset Unit;
+        public FactionAsset Faction;
+        public AmmoAsset Ammo;
         [Space]
         public int health = 1;
         public float moveSpeed = 2.5f;
@@ -19,12 +22,12 @@ namespace Game.Authoring.Units {
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
 
                 AddComponent(entity, new Unit {
-                    identity = authoring.Unit,
-                    faction = authoring.Unit.GetFaction(),
+                    unitId = authoring.Unit,
+                    factionId = authoring.Faction,
                 });
                 AddComponent(entity, new Health { value = authoring.health });
                 AddComponent(entity, new MoveSpeed { value = authoring.moveSpeed });
-                AddComponent(entity, new AmmoEquipment { value = authoring.ammo });
+                AddComponent(entity, new AmmoEquipment { AmmoId = authoring.Ammo });
                 AddComponent(entity, new ShootTimer {
                     value = authoring.shootInterval,
                     interval = authoring.shootInterval

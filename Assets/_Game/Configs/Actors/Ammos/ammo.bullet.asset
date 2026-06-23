@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15bef410ce74e1bb52b42b911fe6b6a, type: 3}
   m_Name: ammo.bullet
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Ammos.AmmoAsset
-  useCustomAssetId: 0
-  assetId: 
+  useCustomId: 0
+  customAssetId: ammo.bullet

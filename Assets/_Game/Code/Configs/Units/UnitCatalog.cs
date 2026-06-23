@@ -1,7 +1,8 @@
 ﻿using Game.Framework.Assets;
 using Game.Framework.Unity.Attributes;
+using UnityEngine;
 
 namespace Game.Configs.Units {
-    [ScriptableObjectAsset]
-    public class UnitCatalog : AssetCatalog<UnitAsset> { }
+    [CreateScriptableObjectAsset]
+    public class UnitCatalog : AssetCatalog<UnitAsset, GameObject, NoScopeAsset> { }
 }

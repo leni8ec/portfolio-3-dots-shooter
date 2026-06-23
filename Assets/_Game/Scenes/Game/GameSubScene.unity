@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6161f43fb64c80b9b11abb915d8286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorSpawnerAuthoring
-  Unit: 1
+  Unit: {fileID: 11400000, guid: 8b280caf60bc00f42bd115bea6bed9c2, type: 2}
 --- !u!1 &1023662662
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,7 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6161f43fb64c80b9b11abb915d8286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorSpawnerAuthoring
-  Unit: 1
+  Unit: {fileID: 11400000, guid: 8b280caf60bc00f42bd115bea6bed9c2, type: 2}
 --- !u!1 &1830113538
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,7 +805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorScheduleSpawnerAuthoring
   interval: 2
-  Unit: 2
+  Unit: {fileID: 11400000, guid: 899bf3fca49da9e46854a677829b587c, type: 2}
   location: 1
 --- !u!1 &1942349016
 GameObject:
@@ -851,7 +851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6161f43fb64c80b9b11abb915d8286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorSpawnerAuthoring
-  Unit: 1
+  Unit: {fileID: 11400000, guid: 8b280caf60bc00f42bd115bea6bed9c2, type: 2}
 --- !u!1 &1948857192
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorScheduleSpawnerAuthoring
   interval: 3
-  Unit: 3
+  Unit: {fileID: 11400000, guid: 2c9fe6c175b4d704e85978d59d3fbdb2, type: 2}
   location: 1
 --- !u!1 &1968462700
 GameObject:
@@ -978,7 +978,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2024487636}
   - component: {fileID: 2024487637}
-  - component: {fileID: 2024487638}
+  - component: {fileID: 2024487639}
+  - component: {fileID: 2024487640}
   m_Layer: 0
   m_Name: Configs
   m_TagString: Untagged
@@ -1014,7 +1015,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.GameConfigAuthoring
   config: {fileID: 11400000, guid: 2e5b9f27b0f64fb381532a2c86e1a716, type: 2}
---- !u!114 &2024487638
+--- !u!114 &2024487639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024487635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b119ac2bad404b61b43b103a8f70ba11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Configs.CatalogsConfigAuthoring
+  Actors: {fileID: 11400000, guid: 4882bc2b5b1644f499bed34e81f196ef, type: 2}
+--- !u!114 &2024487640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1026,7 +1040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de318a0c14e642e0b2f3ac6f9b4cf1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Ui::Game.Ui.Gameplay.GameUiConfigAuthoring
-  uiConfig: {fileID: 11400000, guid: 343c376e42b18c5469dd71e18a0d24b5, type: 2}
+  HealthBarCatalogAsset: {fileID: 11400000, guid: 53bdbbc497c112f4bbb891e844a20179, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

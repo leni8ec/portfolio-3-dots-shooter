@@ -149,8 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a487681285459097bddaf710f83e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Actors.ActorBaseAuthoring
-  Unit: 3
-  ammo: 2
+  Unit: {fileID: 11400000, guid: 2c9fe6c175b4d704e85978d59d3fbdb2, type: 2}
+  Faction: {fileID: 11400000, guid: 51db2f9d1757b9240b200efed05ae15b, type: 2}
+  Ammo: {fileID: 11400000, guid: 059f64bab97197d45965ee1d51be58c6, type: 2}
   health: 2
   moveSpeed: 1.5
   shootInterval: 3

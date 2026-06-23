@@ -1,8 +1,8 @@
-﻿using Game.Ecs._Refactor.Values;
+﻿using Game.Framework.Assets;
 using Unity.Entities;
 
 namespace Game.Ecs.Components {
     public struct AmmoEquipment : IComponentData {
-        public AmmoIdentity value;
+        public AssetId AmmoId;
     }
 }

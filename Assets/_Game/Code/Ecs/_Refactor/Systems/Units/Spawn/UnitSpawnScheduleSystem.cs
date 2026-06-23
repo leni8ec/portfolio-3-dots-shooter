@@ -31,7 +31,7 @@ namespace Game.Ecs._Refactor.Systems.Units.Spawn {
                 // create spawn request
                 var entity = ecb.CreateEntity();
                 ecb.AddComponent(entity, new UnitSpawnRequest {
-                    Unit = schedule.Unit,
+                    UnitId = schedule.UnitId,
                     position = SpawnPositionProvider.Get(
                         schedule.location, config.arenaMin2D, config.arenaMax2D,
                         config.outsideArenaSpawnOffset, ref random),

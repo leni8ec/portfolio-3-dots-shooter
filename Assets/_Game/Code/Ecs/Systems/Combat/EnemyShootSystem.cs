@@ -1,7 +1,7 @@
 ﻿using Game.Ecs._Refactor.Components;
 using Game.Ecs._Refactor.Components.Enemies;
+using Game.Ecs._Refactor.Components.Units;
 using Game.Ecs._Refactor.Logic;
-using Game.Ecs._Refactor.Values;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Game.Ecs.Systems.Movement;
@@ -16,9 +16,8 @@ namespace Game.Ecs.Systems.Combat {
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<GameConfig>();
-            state.RequireForUpdate<PlayerTag>();
             state.RequireForUpdate(SystemAPI.QueryBuilder()
-                .WithAll<EnemyTag, EnemyTarget>().Build());
+                .WithAll<Unit, EnemyTarget, AmmoEquipment, ShootTimer>().Build());
         }
 
         public void OnUpdate(ref SystemState state) {
@@ -28,9 +27,8 @@ namespace Game.Ecs.Systems.Combat {
             var config = SystemAPI.GetSingleton<GameConfig>();
             var deltaTime = SystemAPI.Time.DeltaTime;
 
-            foreach (var (enemyTarget, ammoEquipment, timer, transform) in SystemAPI
-                         .Query<EnemyTarget, AmmoEquipment, RefRW<ShootTimer>, RefRO<LocalTransform>>()
-                         .WithAll<EnemyTag>()) {
+            foreach (var (unit, enemyTarget, ammoEquipment, timer, transform) in SystemAPI
+                         .Query<Unit, EnemyTarget, AmmoEquipment, RefRW<ShootTimer>, RefRO<LocalTransform>>()) {
                 // timer
                 timer.ValueRW.value -= deltaTime;
                 if (timer.ValueRO.value > 0f)
@@ -44,8 +42,8 @@ namespace Game.Ecs.Systems.Combat {
 
                 var ammoSpawnRequest = ecb.CreateEntity();
                 ecb.AddComponent(ammoSpawnRequest, new AmmoSpawnRequest {
-                    ownerFaction = Faction.Enemy,
-                    ammo = ammoEquipment.value,
+                    ownerFactionId = unit.factionId,
+                    ammoId = ammoEquipment.AmmoId,
                     position = transform.ValueRO.Position,
                     direction = direction
                 });

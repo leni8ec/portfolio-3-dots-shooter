@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0166f9ba5f484f39ade13d99078916fc, type: 3}
   m_Name: unit.player1
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Actors.ActorAsset
-  useCustomAssetId: 0
-  assetId: 
+  useCustomId: 0
+  customAssetId: unit.player1

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Game.Framework.Unity.Attributes;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -31,12 +32,12 @@ public class ScriptableObjectCreatorWindow : ScriptableObject, ISearchWindowProv
             new SearchTreeGroupEntry(new GUIContent("Create ScriptableObject"), 0)
         };
 
-        var types = TypeCache.GetTypesWithAttribute<ScriptableObjectAssetAttribute>()
+        var types = TypeCache.GetTypesWithAttribute<CreateScriptableObjectAssetAttribute>()
             .Where(t => t.IsSubclassOf(typeof(ScriptableObject)) && !t.IsAbstract)
             .OrderBy(t => t.Name);
 
         foreach (var type in types) {
-            var attribute = (ScriptableObjectAssetAttribute) Attribute.GetCustomAttribute(type, typeof(ScriptableObjectAssetAttribute));
+            var attribute = (CreateScriptableObjectAssetAttribute) Attribute.GetCustomAttribute(type, typeof(CreateScriptableObjectAssetAttribute));
             var menuPath = attribute?.MenuPath;
             var friendlyName = AddSpacesBeforeUppercaseLetters(type.Name);
 
@@ -85,11 +86,11 @@ public class ScriptableObjectCreatorWindow : ScriptableObject, ISearchWindowProv
 
     /// <summary>Adds spaces between words before uppercase letters</summary>
     public static string AddSpacesBeforeUppercaseLetters(string input) =>
-        string.IsNullOrWhiteSpace(input) ? input : System.Text.RegularExpressions.Regex.Replace(input, @"(?<!^)(?=[A-Z])", " ");
+        string.IsNullOrWhiteSpace(input) ? input : Regex.Replace(input, @"(?<!^)(?=[A-Z])", " ");
 
     /// <summary>Adds a space before the last uppercase letter</summary>
     public static string AddSpaceBeforeLastUppercaseLetter(string input) =>
-        string.IsNullOrWhiteSpace(input) ? input : System.Text.RegularExpressions.Regex.Replace(input, @"(?<!^)(?=[A-Z][^A-Z]*$)", " ");
+        string.IsNullOrWhiteSpace(input) ? input : Regex.Replace(input, @"(?<!^)(?=[A-Z][^A-Z]*$)", " ");
 
 
 }
