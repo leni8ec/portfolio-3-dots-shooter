@@ -28,11 +28,11 @@ namespace Game.Authoring.Configs {
                 var scopeId = catalog.Scope;
                 // Debug.Log($"catalog: {catalog.name} (scope: {scopeId})");
                 for (var i = 0; i < catalog.Count; i++) {
-                    var (assetId, prefab) = catalog[i];
-                    // Debug.Log($"assetId: {assetId}, scopeId: {scopeId}, prefab: {prefab}");
+                    var (identity, prefab) = catalog[i];
+                    // Debug.Log($"identity: {identity}, scopeId: {scopeId}, prefab: {prefab}");
 
                     buffer.Add(new ActorPrefabElement {
-                        AssetId = assetId,
+                        Identity = identity,
                         Prefab = GetEntity(prefab, TransformUsageFlags.Dynamic),
                         Scope = scopeId
                     });

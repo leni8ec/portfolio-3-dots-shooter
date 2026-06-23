@@ -12,21 +12,21 @@ namespace Game.Framework.Assets {
         public abstract IdentityAsset Scope { get; }
 
         public struct CatalogEntry {
-            public AssetId AssetId;
+            public Identity Identity;
             public TAsset Prefab;
 
-            public void Deconstruct(out AssetId assetId, out TAsset prefab) {
-                assetId = AssetId;
+            public void Deconstruct(out Identity identity, out TAsset prefab) {
+                identity = Identity;
                 prefab = Prefab;
             }
         }
 
-        public Dictionary<AssetId, TAsset> ToDictionary() {
-            var dictionary = new Dictionary<AssetId, TAsset>();
+        public Dictionary<Identity, TAsset> ToDictionary() {
+            var dictionary = new Dictionary<Identity, TAsset>();
             for (var i = 0; i < this.Count; i++) {
                 var entry = this[i];
-                if (!dictionary.TryAdd(entry.AssetId, entry.Prefab))
-                    Debug.LogError($"Duplicate asset id {entry.AssetId.ToFixedString()}");
+                if (!dictionary.TryAdd(entry.Identity, entry.Prefab))
+                    Debug.LogError($"Duplicate asset id {entry.Identity.ToFixedString()}");
             }
             return dictionary;
         }
@@ -69,12 +69,12 @@ namespace Game.Framework.Assets {
 
         [Serializable]
         internal struct ListEntry {
-            public TIdentityAsset AssetIdentity;
+            public TIdentityAsset IdentityAsset;
             public TAsset Prefab;
 
             public static explicit operator CatalogEntry(ListEntry listEntry) =>
                 new() {
-                    AssetId = listEntry.AssetIdentity.AsAssetId(),
+                    Identity = listEntry.IdentityAsset.AsIdentity(),
                     Prefab = listEntry.Prefab
                 };
         }

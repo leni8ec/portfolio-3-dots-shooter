@@ -3,10 +3,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Unity.Collections;
 
-// todo: AssetId
+// todo: considerations
 //  - rename to `Identity` or `Token` or `IdentityToken`
 //  - use `byte` as `id` for release builds
-//  - make generic to use compile time specifications (ex: AssetId<Unit>, AssetId<Ammo>), like `IdentityAsset` authoring
+//  - make generic to use compile time specifications (ex: Identity<Unit>, Identity<Ammo>), like an `IdentityAsset` inheritors
 //  - make `value` as private with public property?
 //  - use combined `ushort ` value with a scope? (scope: value >> 8)
 namespace Game.Framework.Assets {
@@ -17,17 +17,17 @@ namespace Game.Framework.Assets {
     /// Holds 29 ASCII symbols (32 - 3 for internal usages)
     /// </remarks>
     [SuppressMessage("ReSharper", "StructCanBeMadeReadOnly")]
-    public struct AssetId : IEquatable<AssetId> {
+    public struct Identity : IEquatable<Identity> {
 
         public FixedString32Bytes Value;
 
-        public AssetId(FixedString32Bytes value) =>
+        public Identity(FixedString32Bytes value) =>
             Value = value;
 
-        public AssetId(string value) =>
+        public Identity(string value) =>
             Value = (FixedString32Bytes) value;
 
-        public static AssetId Combine(AssetId left, AssetId right) =>
+        public static Identity Combine(Identity left, Identity right) =>
             left.Combine(right);
 
         public readonly FixedString32Bytes ToFixedString() => Value;
@@ -35,12 +35,12 @@ namespace Game.Framework.Assets {
         public override string ToString() => Value.ToString();
 
         [SuppressMessage("ReSharper", "Unity.BurstLoadingManagedType")]
-        public override bool Equals(object obj) => obj is AssetId other && Equals(other);
+        public override bool Equals(object obj) => obj is Identity other && Equals(other);
 
-        public bool Equals(AssetId other) => Value.Equals(other.Value);
+        public bool Equals(Identity other) => Value.Equals(other.Value);
 
-        public static bool operator ==(AssetId left, AssetId right) => left.Equals(right);
-        public static bool operator !=(AssetId left, AssetId right) => !left.Equals(right);
+        public static bool operator ==(Identity left, Identity right) => left.Equals(right);
+        public static bool operator !=(Identity left, Identity right) => !left.Equals(right);
 
         public override int GetHashCode() => (int) GetDeterministicHash(Value);
 

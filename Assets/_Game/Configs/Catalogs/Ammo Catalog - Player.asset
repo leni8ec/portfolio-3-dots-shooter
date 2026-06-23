@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Ammos.AmmoCatalog
   scope: {fileID: 11400000, guid: 40f67585a6609354c9abd2169ce2bace, type: 2}
   entries:
-  - AssetIdentity: {fileID: 11400000, guid: 0ea5d918467dcb3408562ac55f8c9fee, type: 2}
+  - IdentityAsset: {fileID: 11400000, guid: 0ea5d918467dcb3408562ac55f8c9fee, type: 2}
     Prefab: {fileID: 3684598976619291772, guid: f1f1b51154c5c0f47853e582d11021f6, type: 3}
-  - AssetIdentity: {fileID: 11400000, guid: 059f64bab97197d45965ee1d51be58c6, type: 2}
+  - IdentityAsset: {fileID: 11400000, guid: 059f64bab97197d45965ee1d51be58c6, type: 2}
     Prefab: {fileID: 3684598976619291772, guid: 89ae4c936f400f54c9c74444e08ad905, type: 3}

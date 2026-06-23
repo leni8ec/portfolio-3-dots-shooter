@@ -3,13 +3,12 @@ using Unity.Entities;
 
 namespace Game.Ecs._Refactor.Components {
     public struct ActorPrefabElement : IBufferElementData {
-        public AssetId AssetId;
+        public Identity Identity;
         public Entity Prefab;
+        public Identity Scope;
 
-        public AssetId Scope;
-
-        public void Deconstruct(out AssetId assetId, out Entity prefab, out AssetId scope) {
-            assetId = AssetId;
+        public void Deconstruct(out Identity identity, out Entity prefab, out Identity scope) {
+            identity = Identity;
             prefab = Prefab;
             scope = Scope;
         }

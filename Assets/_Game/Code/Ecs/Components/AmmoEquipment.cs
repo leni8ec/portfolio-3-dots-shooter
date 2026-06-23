@@ -3,6 +3,6 @@ using Unity.Entities;
 
 namespace Game.Ecs.Components {
     public struct AmmoEquipment : IComponentData {
-        public AssetId AmmoId;
+        public Identity AmmoId;
     }
 }

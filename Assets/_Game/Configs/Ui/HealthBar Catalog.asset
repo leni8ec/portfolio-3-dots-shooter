@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.Ui::Game.Ui.Gameplay.HealthBarCatalogAsset
   scope: {fileID: 0}
   entries:
-  - AssetIdentity: {fileID: 11400000, guid: 40f67585a6609354c9abd2169ce2bace, type: 2}
+  - IdentityAsset: {fileID: 11400000, guid: 40f67585a6609354c9abd2169ce2bace, type: 2}
     Prefab: {fileID: 2520447429725940424, guid: b77b20b888ffb9a4cbf1c9501938319c, type: 3}
-  - AssetIdentity: {fileID: 11400000, guid: 51db2f9d1757b9240b200efed05ae15b, type: 2}
+  - IdentityAsset: {fileID: 11400000, guid: 51db2f9d1757b9240b200efed05ae15b, type: 2}
     Prefab: {fileID: 2520447429725940424, guid: 71c98ed6c4db33941937567077fb598f, type: 3}

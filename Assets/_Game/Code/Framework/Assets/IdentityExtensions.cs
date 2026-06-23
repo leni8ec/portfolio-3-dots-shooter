@@ -5,10 +5,10 @@ using Unity.Mathematics;
 
 namespace Game.Framework.Assets {
     [SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
-    public static class AssetIdExtensions {
+    public static class IdentityExtensions {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static AssetId Combine(this AssetId self, AssetId other) {
+        public static Identity Combine(this Identity self, Identity other) {
             const byte separator = (byte) '_';
             const int textBudget = 28; // 29 bytes minus separator and left part
             const int halfBudget = 14; // Half of 29-byte text limit
@@ -26,7 +26,7 @@ namespace Game.Framework.Assets {
             result.AppendRawByte(separator);
             result.Append(right);
 
-            return new AssetId(result);
+            return new Identity(result);
         }
 
     }

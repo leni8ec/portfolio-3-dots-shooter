@@ -44,7 +44,7 @@ namespace Game.Ecs.Systems.Combat {
             }
         }
 
-        private static void CreatePlayerAmmoSpawnRequest(AssetId factionId, AssetId ammoId, float3 position, float3 direction, ref EntityCommandBuffer ecb) {
+        private static void CreatePlayerAmmoSpawnRequest(Identity factionId, Identity ammoId, float3 position, float3 direction, ref EntityCommandBuffer ecb) {
             var request = ecb.CreateEntity();
             ecb.AddComponent(request, new AmmoSpawnRequest {
                 ownerFactionId = factionId,

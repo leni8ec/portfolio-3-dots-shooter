@@ -21,10 +21,10 @@ namespace Game.Ecs._Refactor.Systems {
             var buffer = state.EntityManager.GetBuffer<ActorPrefabElement>(entity);
 
             // create actual map
-            var prefabScopedMap = new ScopedNativeParallelHashMap<AssetId, Entity>(buffer.Length, Allocator.Persistent);
-            foreach (var (assetId, prefab, scope) in buffer)
-                if (!prefabScopedMap.TryAdd(assetId, prefab, scope))
-                    Debug.LogError($"Couldn't add prefab (assetId: {assetId}, scope: {scope}) to hash catalog");
+            var prefabScopedMap = new ScopedNativeParallelHashMap<Identity, Entity>(buffer.Length, Allocator.Persistent);
+            foreach (var (identity, prefab, scope) in buffer)
+                if (!prefabScopedMap.TryAdd(identity, prefab, scope))
+                    Debug.LogError($"Couldn't add prefab (identity: {identity}, scope: {scope}) to hash catalog");
 
             // clear old map (if exists)
             if (state.EntityManager.HasComponent<PrefabCatalog>(entity)) {

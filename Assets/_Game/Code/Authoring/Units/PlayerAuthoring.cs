@@ -23,7 +23,7 @@ namespace Game.Authoring.Units {
                     AimDirection = new float3(0f, 0f, 1f)
                 });
                 // extra shoot request
-                AddComponent(entity, new ExtraShootRequest { AmmoId = authoring.extraAmmo.AsAssetId() });
+                AddComponent(entity, new ExtraShootRequest { AmmoId = authoring.extraAmmo.AsIdentity() });
                 SetComponentEnabled<ExtraShootRequest>(entity, false);
             }
         }

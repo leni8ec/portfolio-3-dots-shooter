@@ -4,7 +4,7 @@ using Unity.Mathematics;
 
 namespace Game.Ecs._Refactor.Components {
     public struct UnitSpawnRequest : IComponentData {
-        public AssetId UnitId;
+        public Identity UnitId;
         public float3 position;
     }
 

@@ -1,9 +1,11 @@
-﻿using Game.Ecs._Refactor.Components.Units;
+﻿using Game.Configs.Ammos;
+using Game.Ecs._Refactor.Components.Units;
 using Unity.Entities;
 using UnityEngine;
 
 namespace Game.Authoring.Ammos {
     public sealed class AmmoAuthoring : MonoBehaviour {
+        public AmmoAsset ammo;
         public int damage;
         public float speed;
 
@@ -11,6 +13,7 @@ namespace Game.Authoring.Ammos {
             public override void Bake(AmmoAuthoring authoring) {
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
                 AddComponent(entity, new Ammo {
+                    ammoId = authoring.ammo.AsIdentity(),
                     damage = authoring.damage,
                     speed = authoring.speed,
                 });

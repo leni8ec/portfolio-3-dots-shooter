@@ -14,7 +14,7 @@ namespace Game.Ui.Gameplay {
 
                 foreach (var entry in authoring.HealthBarCatalogAsset) {
                     healthBarBuffer.Add(new HealthBarPrefabElement {
-                        FactionId = entry.AssetId,
+                        FactionId = entry.Identity,
                         HealthBarPrefab = entry.Prefab
                     });
                 }

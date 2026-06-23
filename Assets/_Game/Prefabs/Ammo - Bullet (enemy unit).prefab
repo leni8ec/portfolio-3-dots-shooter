@@ -148,8 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ff88640db24620bd09fa57d6248e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::BulletAuthoring
-  speed: 8
+  ammo: {fileID: 11400000, guid: 0ea5d918467dcb3408562ac55f8c9fee, type: 2}
   damage: 1
+  speed: 8
 --- !u!1 &4390239559427650338
 GameObject:
   m_ObjectHideFlags: 0
