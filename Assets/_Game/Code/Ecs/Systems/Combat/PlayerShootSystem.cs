@@ -52,10 +52,10 @@ namespace Game.Ecs.Systems.Combat {
         private static void CreatePlayerAmmoSpawnRequest(Identity factionId, Identity ammoId, float3 position, float3 direction, ref EntityCommandBuffer ecb) {
             var request = ecb.CreateEntity();
             ecb.AddComponent(request, new AmmoSpawnRequest {
-                ownerFactionId = factionId,
-                ammoId = ammoId,
-                position = position,
-                direction = direction
+                OwnerFactionId = factionId,
+                AmmoId = ammoId,
+                Position = position,
+                Direction = direction
             });
         }
     }

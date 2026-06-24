@@ -22,18 +22,18 @@ namespace Game.Ecs._Refactor.Systems.Common {
         public void OnUpdate(ref SystemState state) {
             var deltaTime = SystemAPI.Time.DeltaTime;
 
-            var job = new TickTimerJob { deltaTime = deltaTime };
+            var job = new TickTimerJob { DeltaTime = deltaTime };
             state.Dependency = job.ScheduleParallel(query, state.Dependency);
         }
 
         [BurstCompile]
         public partial struct TickTimerJob : IJobEntity {
-            public float deltaTime;
+            public float DeltaTime;
 
             public void Execute(ref Timer timer, EnabledRefRW<TimerElapsed> timerElapsedEnabled) {
-                timer.value -= deltaTime;
+                timer.Value -= DeltaTime;
 
-                if (timer.value <= 0)
+                if (timer.Value <= 0)
                     timerElapsedEnabled.ValueRW = true;
             }
         }

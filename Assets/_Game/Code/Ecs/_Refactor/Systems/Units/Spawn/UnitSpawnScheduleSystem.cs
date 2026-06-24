@@ -35,12 +35,12 @@ namespace Game.Ecs._Refactor.Systems.Units.Spawn {
                     UnitId = schedule.UnitId,
                     FactionId = schedule.FactionId,
                     Position = SpawnPositionProvider.Get(
-                        schedule.location, config.arenaMin2D, config.arenaMax2D,
+                        schedule.Location, config.arenaMin2D, config.arenaMax2D,
                         config.outsideArenaSpawnOffset, ref random),
                 });
 
                 // reset schedule timer
-                timer.ValueRW.value = schedule.interval;
+                timer.ValueRW.Value = schedule.Interval;
                 timerElapsedEnabled.ValueRW = false;
             }
         }

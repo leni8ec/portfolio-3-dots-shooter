@@ -3,8 +3,8 @@ using Unity.Entities;
 
 namespace Game.Ecs._Refactor.Components.Identities.Actors {
     public struct Ammo : IComponentData {
-        public Identity ammoId;
-        public int damage;
-        public float speed;
+        public Identity AmmoId;
+        public int Damage;
+        public float Speed;
     }
 }

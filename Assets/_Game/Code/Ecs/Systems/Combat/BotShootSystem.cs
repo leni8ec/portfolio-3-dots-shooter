@@ -39,15 +39,15 @@ namespace Game.Ecs.Systems.Combat {
 
                 // spawn request
                 var fromPosition = transform.ValueRO.Position;
-                var targetPosition = transformLookup[botTarget.entity].Position;
+                var targetPosition = transformLookup[botTarget.Entity].Position;
                 var direction = Rotation3D.GetDirection2D(fromPosition, targetPosition);
 
                 var ammoSpawnRequest = ecb.CreateEntity();
                 ecb.AddComponent(ammoSpawnRequest, new AmmoSpawnRequest {
-                    ownerFactionId = faction.FactionId,
-                    ammoId = ammoEquipment.AmmoId,
-                    position = transform.ValueRO.Position,
-                    direction = direction
+                    OwnerFactionId = faction.FactionId,
+                    AmmoId = ammoEquipment.AmmoId,
+                    Position = transform.ValueRO.Position,
+                    Direction = direction
                 });
             }
         }

@@ -13,9 +13,9 @@ namespace Game.Authoring.Ammos {
             public override void Bake(AmmoAuthoring authoring) {
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
                 AddComponent(entity, new Ammo {
-                    ammoId = authoring.ammo.AsIdentity(),
-                    damage = authoring.damage,
-                    speed = authoring.speed,
+                    AmmoId = authoring.ammo.AsIdentity(),
+                    Damage = authoring.damage,
+                    Speed = authoring.speed,
                 });
             }
         }

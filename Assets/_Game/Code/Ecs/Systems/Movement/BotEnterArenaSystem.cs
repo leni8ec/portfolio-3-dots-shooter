@@ -60,7 +60,7 @@ namespace Game.Ecs.Systems.Movement {
                 var randomPlayerIndex = random.NextInt(players.Length);
                 var targetPlayer = players[randomPlayerIndex];
 
-                SystemAPI.SetComponent(entity, new BotTarget { entity = targetPlayer });
+                SystemAPI.SetComponent(entity, new BotTarget { Entity = targetPlayer });
                 SystemAPI.SetComponentEnabled<BotTarget>(entity, true);
             }
 

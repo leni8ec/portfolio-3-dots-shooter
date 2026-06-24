@@ -1,5 +1,3 @@
-using Game.Ecs._Refactor.Components.Ammos;
-using Game.Ecs._Refactor.Components.Controls;
 using Game.Ecs._Refactor.Components.Identities.Actors;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;

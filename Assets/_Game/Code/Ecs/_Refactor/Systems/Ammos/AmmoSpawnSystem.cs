@@ -26,10 +26,10 @@ namespace Game.Ecs._Refactor.Systems.Ammos {
                          .Query<AmmoSpawnRequest>().WithEntityAccess()) {
                 ecb.DestroyEntity(requestEntity);
 
-                var ammoId = request.ammoId;
-                var factionId = request.ownerFactionId;
-                var position = request.position;
-                var direction = request.direction;
+                var ammoId = request.AmmoId;
+                var factionId = request.OwnerFactionId;
+                var position = request.Position;
+                var direction = request.Direction;
                 var rotation = Rotation3D.FromDirection(direction);
 
                 // Debug.Log($"ammo: {ammoId}, faction: {factionId}");

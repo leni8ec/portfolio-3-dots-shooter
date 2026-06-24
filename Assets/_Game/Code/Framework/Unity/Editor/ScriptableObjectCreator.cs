@@ -91,6 +91,5 @@ namespace Game.Framework.Unity.Editor {
         public static string AddSpaceBeforeLastUppercaseLetter(string input) =>
             string.IsNullOrWhiteSpace(input) ? input : Regex.Replace(input, @"(?<!^)(?=[A-Z][^A-Z]*$)", " ");
 
-
     }
 }

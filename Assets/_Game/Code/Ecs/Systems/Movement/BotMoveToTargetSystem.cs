@@ -28,9 +28,9 @@ namespace Game.Ecs.Systems.Movement {
                          .WithAll<BotControlTag>()) {
 
                 // reset target if target no longer exists
-                var targetEntity = target.ValueRO.entity;
+                var targetEntity = target.ValueRO.Entity;
                 if (targetEntity == Entity.Null || !transformLookup.HasComponent(targetEntity)) {
-                    target.ValueRW.entity = default;
+                    target.ValueRW.Entity = default;
                     targetEnabled.ValueRW = false;
                     continue;
                 }

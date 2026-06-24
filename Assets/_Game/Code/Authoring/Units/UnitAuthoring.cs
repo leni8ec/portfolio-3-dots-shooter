@@ -3,7 +3,6 @@ using Game.Configs.Units;
 using Game.Ecs._Refactor.Components.Ammos;
 using Game.Ecs._Refactor.Components.Identities.Actors;
 using Game.Ecs._Refactor.Components.Stats;
-using Game.Ecs.Components;
 using Unity.Entities;
 using UnityEngine;
 

@@ -24,13 +24,13 @@ namespace Game.Authoring.Spawners {
                     ControlType = authoring.ControlType,
                     UnitId = authoring.Unit,
                     FactionId = authoring.Faction,
-                    interval = authoring.Interval,
-                    location = authoring.Location
+                    Interval = authoring.Interval,
+                    Location = authoring.Location
                 });
 
                 // timer
                 AddComponent(schedule, new Timer {
-                    value = authoring.Interval,
+                    Value = authoring.Interval,
                 });
                 AddComponent<TimerElapsed>(schedule);
                 SetComponentEnabled<TimerElapsed>(schedule, false);

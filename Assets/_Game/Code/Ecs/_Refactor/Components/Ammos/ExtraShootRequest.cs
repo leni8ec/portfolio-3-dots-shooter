@@ -1,6 +1,5 @@
-﻿using Game.Framework.Assets;
-using Unity.Entities;
+﻿using Unity.Entities;
 
 namespace Game.Ecs._Refactor.Components.Ammos {
-    public struct ExtraShootRequest : IComponentData, IEnableableComponent {}
+    public struct ExtraShootRequest : IComponentData, IEnableableComponent { }
 }

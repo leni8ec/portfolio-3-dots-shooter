@@ -7,7 +7,8 @@ namespace Game.Ecs._Refactor.Components {
         public ControlType ControlType;
         public Identity UnitId;
         public Identity FactionId;
-        public float interval;
-        public ArenaLocation location;
+
+        public float Interval;
+        public ArenaLocation Location;
     }
 }

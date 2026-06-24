@@ -4,9 +4,9 @@ using Unity.Mathematics;
 
 namespace Game.Ecs._Refactor.Components.Ammos {
     public class AmmoSpawnRequest : IComponentData {
-        public Identity ownerFactionId;
-        public Identity ammoId;
-        public float3 position;
-        public float3 direction;
+        public Identity OwnerFactionId;
+        public Identity AmmoId;
+        public float3 Position;
+        public float3 Direction;
     }
 }
