@@ -1,5 +1,5 @@
 ﻿using Game.Ecs._Refactor.Components;
-using Game.Ecs.Components;
+using Game.Ecs._Refactor.Components.Stats;
 using Game.Ecs.Groups;
 using Unity.Burst;
 using Unity.Entities;

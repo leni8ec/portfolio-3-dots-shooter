@@ -1,4 +1,5 @@
-﻿using Game.Ecs._Refactor.Systems.Combat;
+﻿using Game.Ecs._Refactor.Components.Stats;
+using Game.Ecs._Refactor.Systems.Combat;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Unity.Burst;

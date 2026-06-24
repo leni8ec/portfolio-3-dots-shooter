@@ -1,7 +1,7 @@
-﻿using Game.Ecs._Refactor.Components;
+﻿using Game.Ecs._Refactor.Components.Ammos;
+using Game.Ecs._Refactor.Components.Controls;
 using Game.Ecs._Refactor.Components.Identities.Actors;
 using Game.Ecs._Refactor.Components.Identities.Traits;
-using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Game.Ecs.Systems.Movement;
 using Game.Framework.Assets;
@@ -9,6 +9,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
+// todo: split responsibilities (base shoot, extra shoot) ?
 namespace Game.Ecs.Systems.Combat {
     [UpdateAfter(typeof(PlayerMoveSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
@@ -25,23 +26,25 @@ namespace Game.Ecs.Systems.Combat {
                 .CreateCommandBuffer(state.WorldUnmanaged);
             var deltaTime = SystemAPI.Time.DeltaTime;
 
+            // extra ammo - not necessarily present on the entity
             var extraShootLookup = SystemAPI.GetComponentLookup<ExtraShootRequest>();
+            var extraAmmoLookup = SystemAPI.GetComponentLookup<ExtraAmmoEquipment>();
 
             foreach (var (faction, input, ammoEquipment, shootTimer, transform, entity) in SystemAPI
                          .Query<Faction, PlayerInput, AmmoEquipment, RefRW<ShootTimer>, RefRO<LocalTransform>>()
                          .WithAll<Unit>().WithEntityAccess()) {
 
                 // shoot timer
-                shootTimer.ValueRW.value -= deltaTime;
-                if (shootTimer.ValueRO.value <= 0f) {
-                    shootTimer.ValueRW.value = shootTimer.ValueRO.interval;
+                shootTimer.ValueRW.Value -= deltaTime;
+                if (shootTimer.ValueRO.Value <= 0f) {
+                    shootTimer.ValueRW.Value = shootTimer.ValueRO.Interval;
                     CreatePlayerAmmoSpawnRequest(faction.FactionId, ammoEquipment.AmmoId, transform.ValueRO.Position, input.AimDirection, ref ecb);
                 }
 
                 // extra shoot
-                if (extraShootLookup.IsComponentEnabled(entity)) {
+                if (extraAmmoLookup.HasComponent(entity) && extraShootLookup.IsComponentEnabled(entity)) {
                     extraShootLookup.SetComponentEnabled(entity, false);
-                    CreatePlayerAmmoSpawnRequest(faction.FactionId, extraShootLookup[entity].AmmoId, transform.ValueRO.Position, input.AimDirection, ref ecb);
+                    CreatePlayerAmmoSpawnRequest(faction.FactionId, extraAmmoLookup[entity].AmmoId, transform.ValueRO.Position, input.AimDirection, ref ecb);
                 }
             }
         }

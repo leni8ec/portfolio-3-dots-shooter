@@ -1,5 +1,5 @@
-﻿using Game.Ecs._Refactor.Components;
-using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Components.Ammos;
+using Game.Ecs._Refactor.Components.Controls;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -17,7 +17,8 @@ namespace Game.Input {
             input.Enable();
             inputActions = input.TopDown;
 
-            RequireForUpdate<PlayerTag>();
+            RequireForUpdate(SystemAPI.QueryBuilder()
+                .WithAll<PlayerControlTag, PlayerInput>().Build());
         }
 
         protected override void OnDestroy() {
@@ -41,7 +42,7 @@ namespace Game.Input {
 
             foreach (var (playerInput, transform, playerEntity) in SystemAPI
                          .Query<RefRW<PlayerInput>, RefRO<LocalTransform>>()
-                         .WithAll<PlayerTag>().WithEntityAccess()) {
+                         .WithAll<PlayerControlTag>().WithEntityAccess()) {
 
                 { // === move ===
                     playerInput.ValueRW.Move = new float2(move.x, move.y);
@@ -67,7 +68,7 @@ namespace Game.Input {
                 }
 
                 { // === shoot ===
-                    if (wasShootPressedThisFrame) {
+                    if (wasShootPressedThisFrame && SystemAPI.HasComponent<ExtraShootRequest>(playerEntity)) {
                         ecb.SetComponentEnabled<ExtraShootRequest>(playerEntity, true);
                     }
                 }

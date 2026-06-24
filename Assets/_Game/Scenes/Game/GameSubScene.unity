@@ -472,6 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6161f43fb64c80b9b11abb915d8286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorSpawnerAuthoring
+  ControlType: 1
   Unit: {fileID: 11400000, guid: 8b280caf60bc00f42bd115bea6bed9c2, type: 2}
   Faction: {fileID: 11400000, guid: 40f67585a6609354c9abd2169ce2bace, type: 2}
 --- !u!1 &1023662662
@@ -760,6 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6161f43fb64c80b9b11abb915d8286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorSpawnerAuthoring
+  ControlType: 1
   Unit: {fileID: 11400000, guid: 8b280caf60bc00f42bd115bea6bed9c2, type: 2}
   Faction: {fileID: 11400000, guid: 40f67585a6609354c9abd2169ce2bace, type: 2}
 --- !u!1 &1830113538
@@ -806,6 +808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a749cd2c37e949da887ff66f452603c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorScheduleSpawnerAuthoring
+  ControlType: 2
   Unit: {fileID: 11400000, guid: 899bf3fca49da9e46854a677829b587c, type: 2}
   Faction: {fileID: 11400000, guid: 51db2f9d1757b9240b200efed05ae15b, type: 2}
   Interval: 2
@@ -854,6 +857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6161f43fb64c80b9b11abb915d8286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorSpawnerAuthoring
+  ControlType: 1
   Unit: {fileID: 11400000, guid: 8b280caf60bc00f42bd115bea6bed9c2, type: 2}
   Faction: {fileID: 11400000, guid: 40f67585a6609354c9abd2169ce2bace, type: 2}
 --- !u!1 &1948857192
@@ -900,6 +904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a749cd2c37e949da887ff66f452603c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.ActorScheduleSpawnerAuthoring
+  ControlType: 2
   Unit: {fileID: 11400000, guid: 2c9fe6c175b4d704e85978d59d3fbdb2, type: 2}
   Faction: {fileID: 11400000, guid: 51db2f9d1757b9240b200efed05ae15b, type: 2}
   Interval: 3

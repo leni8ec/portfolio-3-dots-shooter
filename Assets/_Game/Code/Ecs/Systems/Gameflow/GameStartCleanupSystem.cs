@@ -1,3 +1,6 @@
+using Game.Ecs._Refactor.Components.Ammos;
+using Game.Ecs._Refactor.Components.Controls;
+using Game.Ecs._Refactor.Components.Identities.Actors;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Unity.Entities;
@@ -19,9 +22,8 @@ namespace Game.Ecs.Systems.Gameflow {
         }
 
         private void CleanupRuntimeEntities() {
-            EntityManager.DestroyEntity(GetEntityQuery(ComponentType.ReadOnly<EnemyTag>(), ComponentType.Exclude<Prefab>()));
-            EntityManager.DestroyEntity(GetEntityQuery(ComponentType.ReadOnly<ShotInfo>(), ComponentType.Exclude<Prefab>()));
-            EntityManager.DestroyEntity(GetEntityQuery(ComponentType.ReadOnly<PlayerTag>(), ComponentType.Exclude<Prefab>()));
+            EntityManager.DestroyEntity(GetEntityQuery(ComponentType.ReadOnly<Unit>(), ComponentType.Exclude<Prefab>()));
+            EntityManager.DestroyEntity(GetEntityQuery(ComponentType.ReadOnly<Ammo>(), ComponentType.Exclude<Prefab>()));
         }
     }
 }

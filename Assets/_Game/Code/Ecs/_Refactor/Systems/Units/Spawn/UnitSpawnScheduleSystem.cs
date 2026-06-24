@@ -31,6 +31,7 @@ namespace Game.Ecs._Refactor.Systems.Units.Spawn {
                 // create spawn request
                 var entity = ecb.CreateEntity();
                 ecb.AddComponent(entity, new UnitSpawnRequest {
+                    ControlType = schedule.ControlType,
                     UnitId = schedule.UnitId,
                     FactionId = schedule.FactionId,
                     Position = SpawnPositionProvider.Get(

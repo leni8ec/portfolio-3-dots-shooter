@@ -1,6 +1,5 @@
-﻿using Game.Ecs._Refactor.Components.Identities.Actors;
-using Game.Ecs._Refactor.Components.Identities.Traits;
-using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Components.Ammos;
+using Game.Ecs._Refactor.Components.Identities.Actors;
 using Game.Ecs.Groups;
 using Game.Ecs.Systems.Combat;
 using Unity.Entities;
@@ -8,7 +7,7 @@ using Unity.Transforms;
 
 namespace Game.Ecs.Systems.Movement {
     [UpdateAfter(typeof(PlayerShootSystem))]
-    [UpdateAfter(typeof(EnemyShootSystem))]
+    [UpdateAfter(typeof(BotShootSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct AmmoMoveSystem : ISystem {
 

@@ -1,6 +1,6 @@
 ﻿using Game.Ecs._Refactor.Components.Identities.Actors;
 using Game.Ecs._Refactor.Components.Identities.Traits;
-using Game.Ecs.Components;
+using Game.Ecs._Refactor.Components.Stats;
 using Game.Ecs.Groups;
 using Unity.Entities;
 using Unity.Transforms;

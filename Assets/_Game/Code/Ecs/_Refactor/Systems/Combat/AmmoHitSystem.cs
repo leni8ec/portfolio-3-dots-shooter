@@ -1,6 +1,8 @@
 ﻿using Game.Ecs._Refactor.Components;
+using Game.Ecs._Refactor.Components.Ammos;
 using Game.Ecs._Refactor.Components.Identities.Actors;
 using Game.Ecs._Refactor.Components.Identities.Traits;
+using Game.Ecs._Refactor.Components.Stats;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Game.Ecs.Systems.Movement;

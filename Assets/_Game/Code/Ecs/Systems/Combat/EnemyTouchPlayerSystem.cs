@@ -1,10 +1,13 @@
-﻿using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Components.Controls;
+using Game.Ecs._Refactor.Components.Stats;
+using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
+// todo: rewrite to use `factions` and a `PlayerControlTag`
 namespace Game.Ecs.Systems.Combat {
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct EnemyTouchPlayerSystem : ISystem {
@@ -12,8 +15,8 @@ namespace Game.Ecs.Systems.Combat {
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<GameConfig>();
-            state.RequireForUpdate<PlayerTag>();
-            state.RequireForUpdate<EnemyTag>();
+            state.RequireForUpdate<PlayerControlTag>();
+            state.RequireForUpdate<BotControlTag>();
         }
 
         public void OnUpdate(ref SystemState state) {
@@ -25,7 +28,7 @@ namespace Game.Ecs.Systems.Combat {
             // collect players
             foreach (var (playerTransform, playerEntity) in SystemAPI
                          .Query<RefRO<LocalTransform>>()
-                         .WithAll<PlayerTag>().WithEntityAccess()) {
+                         .WithAll<PlayerControlTag>().WithEntityAccess()) {
                 players.Add(new PlayerTouchData(playerEntity, playerTransform.ValueRO.Position));
             }
 
@@ -33,7 +36,7 @@ namespace Game.Ecs.Systems.Combat {
             var healthLookup = SystemAPI.GetComponentLookup<Health>();
             foreach (var (enemyTransform, enemyEntity) in SystemAPI
                          .Query<RefRO<LocalTransform>>()
-                         .WithAll<EnemyTag>().WithEntityAccess()) {
+                         .WithAll<BotControlTag>().WithEntityAccess()) {
                 var enemyPosition = enemyTransform.ValueRO.Position;
 
                 for (var i = 0; i < players.Length; i++) {

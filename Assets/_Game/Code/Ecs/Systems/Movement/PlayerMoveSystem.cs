@@ -1,4 +1,6 @@
-﻿using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Components.Controls;
+using Game.Ecs._Refactor.Components.Stats;
+using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -10,7 +12,8 @@ namespace Game.Ecs.Systems.Movement {
 
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<GameConfig>();
-            state.RequireForUpdate<PlayerTag>();
+            state.RequireForUpdate(SystemAPI.QueryBuilder()
+                .WithAll<PlayerControlTag, PlayerInput>().Build());
         }
 
         public void OnUpdate(ref SystemState state) {
@@ -19,7 +22,7 @@ namespace Game.Ecs.Systems.Movement {
 
             foreach (var (transform, input, speed) in
                      SystemAPI.Query<RefRW<LocalTransform>, RefRO<PlayerInput>, RefRO<MoveSpeed>>()
-                         .WithAll<PlayerTag>()) {
+                         .WithAll<PlayerControlTag>()) {
 
                 float3 direction = new float3(input.ValueRO.Move.x, 0f, input.ValueRO.Move.y);
 

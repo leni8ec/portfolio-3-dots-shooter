@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace Game.Authoring.Spawners {
     public class UnitScheduleSpawnerAuthoring : MonoBehaviour {
+        public ControlType ControlType;
         public UnitAsset Unit;
         public FactionAsset Faction;
         [PropertySpace]
@@ -20,6 +21,7 @@ namespace Game.Authoring.Spawners {
                 // schedule
                 var schedule = GetEntity(TransformUsageFlags.None);
                 AddComponent(schedule, new UnitSpawnSchedule {
+                    ControlType = authoring.ControlType,
                     UnitId = authoring.Unit,
                     FactionId = authoring.Faction,
                     interval = authoring.Interval,

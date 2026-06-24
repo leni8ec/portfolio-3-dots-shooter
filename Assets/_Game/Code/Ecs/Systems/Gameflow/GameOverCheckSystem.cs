@@ -1,4 +1,5 @@
-﻿using Game.Ecs.Components;
+﻿using Game.Ecs._Refactor.Components.Controls;
+using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Unity.Burst;
 using Unity.Entities;
@@ -13,7 +14,7 @@ namespace Game.Ecs.Systems.Gameflow {
         [BurstCompile]
         public void OnCreate(ref SystemState state) {
             state.RequireForUpdate<GameState>();
-            playersQuery = SystemAPI.QueryBuilder().WithAll<PlayerTag>().Build();
+            playersQuery = SystemAPI.QueryBuilder().WithAll<PlayerControlTag>().Build();
         }
 
         [BurstCompile]

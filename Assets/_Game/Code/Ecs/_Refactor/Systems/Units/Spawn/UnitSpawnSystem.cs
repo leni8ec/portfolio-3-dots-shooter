@@ -1,4 +1,5 @@
-﻿using Game.Ecs._Refactor.Components;
+﻿using Game.Ecs._Refactor.Capabilities;
+using Game.Ecs._Refactor.Components;
 using Game.Ecs._Refactor.Components.Identities.Traits;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
@@ -26,8 +27,8 @@ namespace Game.Ecs._Refactor.Systems.Units.Spawn {
             var prefabCatalog = SystemAPI.GetSingleton<PrefabCatalog>();
             ref var random = ref SystemAPI.GetSingletonRW<GameRandom>().ValueRW.value;
 
-            foreach (var (request, entity) in SystemAPI.Query<UnitSpawnRequest>().WithEntityAccess()) {
-                ecb.DestroyEntity(entity);
+            foreach (var (request, requestEntity) in SystemAPI.Query<UnitSpawnRequest>().WithEntityAccess()) {
+                ecb.DestroyEntity(requestEntity);
 
                 // Debug.Log($"Spawn unit: {request.UnitId}, scope: {default}");
                 var prefab = prefabCatalog.Actors.Get(request.UnitId, default);
@@ -35,6 +36,8 @@ namespace Game.Ecs._Refactor.Systems.Units.Spawn {
                 ecb.SetName(instance, request.UnitId.ToFixedString()); // debug
                 ecb.SetComponent(instance, LocalTransform.FromPosition(request.Position));
                 ecb.AddComponent(instance, new Faction { FactionId = request.FactionId });
+
+                ControlCapability.Grant(request.ControlType, instance, ecb);
             }
         }
     }
