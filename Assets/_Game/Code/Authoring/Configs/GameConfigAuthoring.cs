@@ -32,7 +32,7 @@ namespace Game.Authoring.Configs {
                     enemyTouchDamage = config.enemyTouchDamage,
 
                     ammoHitDistanceSq = config.ammoHitDistance * config.ammoHitDistance,
-                    enemyTouchDistanceSq = config.enemyTouchDistance * config.enemyTouchDistance
+                    unitTouchDistanceSq = config.unitTouchDistance * config.unitTouchDistance
                 });
                 AddComponent(entity, new GameRandom {
                     value = Random.CreateFromIndex(12345)

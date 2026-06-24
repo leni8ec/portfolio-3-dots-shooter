@@ -12,6 +12,6 @@ namespace Game.Configs.Game {
         [Header("Contact")]
         public int enemyTouchDamage = 2;
         public float ammoHitDistance = 0.8f;
-        public float enemyTouchDistance = 1f;
+        public float unitTouchDistance = 1f;
     }
 }

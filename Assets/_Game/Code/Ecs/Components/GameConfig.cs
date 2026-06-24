@@ -12,6 +12,6 @@ namespace Game.Ecs.Components {
         public int enemyTouchDamage;
 
         public float ammoHitDistanceSq;
-        public float enemyTouchDistanceSq;
+        public float unitTouchDistanceSq;
     }
 }

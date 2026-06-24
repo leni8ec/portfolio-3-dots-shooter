@@ -6,7 +6,7 @@ using Unity.Burst;
 using Unity.Entities;
 
 namespace Game.Ecs.Systems.Combat {
-    [UpdateAfter(typeof(DamageApplySystem))]
+    [UpdateAfter(typeof(DamageDealSystem))]
     [UpdateAfter(typeof(EnemyTouchPlayerSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct DeathSystem : ISystem {

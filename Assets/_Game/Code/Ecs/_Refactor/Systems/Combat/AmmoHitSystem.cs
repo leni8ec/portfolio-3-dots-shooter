@@ -98,9 +98,9 @@ namespace Game.Ecs._Refactor.Systems.Combat {
                         continue;
 
                     var damageRequest = Ecb.CreateEntity(chunkIndex);
-                    Ecb.AddComponent(chunkIndex, damageRequest, new ApplyDamageRequest {
+                    Ecb.AddComponent(chunkIndex, damageRequest, new DealDamageRequest {
                         Target = target.Entity,
-                        Value = ammo.Damage
+                        Amount = ammo.Damage
                     });
 
                     Ecb.DestroyEntity(chunkIndex, ammoEntity);

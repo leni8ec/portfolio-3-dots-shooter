@@ -43,7 +43,7 @@ namespace Game.Ecs.Systems.Combat {
                     var player = players[i];
 
                     var distanceSq = math.distancesq(player.position, enemyPosition);
-                    if (distanceSq > config.enemyTouchDistanceSq)
+                    if (distanceSq > config.unitTouchDistanceSq)
                         continue;
 
                     var health = healthLookup[player.entity];
