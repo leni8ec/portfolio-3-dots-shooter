@@ -14,7 +14,7 @@ namespace Game.Ui.Gameplay {
                 if (element.FactionId == factionId)
                     return element.HealthBarPrefab.Value;
 
-            Debug.LogError($"Prefab not found for faction: {factionId}");
+            Debug.LogError($"Prefab not found for faction: {factionId.ToFixedString()}");
             return null;
         }
     }

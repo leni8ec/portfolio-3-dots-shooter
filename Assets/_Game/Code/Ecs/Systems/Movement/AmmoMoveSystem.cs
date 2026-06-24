@@ -1,4 +1,5 @@
-﻿using Game.Ecs._Refactor.Components.Units;
+﻿using Game.Ecs._Refactor.Components.Identities.Actors;
+using Game.Ecs._Refactor.Components.Identities.Traits;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Game.Ecs.Systems.Combat;
@@ -21,7 +22,7 @@ namespace Game.Ecs.Systems.Movement {
 
             foreach (var (transform, ammo, shotInfo) in SystemAPI
                          .Query<RefRW<LocalTransform>, Ammo, ShotInfo>()) {
-                transform.ValueRW.Position += shotInfo.direction * ammo.speed * deltaTime;
+                transform.ValueRW.Position += shotInfo.Direction * ammo.speed * deltaTime;
             }
         }
     }

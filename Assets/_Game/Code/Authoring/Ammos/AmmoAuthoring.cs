@@ -1,5 +1,6 @@
 ﻿using Game.Configs.Ammos;
-using Game.Ecs._Refactor.Components.Units;
+using Game.Ecs._Refactor.Components.Identities.Actors;
+using Game.Ecs._Refactor.Components.Identities.Traits;
 using Unity.Entities;
 using UnityEngine;
 

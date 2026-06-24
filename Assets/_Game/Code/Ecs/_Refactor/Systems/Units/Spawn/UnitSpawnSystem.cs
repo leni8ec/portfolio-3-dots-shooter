@@ -1,4 +1,5 @@
 ﻿using Game.Ecs._Refactor.Components;
+using Game.Ecs._Refactor.Components.Identities.Traits;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Unity.Burst;
@@ -31,8 +32,9 @@ namespace Game.Ecs._Refactor.Systems.Units.Spawn {
                 // Debug.Log($"Spawn unit: {request.UnitId}, scope: {default}");
                 var prefab = prefabCatalog.Actors.Get(request.UnitId, default);
                 var instance = ecb.Instantiate(prefab);
-                ecb.SetName(entity, request.UnitId.ToFixedString()); // debug
-                ecb.AddComponent(instance, LocalTransform.FromPosition(request.position));
+                ecb.SetName(instance, request.UnitId.ToFixedString()); // debug
+                ecb.SetComponent(instance, LocalTransform.FromPosition(request.Position));
+                ecb.AddComponent(instance, new Faction { FactionId = request.FactionId });
             }
         }
     }

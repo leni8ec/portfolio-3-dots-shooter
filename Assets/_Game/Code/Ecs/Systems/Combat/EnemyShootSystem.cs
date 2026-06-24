@@ -1,6 +1,7 @@
 ﻿using Game.Ecs._Refactor.Components;
 using Game.Ecs._Refactor.Components.Enemies;
-using Game.Ecs._Refactor.Components.Units;
+using Game.Ecs._Refactor.Components.Identities.Actors;
+using Game.Ecs._Refactor.Components.Identities.Traits;
 using Game.Ecs._Refactor.Logic;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
@@ -17,7 +18,7 @@ namespace Game.Ecs.Systems.Combat {
             state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<GameConfig>();
             state.RequireForUpdate(SystemAPI.QueryBuilder()
-                .WithAll<Unit, EnemyTarget, AmmoEquipment, ShootTimer>().Build());
+                .WithAll<Unit, Faction, EnemyTarget, AmmoEquipment, ShootTimer>().Build());
         }
 
         public void OnUpdate(ref SystemState state) {
@@ -27,8 +28,9 @@ namespace Game.Ecs.Systems.Combat {
             var config = SystemAPI.GetSingleton<GameConfig>();
             var deltaTime = SystemAPI.Time.DeltaTime;
 
-            foreach (var (unit, enemyTarget, ammoEquipment, timer, transform) in SystemAPI
-                         .Query<Unit, EnemyTarget, AmmoEquipment, RefRW<ShootTimer>, RefRO<LocalTransform>>()) {
+            foreach (var (faction, enemyTarget, ammoEquipment, timer, transform) in SystemAPI
+                         .Query<Faction, EnemyTarget, AmmoEquipment, RefRW<ShootTimer>, RefRO<LocalTransform>>()
+                         .WithAll<Unit>()) {
                 // timer
                 timer.ValueRW.value -= deltaTime;
                 if (timer.ValueRO.value > 0f)
@@ -42,7 +44,7 @@ namespace Game.Ecs.Systems.Combat {
 
                 var ammoSpawnRequest = ecb.CreateEntity();
                 ecb.AddComponent(ammoSpawnRequest, new AmmoSpawnRequest {
-                    ownerFactionId = unit.factionId,
+                    ownerFactionId = faction.FactionId,
                     ammoId = ammoEquipment.AmmoId,
                     position = transform.ValueRO.Position,
                     direction = direction

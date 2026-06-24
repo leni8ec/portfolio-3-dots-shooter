@@ -1,4 +1,5 @@
-﻿using Game.Ecs._Refactor.Components.Units;
+﻿using Game.Ecs._Refactor.Components.Identities.Actors;
+using Game.Ecs._Refactor.Components.Identities.Traits;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Unity.Entities;
@@ -24,10 +25,11 @@ namespace Game.Ui.Gameplay {
             Bind();
 
             // create
-            foreach (var (unit, entity) in SystemAPI
-                         .Query<Unit>()
+            foreach (var (faction, entity) in SystemAPI
+                         .Query<Faction>()
+                         .WithAll<Unit>()
                          .WithNone<UnitUi>().WithEntityAccess()) {
-                var healthBarInstance = Object.Instantiate(buffer.Get(unit.factionId));
+                var healthBarInstance = Object.Instantiate(buffer.Get(faction.FactionId));
                 ecb.AddComponent(entity, new UnitUi { healthBar = healthBarInstance });
             }
 

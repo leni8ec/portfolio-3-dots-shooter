@@ -1,4 +1,5 @@
 ﻿using Game.Ecs._Refactor.Components;
+using Game.Ecs._Refactor.Components.Identities.Traits;
 using Game.Ecs._Refactor.Logic;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
@@ -35,14 +36,9 @@ namespace Game.Ecs._Refactor.Systems.Ammos {
                 var prefab = prefabCatalog.Actors.Get(ammoId, factionId);
                 var entity = ecb.Instantiate(prefab);
                 ecb.SetName(entity, $"{ammoId} ({factionId})");
-                ecb.SetComponent(entity, LocalTransform.FromPositionRotation(
-                    position,
-                    rotation
-                ));
-                ecb.AddComponent(entity, new ShotInfo {
-                    ownerFactionId = factionId,
-                    direction = direction
-                });
+                ecb.SetComponent(entity, LocalTransform.FromPositionRotation(position, rotation));
+                ecb.AddComponent(entity, new Faction { FactionId = factionId });
+                ecb.AddComponent(entity, new ShotInfo { Direction = direction });
             }
         }
     }

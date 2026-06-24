@@ -1,5 +1,6 @@
 ﻿using Game.Ecs._Refactor.Components;
-using Game.Ecs._Refactor.Components.Units;
+using Game.Ecs._Refactor.Components.Identities.Actors;
+using Game.Ecs._Refactor.Components.Identities.Traits;
 using Game.Ecs.Components;
 using Game.Ecs.Groups;
 using Game.Ecs.Systems.Movement;
@@ -29,10 +30,10 @@ namespace Game.Ecs._Refactor.Systems.Combat {
             state.RequireForUpdate<GameConfig>();
 
             ammoQuery = SystemAPI.QueryBuilder()
-                .WithAll<Ammo, ShotInfo, LocalTransform>().Build();
+                .WithAll<Ammo, Faction, ShotInfo, LocalTransform>().Build();
 
             unitsQuery = SystemAPI.QueryBuilder()
-                .WithAll<Unit, Health, LocalTransform>().Build();
+                .WithAll<Unit, Faction, Health, LocalTransform>().Build();
 
             state.RequireForUpdate(ammoQuery);
             state.RequireForUpdate(unitsQuery);
@@ -72,7 +73,7 @@ namespace Game.Ecs._Refactor.Systems.Combat {
             private void Execute([ChunkIndexInQuery] int chunkIndex,
                 Entity ammoEntity,
                 in Ammo ammo,
-                in ShotInfo shotInfo,
+                in Faction faction,
                 in LocalTransform ammoTransform
             ) {
                 var ammoPositionXZ = ammoTransform.Position.xz;
@@ -80,7 +81,7 @@ namespace Game.Ecs._Refactor.Systems.Combat {
                 for (var i = 0; i < Targets.Length; i++) {
                     var target = Targets[i];
 
-                    if (shotInfo.ownerFactionId == target.FactionId)
+                    if (faction.FactionId == target.FactionId)
                         continue;
 
                     // XZ axis only
@@ -113,13 +114,13 @@ namespace Game.Ecs._Refactor.Systems.Combat {
             private void Execute(
                 [EntityIndexInQuery] int index,
                 Entity entity,
-                in Unit unit,
+                in Faction faction,
                 in LocalTransform transform
             ) {
                 Targets[index] = new UnitHitTarget {
                     Entity = entity,
                     Position = transform.Position,
-                    FactionId = unit.factionId
+                    FactionId = faction.FactionId
                 };
             }
         }

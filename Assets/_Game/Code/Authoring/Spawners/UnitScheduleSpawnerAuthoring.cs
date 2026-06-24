@@ -1,29 +1,34 @@
-﻿using Game.Configs.Units;
+﻿using Game.Configs.Factions;
+using Game.Configs.Units;
 using Game.Ecs._Refactor.Components;
 using Game.Ecs._Refactor.Components.Common;
 using Game.Ecs._Refactor.Values;
+using TriInspector;
 using Unity.Entities;
 using UnityEngine;
 
 namespace Game.Authoring.Spawners {
     public class UnitScheduleSpawnerAuthoring : MonoBehaviour {
-        public float interval;
         public UnitAsset Unit;
-        public ArenaLocation location;
+        public FactionAsset Faction;
+        [PropertySpace]
+        public float Interval;
+        public ArenaLocation Location;
 
         public sealed class Baker : Baker<UnitScheduleSpawnerAuthoring> {
             public override void Bake(UnitScheduleSpawnerAuthoring authoring) {
                 // schedule
                 var schedule = GetEntity(TransformUsageFlags.None);
                 AddComponent(schedule, new UnitSpawnSchedule {
-                    interval = authoring.interval,
                     UnitId = authoring.Unit,
-                    location = authoring.location
+                    FactionId = authoring.Faction,
+                    interval = authoring.Interval,
+                    location = authoring.Location
                 });
 
                 // timer
                 AddComponent(schedule, new Timer {
-                    value = authoring.interval,
+                    value = authoring.Interval,
                 });
                 AddComponent<TimerElapsed>(schedule);
                 SetComponentEnabled<TimerElapsed>(schedule, false);
