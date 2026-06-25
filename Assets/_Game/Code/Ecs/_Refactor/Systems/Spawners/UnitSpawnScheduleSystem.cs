@@ -5,7 +5,7 @@ using Game.Ecs.Components;
 using Unity.Burst;
 using Unity.Entities;
 
-namespace Game.Ecs._Refactor.Systems.Units.Spawn {
+namespace Game.Ecs._Refactor.Systems.Spawners {
     [UpdateInGroup(typeof(InitializationSystemGroup))]
     public partial struct UnitSpawnScheduleSystem : ISystem {
 
@@ -34,7 +34,7 @@ namespace Game.Ecs._Refactor.Systems.Units.Spawn {
                     ControlType = schedule.ControlType,
                     UnitId = schedule.UnitId,
                     FactionId = schedule.FactionId,
-                    Position = SpawnPositionProvider.Get(
+                    Position = LocationPositionProvider.Get(
                         schedule.Location, config.arenaMin2D, config.arenaMax2D,
                         config.outsideArenaSpawnOffset, ref random),
                 });

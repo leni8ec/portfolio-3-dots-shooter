@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b7d17682f642e8b707d988646244a0, type: 3}
-  m_Name: ActorPrefabs Catalogs
+  m_Name: Actor Catalogs
   m_EditorClassIdentifier: Game.Configs::Game.Configs.Game.ActorPrefabsAsset
   Catalogs:
   - {fileID: 11400000, guid: ed7424a4dec1ea448ad214fa682c49b7, type: 2}
   - {fileID: 11400000, guid: f40d67261a2f9ce4fb813f66318e56af, type: 2}
   - {fileID: 11400000, guid: c84ce2c746ffe2f4aa7518bbf0a2160e, type: 2}
+  - {fileID: 11400000, guid: a15abba8d21d8c84a8415b820ccfaf66, type: 2}

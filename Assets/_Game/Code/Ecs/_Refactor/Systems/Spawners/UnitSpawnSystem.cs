@@ -7,7 +7,7 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
 
-namespace Game.Ecs._Refactor.Systems.Units.Spawn {
+namespace Game.Ecs._Refactor.Systems.Spawners {
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     internal partial struct UnitSpawnSystem : ISystem {
 
