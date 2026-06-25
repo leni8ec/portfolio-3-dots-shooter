@@ -40,7 +40,7 @@ namespace Game.Ui.Gameplay {
 
                 var healthBar = unitUi.healthBar;
                 var position = (Vector3) localTransform.ValueRO.Position + healthBar.WorldOffset;
-                healthBar.SetHealth(health.value);
+                healthBar.SetHealth(health.Value);
                 healthBar.SetPosition(position);
                 if (camera)
                     healthBar.FaceCamera(camera);

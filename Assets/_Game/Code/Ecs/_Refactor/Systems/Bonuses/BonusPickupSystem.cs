@@ -13,16 +13,17 @@ using Unity.Transforms;
 namespace Game.Ecs._Refactor.Systems.Bonuses {
     [UpdateAfter(typeof(PlayerMoveSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
-    public partial struct PickupBonusSystem : ISystem {
-        private EntityQuery playersQuery;
+    public partial struct BonusPickupSystem : ISystem {
+        private EntityQuery unitsQuery;
 
         [BurstCompile]
         public void OnCreate(ref SystemState state) {
-            playersQuery = SystemAPI.QueryBuilder().WithAll<PlayerControlTag, LocalTransform>().Build();
+            unitsQuery = SystemAPI.QueryBuilder().WithAll<Unit, LocalTransform>().Build();
 
             state.RequireForUpdate<GameConfig>();
-            state.RequireForUpdate(playersQuery);
-            state.RequireForUpdate(SystemAPI.QueryBuilder().WithAll<Bonus>().WithDisabled<Active>().Build());
+            state.RequireForUpdate(unitsQuery);
+            state.RequireForUpdate(SystemAPI.QueryBuilder()
+                .WithAll<Bonus>().WithDisabled<Active>().Build());
         }
 
         [BurstCompile]
@@ -30,14 +31,21 @@ namespace Game.Ecs._Refactor.Systems.Bonuses {
             var pickupDistanceSq = SystemAPI.GetSingleton<GameConfig>().unitTouchDistanceSq;
             var pickupDistance = math.sqrt(pickupDistanceSq);
 
-            using var playerTransforms = playersQuery.ToComponentDataArray<LocalTransform>(Allocator.Temp);
-            using var playerEntities = playersQuery.ToEntityArray(Allocator.Temp);
+            var playerLookup = SystemAPI.GetComponentLookup<PlayerControlTag>();
+            using var unitTransforms = unitsQuery.ToComponentDataArray<LocalTransform>(Allocator.Temp);
+            using var unitEntities = unitsQuery.ToEntityArray(Allocator.Temp);
 
             foreach (var (bonus, active, bonusTransform) in SystemAPI
                          .Query<RefRW<Bonus>, EnabledRefRW<Active>, RefRO<LocalTransform>>()
                          .WithDisabled<Active>().WithAll<Bonus>()) {
-                for (var i = 0; i < playerTransforms.Length; i++) {
-                    var playerTransform = playerTransforms[i];
+
+                for (var i = 0; i < unitTransforms.Length; i++) {
+                    if (bonus.ValueRO.ForPlayerOnly) {
+                        if (!playerLookup.HasComponent(unitEntities[i]))
+                            continue;
+                    }
+
+                    var playerTransform = unitTransforms[i];
                     // XZ axis only
                     var delta = playerTransform.Position.xz - bonusTransform.ValueRO.Position.xz;
 
@@ -49,7 +57,7 @@ namespace Game.Ecs._Refactor.Systems.Bonuses {
                     if (math.lengthsq(delta) > pickupDistanceSq)
                         continue;
 
-                    bonus.ValueRW.OwnerEntity = playerEntities[i];
+                    bonus.ValueRW.OwnerEntity = unitEntities[i];
                     active.ValueRW = true;
 
                     break;

@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.Configs::Game.Configs.Bonuses.BonusCatalog
   scope: {fileID: 0}
   entries:
-  - IdentityAsset: {fileID: 11400000, guid: 3474a4ceca6221b4381e4e690144c8c7, type: 2}
-    Prefab: {fileID: 8396984892542667608, guid: 10354ca6d4b6cf548bb2edcc29e963d1, type: 3}
   - IdentityAsset: {fileID: 11400000, guid: a55c417993e52484cb1ca29913476fa4, type: 2}
     Prefab: {fileID: 632489906665405273, guid: e859d954cbb885c4e99c4b0654ac7a6d, type: 3}
+  - IdentityAsset: {fileID: 11400000, guid: dd969654815a5544088dda79b58a1efe, type: 2}
+    Prefab: {fileID: 8396984892542667608, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+  - IdentityAsset: {fileID: 11400000, guid: 3474a4ceca6221b4381e4e690144c8c7, type: 2}
+    Prefab: {fileID: 8396984892542667608, guid: 10354ca6d4b6cf548bb2edcc29e963d1, type: 3}

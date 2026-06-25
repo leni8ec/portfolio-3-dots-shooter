@@ -83,7 +83,7 @@ Transform:
   m_GameObject: {fileID: 4259516919922080936}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.8, z: 0}
+  m_LocalPosition: {x: 0, y: -0.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -309,6 +309,7 @@ GameObject:
   - component: {fileID: 3440355794956246171}
   - component: {fileID: 9142649281029653514}
   - component: {fileID: 1616722471454273751}
+  - component: {fileID: 610770342871460724}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -387,3 +388,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &610770342871460724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8099056956500811324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1143c7d6088344dd9d1865ef82d129a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Extra.DotsColorAuthoring
+  Color: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}

@@ -30,7 +30,7 @@ namespace Game.Ecs.Systems.Movement {
                     direction = math.normalize(direction);
 
                 float3 position = transform.ValueRO.Position;
-                position += direction * speed.ValueRO.value * deltaTime;
+                position += direction * speed.ValueRO.Value * deltaTime;
 
                 position.x = math.clamp(position.x, config.arenaMin2D.x, config.arenaMax2D.x);
                 position.z = math.clamp(position.z, config.arenaMin2D.y, config.arenaMax2D.y);

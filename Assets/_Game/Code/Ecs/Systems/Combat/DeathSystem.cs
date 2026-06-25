@@ -27,7 +27,7 @@ namespace Game.Ecs.Systems.Combat {
                      SystemAPI.Query<RefRO<Health>>()
                          .WithEntityAccess()) {
 
-                if (health.ValueRO.value > 0)
+                if (health.ValueRO.Value > 0)
                     continue;
 
                 ecb.DestroyEntity(entity);

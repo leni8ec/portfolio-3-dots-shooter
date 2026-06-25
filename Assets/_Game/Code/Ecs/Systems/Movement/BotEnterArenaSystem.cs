@@ -42,7 +42,7 @@ namespace Game.Ecs.Systems.Movement {
                 if (!isInsideArena) {
                     var targetPosition = Position3D.From2D(config.arenaCenter2D);
                     transform.ValueRW.Position = Position3D.MoveTowards2D(
-                        position, targetPosition, moveSpeed.ValueRO.value, deltaTime);
+                        position, targetPosition, moveSpeed.ValueRO.Value, deltaTime);
                     continue;
                 }
 

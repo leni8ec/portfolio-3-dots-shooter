@@ -40,7 +40,7 @@ namespace Game.Ecs._Refactor.Systems.Combat {
                     return;
 
                 var health = HealthLookup[targetEntity];
-                health.value = math.max(0, health.value - request.Amount);
+                health.Value = math.max(0, health.Value - request.Amount);
                 HealthLookup[targetEntity] = health;
             }
         }

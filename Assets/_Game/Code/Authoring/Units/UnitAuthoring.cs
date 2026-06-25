@@ -20,8 +20,8 @@ namespace Game.Authoring.Units {
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
 
                 AddComponent(entity, new Unit { UnitId = authoring.Unit });
-                AddComponent(entity, new Health { value = authoring.Health });
-                AddComponent(entity, new MoveSpeed { value = authoring.MoveSpeed });
+                AddComponent(entity, new Health { Value = authoring.Health });
+                AddComponent(entity, new MoveSpeed { Value = authoring.MoveSpeed });
                 AddComponent(entity, new AmmoEquipment { AmmoId = authoring.Ammo });
                 AddComponent(entity, new ShootTimer {
                     Value = authoring.ShootInterval,

@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &27631159 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7862767879111283400, guid: 10354ca6d4b6cf548bb2edcc29e963d1, type: 3}
+  m_PrefabInstance: {fileID: 706309768}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &81307319
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +226,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1143c7d6088344dd9d1865ef82d129a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.DotsColorAuthoring
-  cubeColor: {r: 0.1313149, g: 0.14150941, b: 0.12548947, a: 1}
+  Color: {r: 0.1313149, g: 0.14150941, b: 0.12548947, a: 1}
+--- !u!4 &258289411 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1247834403839402697, guid: e859d954cbb885c4e99c4b0654ac7a6d, type: 3}
+  m_PrefabInstance: {fileID: 363860427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &322707126
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,14 +334,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1143c7d6088344dd9d1865ef82d129a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.DotsColorAuthoring
-  cubeColor: {r: 0.1313149, g: 0.14150941, b: 0.12548947, a: 1}
+  Color: {r: 0.1313149, g: 0.14150941, b: 0.12548947, a: 1}
 --- !u!1001 &363860427
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1161743605}
     m_Modifications:
     - target: {fileID: 632489906665405273, guid: e859d954cbb885c4e99c4b0654ac7a6d, type: 3}
       propertyPath: m_Name
@@ -355,15 +365,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1247834403839402697, guid: e859d954cbb885c4e99c4b0654ac7a6d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1247834403839402697, guid: e859d954cbb885c4e99c4b0654ac7a6d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1247834403839402697, guid: e859d954cbb885c4e99c4b0654ac7a6d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1247834403839402697, guid: e859d954cbb885c4e99c4b0654ac7a6d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -484,18 +494,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1143c7d6088344dd9d1865ef82d129a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.DotsColorAuthoring
-  cubeColor: {r: 0.1313149, g: 0.14150941, b: 0.12548947, a: 1}
---- !u!1001 &721553218
+  Color: {r: 0.1313149, g: 0.14150941, b: 0.12548947, a: 1}
+--- !u!1001 &706309768
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1161743605}
     m_Modifications:
     - target: {fileID: 7862767879111283400, guid: 10354ca6d4b6cf548bb2edcc29e963d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.93
+      value: 2.96
       objectReference: {fileID: 0}
     - target: {fileID: 7862767879111283400, guid: 10354ca6d4b6cf548bb2edcc29e963d1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -503,7 +513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7862767879111283400, guid: 10354ca6d4b6cf548bb2edcc29e963d1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.65
+      value: -6.88893
       objectReference: {fileID: 0}
     - target: {fileID: 7862767879111283400, guid: 10354ca6d4b6cf548bb2edcc29e963d1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -511,15 +521,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7862767879111283400, guid: 10354ca6d4b6cf548bb2edcc29e963d1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7862767879111283400, guid: 10354ca6d4b6cf548bb2edcc29e963d1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7862767879111283400, guid: 10354ca6d4b6cf548bb2edcc29e963d1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7862767879111283400, guid: 10354ca6d4b6cf548bb2edcc29e963d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -535,7 +545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8396984892542667608, guid: 10354ca6d4b6cf548bb2edcc29e963d1, type: 3}
       propertyPath: m_Name
-      value: Bonus - Bomb
+      value: Bonus - Wipe
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -553,7 +563,7 @@ GameObject:
   - component: {fileID: 767029649}
   - component: {fileID: 767029650}
   m_Layer: 0
-  m_Name: Player Spawner 3
+  m_Name: Player3 Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -691,7 +701,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1143c7d6088344dd9d1865ef82d129a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.DotsColorAuthoring
-  cubeColor: {r: 0.027834628, g: 0.042452812, b: 0.035528407, a: 1}
+  Color: {r: 0.027834628, g: 0.042452812, b: 0.035528407, a: 1}
+--- !u!1 &1161743604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1161743605}
+  m_Layer: 0
+  m_Name: Predefined
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1161743605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161743604}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 258289411}
+  - {fileID: 1966304587}
+  - {fileID: 27631159}
+  m_Father: {fileID: 1998657651}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1241700257
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +772,7 @@ Transform:
   - {fileID: 767029649}
   - {fileID: 1875699665}
   - {fileID: 2064524211}
+  - {fileID: 1394520137}
   m_Father: {fileID: 1998657651}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1320789129
@@ -832,7 +877,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1143c7d6088344dd9d1865ef82d129a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.DotsColorAuthoring
-  cubeColor: {r: 0.1313149, g: 0.14150941, b: 0.12548947, a: 1}
+  Color: {r: 0.1313149, g: 0.14150941, b: 0.12548947, a: 1}
+--- !u!1 &1394520136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1394520137}
+  - component: {fileID: 1394520138}
+  m_Layer: 0
+  m_Name: Bonus Spawner - Wipe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1394520137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394520136}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1241700258}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1394520138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394520136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e468f8c5fe444e3a371f936ff84b43d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Spawners.ActorScheduleSpawnerAuthoring
+  Actor: {fileID: 11400000, guid: 3474a4ceca6221b4381e4e690144c8c7, type: 2}
+  Interval: 30
+  Location: 2
 --- !u!1 &1475761134
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,7 +936,7 @@ GameObject:
   - component: {fileID: 1475761135}
   - component: {fileID: 1475761136}
   m_Layer: 0
-  m_Name: Player Spawner 1
+  m_Name: Player1 Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -987,7 +1079,7 @@ GameObject:
   - component: {fileID: 1942349017}
   - component: {fileID: 1942349018}
   m_Layer: 0
-  m_Name: Player Spawner 2
+  m_Name: Player2 Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1072,6 +1164,68 @@ MonoBehaviour:
   Faction: {fileID: 11400000, guid: 51db2f9d1757b9240b200efed05ae15b, type: 2}
   Interval: 3
   Location: 3
+--- !u!1001 &1964797440
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1161743605}
+    m_Modifications:
+    - target: {fileID: 7862767879111283400, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.95088
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862767879111283400, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862767879111283400, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.07594
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862767879111283400, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862767879111283400, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862767879111283400, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862767879111283400, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862767879111283400, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862767879111283400, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862767879111283400, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8396984892542667608, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+      propertyPath: m_Name
+      value: Bonus - Bomb
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+--- !u!4 &1966304587 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7862767879111283400, guid: 7f49d9157b8862e4683ade26caacb065, type: 3}
+  m_PrefabInstance: {fileID: 1964797440}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1968462700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,6 +1291,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1161743605}
   - {fileID: 1241700258}
   - {fileID: 1968462701}
   m_Father: {fileID: 0}
@@ -1258,8 +1413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e468f8c5fe444e3a371f936ff84b43d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Authoring::Game.Authoring.Spawners.ActorScheduleSpawnerAuthoring
-  Actor: {fileID: 11400000, guid: 3474a4ceca6221b4381e4e690144c8c7, type: 2}
-  Interval: 30
+  Actor: {fileID: 11400000, guid: dd969654815a5544088dda79b58a1efe, type: 2}
+  Interval: 17
   Location: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -1267,5 +1422,3 @@ SceneRoots:
   m_Roots:
   - {fileID: 2024487636}
   - {fileID: 1998657651}
-  - {fileID: 721553218}
-  - {fileID: 363860427}

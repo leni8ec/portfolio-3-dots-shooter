@@ -47,7 +47,7 @@ namespace Game.Ecs.Systems.Combat {
                         continue;
 
                     var health = healthLookup[player.entity];
-                    health.value -= config.enemyTouchDamage;
+                    health.Value -= config.enemyTouchDamage;
                     healthLookup[player.entity] = health;
 
                     ecb.DestroyEntity(enemyEntity);

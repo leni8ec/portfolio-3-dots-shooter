@@ -39,7 +39,7 @@ namespace Game.Ecs.Systems.Movement {
                 var fromPosition = transform.ValueRO.Position;
                 var targetPosition = transformLookup[targetEntity].Position;
                 transform.ValueRW.Position = Position3D.MoveTowards2D(
-                    fromPosition, targetPosition, speed.ValueRO.value, deltaTime);
+                    fromPosition, targetPosition, speed.ValueRO.Value, deltaTime);
             }
 
         }

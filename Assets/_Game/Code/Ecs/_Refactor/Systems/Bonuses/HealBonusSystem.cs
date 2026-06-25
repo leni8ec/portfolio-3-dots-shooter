@@ -7,7 +7,7 @@ using Unity.Burst;
 using Unity.Entities;
 
 namespace Game.Ecs._Refactor.Systems.Bonuses {
-    [UpdateAfter(typeof(PickupBonusSystem))]
+    [UpdateAfter(typeof(BonusPickupSystem))]
     [UpdateInGroup(typeof(GameplaySystemGroup))]
     public partial struct HealBonusSystem : ISystem {
 
@@ -30,7 +30,7 @@ namespace Game.Ecs._Refactor.Systems.Bonuses {
                 ecb.DestroyEntity(bombEntity);
 
                 var health = playerHealthLookup.GetRefRW(bonus.OwnerEntity).ValueRW
-                    .value += heal.Amount;
+                    .Value += heal.Amount;
             }
         }
     }
